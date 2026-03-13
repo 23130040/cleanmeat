@@ -1,0 +1,139 @@
+body {
+    font-family: Arial;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    margin: 0 80px;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 900;
+    background: white;
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, #18be81, #43da80, #e84b47) 1;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav IMG {
+    height: 40px;
+    width: 40px;
+}
+
+nav ul {
+    display: flex;
+    color: #515B68;
+}
+
+nav ul a {
+    color: #515B68;
+    font-weight: 600;
+}
+
+nav li {
+    margin: 0;
+    font-weight: 600;
+}
+
+nav li:hover {
+    background: #ecfdf5;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+nav li:hover a {
+    color: #109b70;
+}
+
+.nav-menu li {
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.nav-menu li.active {
+    border-bottom: 1px solid #109b70;
+}
+
+.nav-menu li.active a {
+    color: #109b70;
+}
+
+.nav-menu li.active:hover {
+    background: none;
+}
+
+.nav-auth li {
+    padding: 10px;
+    margin: 0 5px;
+}
+
+.nav-auth li:first-child {
+    border-right: 1px solid #515B68;
+    position: relative;
+}
+
+.nav-auth li:first-child:hover {
+    background: none;
+}
+
+.nav-auth li:last-child {
+    border-radius: 10px;
+    background: #059669;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.nav-auth li:last-child:hover {
+    background: #058c62;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.nav-auth li:first-child a {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.nav-auth li:first-child a:hover {
+    background: #ecfdf5;
+    cursor: pointer;
+}
+
+#cart-quantity {
+    position: absolute;
+    z-index: 9999;
+    top: -1.5px;
+    right: -0.1px;
+    width: 9px;
+    height: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: 9px;
+    pointer-events: none;
+    color: white;
+    border-radius: 50%;
+    background: red;
+}
+
+
