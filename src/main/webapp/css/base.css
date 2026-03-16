@@ -136,4 +136,69 @@ nav li:hover a {
     background: red;
 }
 
+footer {
+    background: #eefdf4;
+    padding: 40px 0 20px;
+}
 
+footer .container {
+    width: 1200px;
+    margin: auto;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+footer h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1f2937;
+}
+
+.footer-col {
+    width: 23%;
+}
+
+.footer-newsletter img {
+    width: 130px;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer li {
+    margin-bottom: 8px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #6b7280;
+    transition: 0.2s;
+}
+
+footer a:hover {
+    color: #16a34a;
+    cursor: pointer;
+}
+
+.footer-copyright {
+    border-top: 1px solid #d1d5db;
+    margin-top: 30px;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.footer-copyright p {
+    font-size: 14px;
+    color: #6b7280;
+}
