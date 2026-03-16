@@ -10,8 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/AboutUs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/AboutUs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +21,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
-        <option value="Servlet" />
         <option value="JavaScript File" />
+        <option value="Class" />
+        <option value="Jsp File" />
         <option value="CSS File" />
+        <option value="Servlet" />
       </list>
     </option>
   </component>
@@ -65,7 +66,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Tomcat Server.Tomcat 10.1.494.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/about-us",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Git/Github/cleanmeat/src/main/webapp/images",
@@ -220,7 +221,8 @@
       <workItem from="1773330043259" duration="2371000" />
       <workItem from="1773386334331" duration="6326000" />
       <workItem from="1773392860804" duration="405000" />
-      <workItem from="1773393344383" duration="12676000" />
+      <workItem from="1773393344383" duration="14263000" />
+      <workItem from="1773622793473" duration="1654000" />
     </task>
     <servers />
   </component>
