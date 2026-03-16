@@ -61,7 +61,7 @@
                 </ul>
             </div>
             <div class="footer-col footer-products">
-                <h4 class="products-title small-title">Sản phẩm</h4>
+                <h4 class="product-title small-title">Sản phẩm</h4>
                 <ul>
                     <li><a>Thịt bò</a></li>
                     <li><a>Thịt heo</a></li>
@@ -69,7 +69,7 @@
                 </ul>
             </div>
             <div class="footer-col footer-support">
-                <h4 class="products-title small-title">Hỗ trợ</h4>
+                <h4 class="support-title small-title">Hỗ trợ</h4>
                 <ul>
                     <li><a>Chính sách đổi trả</a></li>
                     <li><a>Hướng dẫn đặt hàng</a></li>
@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class="footer-col footer-about">
-                <h4 class="products-title small-title">Về chúng tôi</h4>
+                <h4 class="about-us-title small-title">Về chúng tôi</h4>
                 <ul>
                     <li><a>Giới thiệu</a></li>
                     <li><a>Liên hệ</a></li>
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="footer-row footer-copyright">
-            <p>© 2026 Thịt Sạch. Tất cả quyền được bảo lưu.</p>
+            <p>© 2026 Clean Meat. Tất cả quyền được bảo lưu.</p>
         </div>
     </div>
 </footer>
