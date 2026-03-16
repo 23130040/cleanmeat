@@ -19,7 +19,7 @@
         <ul class="nav-menu">
             <li class="${active == 'home' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
             <li class="${active == 'products' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/product">Sản phẩm</a></li>
-            <li class="${active == 'about-us' ? 'active' : ''}"><a href="#">Về chúng tôi</a></li>
+            <li class="${active == 'about-us' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/about-us">Về chúng tôi</a></li>
             <li class="${active == 'contact' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/contact">Liên hệ</a></li>
         </ul>
         <ul class="nav-auth">
