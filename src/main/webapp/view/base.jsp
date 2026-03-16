@@ -71,7 +71,7 @@
             <div class="footer-col footer-support">
                 <h4 class="support-title small-title">Hỗ trợ</h4>
                 <ul>
-                    <li><a>Chính sách đổi trả</a></li>
+                    <li><a href="${pageContext.request.contextPath}/returns-policy">Chính sách đổi trả</a></li>
                     <li><a>Hướng dẫn đặt hàng</a></li>
                     <li><a>Thanh toán</a></li>
                     <li><a>Vận chuyển</a></li>
