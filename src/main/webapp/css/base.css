@@ -136,4 +136,51 @@ nav li:hover a {
     background: red;
 }
 
+footer {
+    background: #eefdf4;
+}
 
+footer .container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.footer-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.footer-copyright{
+    width: 100%;
+    border-top: 1px solid #d1d5db;
+}
+
+footer li {
+    color: #717d86;
+    width: 100%;
+}
+
+footer IMG {
+    width: 150px;
+    height: 150px;
+}
+.footer-copyright p {
+    text-align: center;
+    color: #717d86;
+}
+
+.footer-col {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    width: 25%;
+}
+
+footer ul {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+}
