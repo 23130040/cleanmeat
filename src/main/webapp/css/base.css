@@ -11,6 +11,10 @@ ul {
     list-style: none;
 }
 
+main {
+    padding-bottom: 50px;
+}
+
 .container {
     margin: 0 80px;
 }
