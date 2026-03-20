@@ -8,7 +8,7 @@
         </div>
         <h2 class="login-title">Đăng nhập</h2>
         <p class="login-subtitle">Chào mừng bạn quay trở lại!</p>
-        <form action="${pageContext.request.contextPath}/login" method="post">
+        <form action="${pageContext.request.contextPath}/sign-in" method="post">
             <div class="form-group">
                 <label>Email</label>
                 <div class="form-input">
@@ -32,7 +32,7 @@
             <button type="submit" class="btn-login">Đăng nhập</button>
         </form>
 
-        <p class="register-text">
+        <p class="signin-text">
             Chưa có tài khoản?
             <a href="${pageContext.request.contextPath}/sign-up">Đăng ký ngay</a>
         </p>
