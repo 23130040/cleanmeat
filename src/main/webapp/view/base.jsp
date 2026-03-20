@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>Clean Meat -
         <c:out value="${requestScope.pageTitle}"></c:out></title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/${requestScope.pageCss}">
 </head>
@@ -39,7 +38,7 @@
                         </span>
                     </c:when>
                     <c:otherwise>
-                        <i class="fa-regular fa-user"></i> Đăng nhập
+                        <a href="${pageContext.request.contextPath}/sign-in"><i class="fa-regular fa-user"></i> Đăng nhập</a>
                     </c:otherwise>
                 </c:choose>
             </li>
@@ -72,16 +71,16 @@
                 <h4 class="support-title small-title">Hỗ trợ</h4>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/returns-policy">Chính sách đổi trả</a></li>
-                    <li><a>Hướng dẫn đặt hàng</a></li>
-                    <li><a>Thanh toán</a></li>
-                    <li><a>Vận chuyển</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">Hướng dẫn đặt hàng</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">Thanh toán</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">Vận chuyển</a></li>
                 </ul>
             </div>
             <div class="footer-col footer-about">
                 <h4 class="about-us-title small-title">Về chúng tôi</h4>
                 <ul>
-                    <li><a>Giới thiệu</a></li>
-                    <li><a>Liên hệ</a></li>
+                    <li><a href="${pageContext.request.contextPath}/about-us">Giới thiệu</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact">Liên hệ</a></li>
                 </ul>
             </div>
         </div>
