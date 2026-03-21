@@ -1,0 +1,156 @@
+.return-policy{
+    background:#f5f7f6;
+    padding:60px 0;
+}
+
+.return-policy .container{
+    max-width:900px;
+    margin:auto;
+}
+
+.policy-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.policy-title{
+    margin-bottom:10px;
+}
+
+.policy-description{
+    color:#6b7280;
+    font-size:14px;
+}
+
+.policy-section{
+    margin-bottom:35px;
+}
+
+.section-title{
+    margin-bottom:15px;
+}
+
+.policy-conditions{
+    background:#e8f4ee;
+    padding:20px 25px;
+    border-radius:8px;
+}
+
+.policy-list{
+    list-style:none;
+    padding:0;
+}
+
+.policy-list li{
+    margin-bottom:8px;
+    color:#374151;
+    position:relative;
+    padding-left:22px;
+}
+
+.policy-list li::before{
+    content:"●";
+    color:#16a34a;
+    position:absolute;
+    left:0;
+}
+
+.policy-box{
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:18px 22px;
+    background:white;
+}
+
+.policy-box h4{
+    margin-bottom:8px;
+}
+
+.policy-box p{
+    color:#6b7280;
+    font-size:14px;
+}
+
+.policy-process-list{
+    list-style:none;
+    padding:0;
+}
+
+.policy-process-list li{
+    margin-bottom:15px;
+    padding-left:35px;
+    position:relative;
+    color:#374151;
+}
+
+.policy-process-list li::before{
+    content:counter(step);
+    counter-increment:step;
+    position:absolute;
+    left:0;
+    top:0;
+    width:24px;
+    height:24px;
+    background:#16a34a;
+    color:white;
+    border-radius:50%;
+    text-align:center;
+    font-size:13px;
+    line-height:24px;
+}
+
+.policy-process-list{
+    counter-reset:step;
+}
+
+.policy-note{
+    background:#fff7e6;
+    border:1px solid #facc15;
+    padding:18px 22px;
+    border-radius:8px;
+}
+
+.policy-note-list{
+    list-style:none;
+    padding:0;
+}
+
+.policy-note-list li{
+    margin-bottom:8px;
+    color:#92400e;
+    position:relative;
+    padding-left:20px;
+}
+
+.policy-note-list li::before{
+    content:"⚠";
+    position:absolute;
+    left:0;
+}
+.policy-support{
+    margin-top:40px;
+    background:#111827;
+    color:white;
+    padding:30px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.policy-support p{
+    margin-top:8px;
+    margin-bottom:15px;
+    color:#d1d5db;
+}
+
+.support-contact{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    font-size:14px;
+}
+
+.support-contact span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
