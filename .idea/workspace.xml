@@ -9,7 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="" />
+    <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/signup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/signup.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,12 +25,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Jsp File" />
         <option value="CSS File" />
         <option value="Servlet" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -242,7 +249,9 @@
       <workItem from="1774457587317" duration="109000" />
       <workItem from="1774457861898" duration="92000" />
       <workItem from="1774457983388" duration="174000" />
-      <workItem from="1774504335651" duration="16576000" />
+      <workItem from="1774504335651" duration="22145000" />
+      <workItem from="1774539705827" duration="1450000" />
+      <workItem from="1774541557361" duration="1462000" />
     </task>
     <servers />
   </component>

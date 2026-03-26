@@ -132,7 +132,7 @@ p.signup-text a:hover {
     color: #272a30;
 }
 
-.error {
+#error {
     color: red;
     font-size: 13px;
     margin-top: 5px;
