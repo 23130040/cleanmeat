@@ -1,0 +1,107 @@
+package cleanmeat.cleanmeat.dao;
+
+import cleanmeat.cleanmeat.mapper.UserMapper;
+import cleanmeat.cleanmeat.model.User;
+
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserDAOImpl extends BaseDAO implements UserDAO {
+
+    @Override
+    public User findById(int id) {
+        String sql = "select * from user where id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return UserMapper.map(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> findAll() {
+        String sql = "select * from user";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                User user = UserMapper.map(rs);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public boolean insert(User user) {
+        String sql = "insert into user (name, email, password, phone, gender, birthday, role, avatar, status, verify_token) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getPhone());
+            ps.setString(5, user.getGender());
+            ps.setDate(6, Date.valueOf(user.getBirthday()));
+            ps.setString(7, user.getRole());
+            ps.setString(8, user.getAvatar());
+            ps.setBoolean(9, user.isStatus());
+            ps.setString(10, user.getVerify_token());
+            if (ps.executeUpdate() >= 1) return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(User user) {
+        String sql = """
+                update user
+                set name = ?, email = ?, password = ?, phone = ?, gender = ?, birthday = ?, role = ?, avatar = ? ,status = ?, verify_token = ?, updated_at = NOW()
+                where id = ?
+                """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getPhone());
+            ps.setString(5, user.getGender());
+            ps.setDate(6, Date.valueOf(user.getBirthday()));
+            ps.setString(7, user.getRole());
+            ps.setString(8, user.getAvatar());
+            ps.setBoolean(9, user.isStatus());
+            ps.setString(10, user.getVerify_token());
+            ps.setInt(11, user.getId());
+            if (ps.executeUpdate() >= 1) return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        String sql = "delete from user where id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            if (ps.executeUpdate() >= 1) return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+}
