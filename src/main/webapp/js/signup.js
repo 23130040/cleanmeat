@@ -73,4 +73,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
     });
+
+    const modal = document.getElementById("verify-modal");
+    const closeBtn = document.querySelector(".close-btn");
+
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
 });

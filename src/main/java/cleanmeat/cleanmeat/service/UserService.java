@@ -3,6 +3,9 @@ package cleanmeat.cleanmeat.service;
 import cleanmeat.cleanmeat.dao.UserDAO;
 import cleanmeat.cleanmeat.dao.UserDAOImpl;
 import cleanmeat.cleanmeat.model.User;
+import cleanmeat.cleanmeat.security.PasswordUtil;
+import cleanmeat.cleanmeat.security.TokenUtil;
+import cleanmeat.cleanmeat.utils.EmailUtil;
 
 import java.time.LocalDate;
 
@@ -36,11 +39,25 @@ public class UserService {
         user.setName(username);
         user.setEmail(email);
         user.setPhone(phone);
-        user.setPassword(password);
+        user.setPassword(PasswordUtil.hashPassword(password));
         user.setBirthday(LocalDate.now());
         user.setGender("Other");
         user.setRole("customer");
-        user.setStatus(true);
-        return userDAO.insert(user);
+        user.setStatus(false);
+        String token = TokenUtil.generateToken();
+        user.setVerify_token(token);
+        EmailUtil.sendVerificationEmail(user.getEmail(), token);
+        boolean inserted = userDAO.insert(user);
+        if (inserted) {
+            EmailUtil.sendVerificationEmail(user.getEmail(), token);
+        }
+        return inserted;
+    }
+
+    public boolean verifyEmail(String token) {
+        if (userDAO.findByVerifyToken(token) != null) {
+            return userDAO.verifyEmail(token);
+        }
+        return false;
     }
 }

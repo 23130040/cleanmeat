@@ -39,7 +39,10 @@ public class SignUp extends HttpServlet {
             return;
         }
 
-        userService.signUp(username, email, phone, password);
-        response.sendRedirect("sign-in");
+        if (userService.signUp(username, email, phone, password)) {
+            response.sendRedirect(request.getContextPath() + "/sign-up?signup=success");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/sign-up?error=signup-failed");
+        }
     }
 }

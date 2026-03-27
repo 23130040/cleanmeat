@@ -122,4 +122,37 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public User findByVerifyToken(String token) {
+        String sql = "SELECT * FROM user WHERE verify_token = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, token);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return UserMapper.map(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean verifyEmail(String token) {
+        String sql = """
+                    UPDATE user
+                    SET status = 1,
+                        verify_token = NULL,
+                        updated_at = NOW()
+                    WHERE verify_token = ?
+                """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, token);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

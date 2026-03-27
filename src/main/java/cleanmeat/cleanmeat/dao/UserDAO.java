@@ -17,4 +17,8 @@ public interface UserDAO {
 
     public boolean existsByEmail(String email);
 
+    public User findByVerifyToken(String token);
+
+    public boolean verifyEmail(String token);
+
 }
