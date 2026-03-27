@@ -45,12 +45,12 @@
                 <label>Xác nhận mật khẩu</label>
                 <div class="form-input">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="confirmPassword" class="input-box" name="confimPassword"
+                    <input type="password" id="confirmPassword" class="input-box" name="confirmPassword"
                            placeholder="••••••••">
                 </div>
             </div>
 
-            <p id="error"></p>
+            <p id="error">${error}</p>
 
             <button type="submit" class="btn-signup">Đăng ký</button>
         </form>
