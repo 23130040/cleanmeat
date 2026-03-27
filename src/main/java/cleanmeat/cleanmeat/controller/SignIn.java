@@ -1,5 +1,7 @@
 package cleanmeat.cleanmeat.controller;
 
+import cleanmeat.cleanmeat.model.User;
+import cleanmeat.cleanmeat.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -13,11 +15,30 @@ public class SignIn extends HttpServlet {
         request.setAttribute("pageTitle", "Đăng nhập");
         request.setAttribute("pageContent", "/view/signin.jsp");
         request.setAttribute("pageCss", "signin.css");
-        request.getRequestDispatcher( "/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService userService = new UserService();
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
+        String error = userService.validateSignIn(email, password);
+        if (error != null) {
+            request.setAttribute("error", error);
+            request.setAttribute("pageTitle", "Đăng nhập");
+            request.setAttribute("pageContent", "/view/signin.jsp");
+            request.setAttribute("pageCss", "signin.css");
+            request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+            return;
+        }
+
+        User user = userService.signin(email, password);
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("home");
+        }
     }
 }

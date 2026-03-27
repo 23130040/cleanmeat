@@ -31,10 +31,10 @@
                 <c:choose>
                     <c:when test="${not empty user}">
                         <span class="auth-avatar">
-                            N
+                            <img src="${pageContext.request.contextPath}${user.avatar}">
                         </span>
                         <span class="auth-name">
-                            Nguyen Bich Dan
+                            ${user.name}
                         </span>
                     </c:when>
                     <c:otherwise>

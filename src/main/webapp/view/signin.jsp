@@ -25,9 +25,7 @@
                 </div>
             </div>
 
-            <c:if test="${not empty error}">
-                <p class="error">${error}</p>
-            </c:if>
+            <p class="error">${error}</p>
 
             <button type="submit" class="btn-login">Đăng nhập</button>
         </form>
