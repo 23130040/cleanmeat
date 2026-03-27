@@ -79,7 +79,11 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getGender());
-            ps.setDate(6, Date.valueOf(user.getBirthday()));
+            if (user.getBirthday() != null) {
+                ps.setDate(6, Date.valueOf(user.getBirthday()));
+            } else {
+                ps.setNull(6, Types.DATE);
+            }
             ps.setString(7, user.getRole());
             ps.setString(8, user.getAvatar());
             ps.setBoolean(9, user.isStatus());
@@ -103,5 +107,52 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "select 1 from user where email = ? limit 1";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User findByVerifyToken(String token) {
+        String sql = "SELECT * FROM user WHERE verify_token = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, token);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return UserMapper.map(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean verifyEmail(String token) {
+        String sql = """
+                    UPDATE user
+                    SET status = 1,
+                        verify_token = NULL,
+                        updated_at = NOW()
+                    WHERE verify_token = ?
+                """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, token);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

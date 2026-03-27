@@ -8,12 +8,12 @@
         </div>
         <h2 class="signup-title">Đăng ký</h2>
         <p class="signup-subtitle">Tạo tài khoản mới để bắt đầu mua sắm</p>
-        <form action="${pageContext.request.contextPath}/sign-up" method="post">
+        <form id="signup-form" action="${pageContext.request.contextPath}/sign-up" method="post">
             <div class="form-group">
                 <label>Họ và tên</label>
                 <div class="form-input">
                     <i class="fa-regular fa-user"></i>
-                    <input type="text" class="input-box" name="name" placeholder="Nguyễn Văn A" required>
+                    <input type="text" id="name" class="input-box" name="name" placeholder="Nguyễn Văn A">
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                 <label>Email</label>
                 <div class="form-input">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" class="input-box" name="email" placeholder="example@email.com" required>
+                    <input type="email" id="email" class="input-box" name="email" placeholder="example@email.com">
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                 <label>Số điện thoại</label>
                 <div class="form-input">
                     <i class="fa-solid fa-phone"></i>
-                    <input type="text" class="input-box" name="phone" placeholder="0123456789" required>
+                    <input type="text" id="phone" class="input-box" name="phone" placeholder="0123456789">
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                 <label>Mật khẩu</label>
                 <div class="form-input">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" class="input-box" name="password" placeholder="••••••••" required>
+                    <input type="password" id="password" class="input-box" name="password" placeholder="••••••••">
                 </div>
             </div>
 
@@ -45,13 +45,12 @@
                 <label>Xác nhận mật khẩu</label>
                 <div class="form-input">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" class="input-box" name="confimPassword" placeholder="••••••••" required>
+                    <input type="password" id="confirmPassword" class="input-box" name="confirmPassword"
+                           placeholder="••••••••">
                 </div>
             </div>
 
-            <c:if test="${not empty error}">
-                <p class="error">${error}</p>
-            </c:if>
+            <p id="error">${error}</p>
 
             <button type="submit" class="btn-signup">Đăng ký</button>
         </form>
@@ -65,3 +64,56 @@
         ← Quay về trang chủ
     </a>
 </div>
+
+<div class="modal" id="verify-modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 style="color: green;">Thông báo</h3>
+        <p>Xác thực email thành công! Bạn có thể đăng nhập.</p>
+        <a href="${pageContext.request.contextPath}/sign-in">
+            <button>Đăng nhập</button>
+        </a>
+    </div>
+</div>
+
+<div class="modal" id="error-modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 style="color: red;">Lỗi</h3>
+        <p>Link xác thực không hợp lệ hoặc đã hết hạn.</p>
+        <a href="${pageContext.request.contextPath}/sign-in">
+            <button>Đăng nhập</button>
+        </a>
+    </div>
+</div>
+
+<div class="modal" id="register-success-modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 style="color: green;">Đăng ký thành công</h3>
+        <p>Vui lòng kiểm tra email để xác thực tài khoản.</p>
+    </div>
+</div>
+
+<c:if test="${param.verified == 'true'}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("verify-modal").style.display = "block";
+        });
+    </script>
+</c:if>
+<c:if test="${param.error == 'invalid-token'}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("error-modal").style.display = "block";
+        });
+    </script>
+</c:if>
+
+<c:if test="${param.signup == 'success'}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("register-success-modal").style.display = "block";
+        });
+    </script>
+</c:if>

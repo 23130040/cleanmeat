@@ -14,4 +14,11 @@ public interface UserDAO {
     public boolean update(User user);
 
     public boolean delete(int id);
+
+    public boolean existsByEmail(String email);
+
+    public User findByVerifyToken(String token);
+
+    public boolean verifyEmail(String token);
+
 }

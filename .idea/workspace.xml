@@ -9,7 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="" />
+    <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/signup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/signup.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,12 +28,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Jsp File" />
         <option value="CSS File" />
-        <option value="Servlet" />
         <option value="Interface" />
+        <option value="JavaScript File" />
         <option value="Class" />
+        <option value="Servlet" />
       </list>
     </option>
   </component>
@@ -65,7 +75,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Tomcat Server.Tomcat 10.1.494.executor&quot;: &quot;Run&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/sign-up&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Git/Github/cleanmeat/src/main/resources&quot;,
@@ -78,7 +88,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.35747126&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -242,7 +252,17 @@
       <workItem from="1774457587317" duration="109000" />
       <workItem from="1774457861898" duration="92000" />
       <workItem from="1774457983388" duration="174000" />
-      <workItem from="1774504335651" duration="16576000" />
+      <workItem from="1774504335651" duration="22145000" />
+      <workItem from="1774539705827" duration="1450000" />
+      <workItem from="1774541557361" duration="1462000" />
+      <workItem from="1774573758322" duration="1393000" />
+      <workItem from="1774585719914" duration="3723000" />
+      <workItem from="1774613011505" duration="3604000" />
+      <workItem from="1774619965768" duration="36000" />
+      <workItem from="1774620029742" duration="189000" />
+      <workItem from="1774620279819" duration="940000" />
+      <workItem from="1774621409010" duration="159000" />
+      <workItem from="1774621711187" duration="2912000" />
     </task>
     <servers />
   </component>

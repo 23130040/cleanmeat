@@ -71,7 +71,7 @@
                 <h4 class="support-title small-title">Hỗ trợ</h4>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/returns-policy">Chính sách đổi trả</a></li>
-                    <li><a href="${pageContext.request.contextPath}/">Hướng dẫn đặt hàng</a></li>
+                    <li><a href="${pageContext.request.contextPath}/order-guide">Hướng dẫn đặt hàng</a></li>
                     <li><a href="${pageContext.request.contextPath}/">Thanh toán</a></li>
                     <li><a href="${pageContext.request.contextPath}/">Vận chuyển</a></li>
                 </ul>
@@ -90,4 +90,5 @@
     </div>
 </footer>
 </body>
+<script src="${pageContext.request.contextPath}/js/${requestScope.pageJs}"></script>
 </html>
