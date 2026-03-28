@@ -17,7 +17,9 @@ public class Item implements Serializable {
     private int min_stock;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
-
+    private String category_name;
+    private String unit_name;
+    private String image;
     public Item() {}
 
     public Item(int id, String name, String short_description, String long_description, int category_id, int origin_id, int unit_id, double price, double discount, int current_stock, int min_stock, LocalDateTime created_at, LocalDateTime updated_at) {
@@ -139,4 +141,17 @@ public class Item implements Serializable {
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
+
+    public String getCategory_name() { return category_name; }
+
+    public void setCategory_name(String category_name) { this.category_name = category_name; }
+
+    public String getUnit_name() {return unit_name; }
+
+    public void setUnit_name(String unit_name) { this.unit_name = unit_name; }
+
+    public String getImage() { return image; }
+
+    public void setImage(String image) { this.image = image; }
+
 }
