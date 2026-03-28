@@ -38,7 +38,12 @@ public class SignIn extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("home");
+            if (user.getRole().equalsIgnoreCase("admin")) {
+                response.sendRedirect(request.getContextPath() + "/dashboard");
+            }
+            if (user.getRole().equalsIgnoreCase("customer")) {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
         }
     }
 }
