@@ -6,6 +6,7 @@ import cleanmeat.cleanmeat.model.User;
 import cleanmeat.cleanmeat.security.PasswordUtil;
 import cleanmeat.cleanmeat.security.TokenUtil;
 import cleanmeat.cleanmeat.utils.EmailUtil;
+import cleanmeat.cleanmeat.validate.UserValidate;
 
 import java.time.LocalDate;
 
@@ -25,13 +26,9 @@ public class UserService {
             return "Mật khẩu xác nhận không được để trống!";
         if (userDAO.existsByEmail(email))
             return "Email đã tồn tại!";
-        if (!validatePassword(password))
+        if (!UserValidate.passwordValidate(password))
             return "Mật khẩu không đủ mạnh!";
         return null;
-    }
-
-    private boolean validatePassword(String password) {
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$");
     }
 
     public boolean signUp(String username, String email, String phone, String password) {
@@ -60,4 +57,26 @@ public class UserService {
         }
         return false;
     }
+
+    public String validateSignIn(String email, String password) {
+        if (email == "" || email.trim().isEmpty())
+            return "Email không được để trống!";
+        if (password == "" || password.trim().isEmpty())
+            return "Mật khẩu không được để trống!";
+        if (!UserValidate.emailValidate(email))
+            return "Email không đúng định dạng";
+        if (!userDAO.existsByEmail(email))
+            return "Email hoặc mật khẩu không đúng!";
+        User user = userDAO.findByEmail(email);
+        if (!PasswordUtil.verifyPassword(password, user.getPassword()))
+            return "Email hoặc mật khẩu không đúng!";
+        if (!user.isStatus())
+            return "Tài khoản này chưa được xác thực hoặc đã bị khóa!";
+        return null;
+    }
+
+    public User signin(String email, String password) {
+        return userDAO.findByEmail(email);
+    }
+
 }
