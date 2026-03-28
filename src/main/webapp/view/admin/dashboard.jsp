@@ -55,7 +55,6 @@
     </div>
 </div>
 
-<!-- Secondary Stats Grid -->
 <div class="stats-grid">
     <div class="dashboard-card dashboard-card-sm">
         <div class="card-icon-wrapper icon-blue">
@@ -215,7 +214,6 @@
     </div>
 </div>
 
-<!-- Recent Orders and Order Distribution Row -->
 <div class="dashboard-section-row">
     <div class="section-card">
         <div class="section-header">

@@ -18,6 +18,7 @@
         <ul class="nav-menu">
             <li class="${active == 'home' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
             <li class="${active == 'product' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/product">Sản phẩm</a></li>
+            <li class="${active == 'news' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/news">Tin tức</a></li>
             <li class="${active == 'about-us' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/about-us">Về chúng tôi</a></li>
             <li class="${active == 'contact' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/contact">Liên hệ</a></li>
         </ul>
@@ -52,14 +53,17 @@
                         </div>
                         <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/profile"><i class="fa-regular fa-circle-user"></i> Tài khoản</a></li>
-                            <li><a href="${pageContext.request.contextPath}/sign-out"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                            <li><a href="${pageContext.request.contextPath}/profile"><i
+                                    class="fa-regular fa-circle-user"></i> Tài khoản</a></li>
+                            <li><a href="${pageContext.request.contextPath}/sign-out"><i
+                                    class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
                         </ul>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="nav-login-btn">
-                        <a href="${pageContext.request.contextPath}/sign-in"><i class="fa-regular fa-user"></i> Đăng nhập</a>
+                        <a href="${pageContext.request.contextPath}/sign-in"><i class="fa-regular fa-user"></i> Đăng
+                            nhập</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -111,26 +115,6 @@
     </div>
 </footer>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const profileDropdown = document.getElementById('userProfileDropdown');
-        if (profileDropdown) {
-            const dropdownMenu = profileDropdown.querySelector('.dropdown-menu');
-            
-            profileDropdown.addEventListener('click', function(e) {
-                e.stopPropagation();
-                this.classList.toggle('active');
-                dropdownMenu.classList.toggle('show');
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!profileDropdown.contains(e.target)) {
-                    profileDropdown.classList.remove('active');
-                    dropdownMenu.classList.remove('show');
-                }
-            });
-        }
-    });
-</script>
+<script src = "${pageContext.request.contextPath}/js/base.js"></script>
 <script src="${pageContext.request.contextPath}/js/${requestScope.pageJs}"></script>
 </html>

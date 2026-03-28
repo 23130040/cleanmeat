@@ -66,8 +66,13 @@ nav li:hover a {
 }
 
 .nav-menu li {
-    padding: 15px;
+    padding: 0;
     border-radius: 10px;
+}
+
+.nav-menu li a {
+    display: block;
+    padding: 15px;
 }
 
 .nav-menu li.active {

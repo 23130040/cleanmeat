@@ -12,6 +12,7 @@
     <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/admin/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/admin/dashboard.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -258,7 +259,7 @@
       <workItem from="1774621409010" duration="159000" />
       <workItem from="1774621711187" duration="2912000" />
       <workItem from="1774634871955" duration="15195000" />
-      <workItem from="1774679722677" duration="686000" />
+      <workItem from="1774679722677" duration="1347000" />
     </task>
     <servers />
   </component>
