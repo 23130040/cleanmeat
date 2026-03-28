@@ -3,7 +3,6 @@
 
 <div class="checkout-section">
     <div class="container">
-        <!-- Back Link -->
         <a href="${pageContext.request.contextPath}/cart" class="back-to-cart-link">
             <i class="fa-solid fa-arrow-left"></i> Quay lại giỏ hàng
         </a>
@@ -11,10 +10,8 @@
         <h2 class="checkout-page-title">Thông tin đặt hàng</h2>
         
         <div class="checkout-layout">
-            <!-- Left: Checkout Forms -->
             <form action="${pageContext.request.contextPath}/checkout/confirm" method="post" class="checkout-form-container">
-                
-                <!-- Section: Recipient Information -->
+
                 <div class="checkout-card">
                     <h3 class="section-title">Thông tin người nhận</h3>
                     <div class="form-row">
@@ -33,11 +30,9 @@
                     </div>
                 </div>
 
-                <!-- Section: Shipping Address -->
                 <div class="checkout-card">
                     <h3 class="section-title">Địa chỉ giao hàng</h3>
                     <div class="address-selection-list">
-                        <!-- Example Saved Address 1 -->
                         <label class="address-option">
                             <input type="radio" name="addressOption" value="1" checked>
                             <div class="address-radio-custom"></div>
@@ -48,7 +43,6 @@
                             </div>
                         </label>
 
-                        <!-- Example Saved Address 2 -->
                         <label class="address-option">
                             <input type="radio" name="addressOption" value="2">
                             <div class="address-radio-custom"></div>
@@ -59,7 +53,6 @@
                             </div>
                         </label>
 
-                        <!-- Option: Use another address -->
                         <label class="address-option" id="useNewAddressBtn">
                             <input type="radio" name="addressOption" value="new" id="useNewAddress">
                             <div class="address-radio-custom"></div>
@@ -69,7 +62,6 @@
                         </label>
                     </div>
 
-                    <!-- Hidden Manual Address Form -->
                     <div id="newAddressForm" class="manual-address-form" style="display: none; border-top: 1px solid #f3f4f6; padding-top: 20px; margin-top: 15px;">
                         <div class="form-row">
                             <div class="form-group col-6">
@@ -92,14 +84,12 @@
                         </div>
                     </div>
 
-                    <!-- Common Order Note -->
                     <div class="form-group full-width" style="margin-top: 15px;">
                         <label for="orderNote">Ghi chú đơn hàng</label>
                         <textarea id="orderNote" name="orderNote" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn"></textarea>
                     </div>
                 </div>
 
-                <!-- Section: Shipping Method -->
                 <div class="checkout-card">
                     <h3 class="section-title">Phương thức vận chuyển</h3>
                     <div class="shipping-methods-list">
@@ -117,7 +107,6 @@
                             <span class="shipping-price">Miễn phí</span>
                         </label>
 
-                        <!-- Option: Fast Shipping -->
                         <label class="shipping-method-option">
                             <input type="radio" name="shippingOption" value="EXPRESS">
                             <div class="shipping-radio-custom"></div>
@@ -133,11 +122,9 @@
                     </div>
                 </div>
 
-                <!-- Section: Payment Method -->
                 <div class="checkout-card">
                     <h3 class="section-title">Phương thức thanh toán</h3>
                     <div class="payment-methods-list">
-                        <!-- Option: COD -->
                         <label class="payment-method-option active">
                             <input type="radio" name="paymentOption" value="COD" checked>
                             <div class="payment-radio-custom"></div>
@@ -150,7 +137,6 @@
                             </div>
                         </label>
 
-                        <!-- Option: Bank Transfer -->
                         <label class="payment-method-option">
                             <input type="radio" name="paymentOption" value="BANK">
                             <div class="payment-radio-custom"></div>
@@ -163,7 +149,6 @@
                             </div>
                         </label>
 
-                        <!-- Option: E-wallet -->
                         <label class="payment-method-option">
                             <input type="radio" name="paymentOption" value="WALLET">
                             <div class="payment-radio-custom"></div>
@@ -179,7 +164,6 @@
                 </div>
             </form>
 
-            <!-- Right: Order Summary -->
             <div class="checkout-summary-container">
                 <div class="summary-card">
                     <h3 class="summary-title">Đơn hàng của bạn</h3>
@@ -203,7 +187,6 @@
                                 </c:forEach>
                             </c:when>
                             <c:otherwise>
-                                <!-- Sample item for visualization -->
                                 <div class="order-item">
                                     <div class="order-item-image">
                                         <img src="${pageContext.request.contextPath}/images/pork.jpg">

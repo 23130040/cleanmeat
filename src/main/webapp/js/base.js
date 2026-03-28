@@ -44,4 +44,45 @@ document.addEventListener('DOMContentLoaded', function () {
             if (option.checked) toggleManualForm(option.value);
         });
     }
+
+    // Profile Page: Tab Switching Logic
+    const profileNavItems = document.querySelectorAll('.profile-nav .nav-item');
+    const profilePanels = document.querySelectorAll('.profile-content .content-panel');
+
+    if (profileNavItems.length > 0 && profilePanels.length > 0) {
+        profileNavItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                
+                // Update nav active state
+                profileNavItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update panel visibility
+                profilePanels.forEach(panel => {
+                    panel.classList.remove('active');
+                    if (panel.id === targetId) {
+                        panel.classList.add('active');
+                    }
+                });
+            });
+        });
+    }
+
+    // Profile Page: Avatar Preview
+    const avatarUpload = document.getElementById('avatarUpload');
+    const displayAvatar = document.getElementById('displayAvatar');
+
+    if (avatarUpload && displayAvatar) {
+        avatarUpload.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    displayAvatar.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 });

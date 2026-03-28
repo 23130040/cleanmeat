@@ -59,7 +59,7 @@
                         </div>
                         <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/profile"><i class="fa-solid fa-circle-user"></i> Tài khoản</a></li>
+                            <li><a href="${pageContext.request.contextPath}/account"><i class="fa-solid fa-circle-user"></i> Tài khoản</a></li>
                             <li><a href="${pageContext.request.contextPath}/order-history"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử đơn hàng</a></li>
                             <li><a href="${pageContext.request.contextPath}/sign-out"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
                         </ul>
