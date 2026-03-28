@@ -36,28 +36,100 @@
                 <!-- Section: Shipping Address -->
                 <div class="checkout-card">
                     <h3 class="section-title">Địa chỉ giao hàng</h3>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="city">Tỉnh/Thành phố <span class="required">*</span></label>
-                            <select id="city" name="city" required>
-                                <option value="" disabled selected>Chọn tỉnh/thành phố</option>
-                                <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                                <option value="Hà Nội">Hà Nội</option>
-                                <option value="Đà Nẵng">Đà Nẵng</option>
-                            </select>
+                    <div class="address-selection-list">
+                        <!-- Example Saved Address 1 -->
+                        <label class="address-option">
+                            <input type="radio" name="addressOption" value="1" checked>
+                            <div class="address-radio-custom"></div>
+                            <div class="address-info">
+                                <span class="receiver-name">Nguyễn Văn A <span class="tag-default">Mặc định</span></span>
+                                <span class="receiver-phone">0901234567</span>
+                                <span class="receiver-address">123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
+                            </div>
+                        </label>
+
+                        <!-- Example Saved Address 2 -->
+                        <label class="address-option">
+                            <input type="radio" name="addressOption" value="2">
+                            <div class="address-radio-custom"></div>
+                            <div class="address-info">
+                                <span class="receiver-name">Nguyễn Văn B</span>
+                                <span class="receiver-phone">0908765432</span>
+                                <span class="receiver-address">456 Đường XYZ, Quận 7, TP. Hồ Chí Minh</span>
+                            </div>
+                        </label>
+
+                        <!-- Option: Use another address -->
+                        <label class="address-option" id="useNewAddressBtn">
+                            <input type="radio" name="addressOption" value="new" id="useNewAddress">
+                            <div class="address-radio-custom"></div>
+                            <div class="address-info">
+                                <span class="receiver-name">Sử dụng địa chỉ khác</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Hidden Manual Address Form -->
+                    <div id="newAddressForm" class="manual-address-form" style="display: none; border-top: 1px solid #f3f4f6; padding-top: 20px; margin-top: 15px;">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="city">Tỉnh/Thành phố <span class="required">*</span></label>
+                                <select id="city" name="city">
+                                    <option value="" disabled selected>Chọn tỉnh/thành phố</option>
+                                    <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Đà Nẵng">Đà Nẵng</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="district">Quận/Huyện <span class="required">*</span></label>
+                                <input type="text" id="district" name="district" placeholder="Nhập quận/huyện">
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="district">Quận/Huyện <span class="required">*</span></label>
-                            <input type="text" id="district" name="district" placeholder="Nhập quận/huyện" required>
+                        <div class="form-group full-width">
+                            <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
+                            <input type="text" id="address" name="address" placeholder="Số nhà, tên đường...">
                         </div>
                     </div>
-                    <div class="form-group full-width">
-                        <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
-                        <input type="text" id="address" name="address" placeholder="Số nhà, tên đường..." required>
-                    </div>
-                    <div class="form-group full-width">
+
+                    <!-- Common Order Note -->
+                    <div class="form-group full-width" style="margin-top: 15px;">
                         <label for="orderNote">Ghi chú đơn hàng</label>
                         <textarea id="orderNote" name="orderNote" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn"></textarea>
+                    </div>
+                </div>
+
+                <!-- Section: Shipping Method -->
+                <div class="checkout-card">
+                    <h3 class="section-title">Phương thức vận chuyển</h3>
+                    <div class="shipping-methods-list">
+                        <!-- Option: Standard Shipping -->
+                        <label class="shipping-method-option">
+                            <input type="radio" name="shippingOption" value="STANDARD" checked>
+                            <div class="shipping-radio-custom"></div>
+                            <div class="shipping-method-icon">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                            <div class="shipping-method-info">
+                                <span class="shipping-name">Giao hàng tiêu chuẩn</span>
+                                <span class="shipping-description">Giao hàng từ 2 - 3 ngày làm việc</span>
+                            </div>
+                            <span class="shipping-price">Miễn phí</span>
+                        </label>
+
+                        <!-- Option: Fast Shipping -->
+                        <label class="shipping-method-option">
+                            <input type="radio" name="shippingOption" value="EXPRESS">
+                            <div class="shipping-radio-custom"></div>
+                            <div class="shipping-method-icon">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div class="shipping-method-info">
+                                <span class="shipping-name">Giao hàng nhanh</span>
+                                <span class="shipping-description">Giao hàng trong ngày hoặc hỏa tốc</span>
+                            </div>
+                            <span class="shipping-price">30.000đ</span>
+                        </label>
                     </div>
                 </div>
 
