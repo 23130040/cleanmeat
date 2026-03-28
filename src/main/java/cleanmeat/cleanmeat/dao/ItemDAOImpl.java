@@ -31,7 +31,17 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
 
     @Override
     public List<Item> findAll() {
-        String sql = "select * from item";
+        String sql = """
+    SELECT i.*, 
+           c.name AS category_name,
+           u.name AS unit_name,
+           img.url AS image
+    FROM item i
+    LEFT JOIN category c ON i.category_id = c.id
+    LEFT JOIN unit u ON i.unit_id = u.id
+    LEFT JOIN item_image img 
+        ON i.id = img.item_id AND img.is_primary = 1
+    """;;
         List<Item> items = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
