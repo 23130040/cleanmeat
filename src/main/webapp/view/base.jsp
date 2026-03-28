@@ -16,17 +16,23 @@
             <img src="${pageContext.request.contextPath}/images/cleanmeat.png">
         </div>
         <ul class="nav-menu">
-            <li class="${active == 'home' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
-            <li class="${active == 'product' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/product">Sản phẩm</a></li>
-            <li class="${active == 'news' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/news">Tin tức</a></li>
-            <li class="${active == 'about-us' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/about-us">Về chúng tôi</a></li>
-            <li class="${active == 'contact' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/contact">Liên hệ</a></li>
+            <li class="${active == 'home' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/home">Trang
+                chủ</a></li>
+            <li class="${active == 'product' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/product">Sản
+                phẩm</a></li>
+            <li class="${active == 'news' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/news">Tin
+                tức</a></li>
+            <li class="${active == 'about-us' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/about-us">Về
+                chúng tôi</a></li>
+            <li class="${active == 'contact' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/contact">Liên
+                hệ</a></li>
         </ul>
         <ul class="nav-auth">
-            <li class="${active == 'cart' ? 'active' : ''}"><a href="#">
-                <span><i class="fa-solid fa-cart-shopping"></i></span>
-                <span id="cart-quantity">0</span>
-            </a>
+            <li class="${active == 'cart' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/cart">
+                    <span><i class="fa-solid fa-cart-shopping"></i></span>
+                    <span id="cart-quantity">0</span>
+                </a>
             </li>
             <c:choose>
                 <c:when test="${not empty user}">
@@ -53,10 +59,9 @@
                         </div>
                         <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/profile"><i
-                                    class="fa-regular fa-circle-user"></i> Tài khoản</a></li>
-                            <li><a href="${pageContext.request.contextPath}/sign-out"><i
-                                    class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                            <li><a href="${pageContext.request.contextPath}/profile"><i class="fa-solid fa-circle-user"></i> Tài khoản</a></li>
+                            <li><a href="${pageContext.request.contextPath}/order-history"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử đơn hàng</a></li>
+                            <li><a href="${pageContext.request.contextPath}/sign-out"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
                         </ul>
                     </li>
                 </c:when>
@@ -115,6 +120,6 @@
     </div>
 </footer>
 </body>
-<script src = "${pageContext.request.contextPath}/js/base.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script src="${pageContext.request.contextPath}/js/${requestScope.pageJs}"></script>
 </html>

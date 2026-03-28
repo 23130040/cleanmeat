@@ -101,8 +101,7 @@ nav li:hover a {
     margin: 0;
 }
 
-/* Cart Icon */
-.nav-auth li:first-child {
+.nav-auth > li:first-child {
     border-right: 1px solid #e5e7eb;
     padding-right: 10px;
     margin-right: 5px;
@@ -140,7 +139,6 @@ nav li:hover a {
     border: 2px solid white;
 }
 
-/* Notification Bell */
 .nav-notification {
     padding: 5px;
     cursor: pointer;
@@ -180,7 +178,6 @@ nav li:hover a {
     border: 2px solid white;
 }
 
-/* User Profile */
 .nav-user-profile {
     position: relative;
     display: flex;
@@ -243,7 +240,6 @@ nav li:hover a {
     transform: rotate(180deg);
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
     position: absolute;
     top: calc(100% + 10px);
@@ -253,7 +249,7 @@ nav li:hover a {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     min-width: 180px;
     padding: 8px;
-    display: none; 
+    display: none;
     flex-direction: column;
     z-index: 1000;
     border: 1px solid #f3f4f6;
@@ -261,8 +257,14 @@ nav li:hover a {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu.show {
@@ -295,13 +297,24 @@ nav li:hover a {
     font-size: 16px;
     width: 20px;
     color: #9ca3af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.nav-auth li:first-child a {
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .dropdown-menu li a:hover i {
     color: #10b981;
 }
 
-/* Login Button (for non-logged in state) */
 .nav-login-btn a {
     background: #10b981;
     color: white !important;

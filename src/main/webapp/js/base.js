@@ -16,4 +16,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Checkout: Toggle new address form
+    const addressOptions = document.querySelectorAll('input[name="addressOption"]');
+    const newAddressForm = document.getElementById('newAddressForm');
+
+    if (addressOptions.length > 0 && newAddressForm) {
+        const manualFields = newAddressForm.querySelectorAll('input, select');
+
+        const toggleManualForm = (value) => {
+            if (value === 'new') {
+                newAddressForm.style.display = 'block';
+                manualFields.forEach(field => {
+                    if (field.id !== 'orderNote') field.required = true;
+                });
+            } else {
+                newAddressForm.style.display = 'none';
+                manualFields.forEach(field => field.required = false);
+            }
+        };
+
+        addressOptions.forEach(option => {
+            option.addEventListener('change', function () {
+                toggleManualForm(this.value);
+            });
+            // Initial check for pre-selected option
+            if (option.checked) toggleManualForm(option.value);
+        });
+    }
 });
