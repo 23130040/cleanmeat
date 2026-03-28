@@ -19,8 +19,25 @@ public class ItemMapper {
         item.setDiscount(rs.getDouble("discount"));
         item.setCurrent_stock(rs.getInt("current_stock"));
         item.setMin_stock(rs.getInt("min_stock"));
-        item.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());
-        item.setUpdated_at(rs.getTimestamp("updated_at").toLocalDateTime());
+        if (rs.getTimestamp("created_at") != null) {
+            item.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());
+        }
+
+        if (rs.getTimestamp("updated_at") != null) {
+            item.setUpdated_at(rs.getTimestamp("updated_at").toLocalDateTime());
+        }
+        try {
+            item.setCategory_name(rs.getString("category_name"));
+        } catch (SQLException ignored) {}
+
+        try {
+            item.setUnit_name(rs.getString("unit_name"));
+        } catch (SQLException ignored) {}
+
+        try {
+            item.setImage(rs.getString("image"));
+        } catch (SQLException ignored) {}
+
         return item;
     }
 }

@@ -57,162 +57,66 @@
         </p>
 
         <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="product-tag">BÁN CHẠY</span>
-                    <img src="${pageContext.request.contextPath}/images/#">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Bò</p>
-                    <h3 class="product-name">Thịt Bò Úc</h3>
-                    <p class="product-description">Phi lê cao cấp mềm ngon tự nhiên</p>
 
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span>(328)</span>
-                    </div>
+            <c:choose>
+                <c:when test="${not empty items}">
+                    <c:forEach var="item" items="${items}">
+                        <div class="product-card">
 
-                    <div class="product-price">
-                        <span class="new-price">450.000đ/kg</span>
-                        <span class="old-price">520.000đ</span>
-                    </div>
+                            <div class="product-image">
+                                <c:if test="${item.discount > 0}">
+                                    <span class="product-tag">SALE</span>
+                                </c:if>
 
-                    <button>Xem chi tiết</button>
-                </div>
-            </div>
+                                <img src="${pageContext.request.contextPath}/${item.image}"
+                                     alt="${item.name}">
+                            </div>
 
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/images/#">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Heo</p>
-                    <h3 class="product-name">Thịt Heo Sạch</h3>
-                    <p class="product-description">Ba chỉ tươi ngon phù hợp mọi bữa ăn</p>
+                            <div class="product-info">
+                                <p class="product-category">
+                                        ${item.category_name}
+                                </p>
 
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span>(215)</span>
-                    </div>
+                                <h3 class="product-name">
+                                        ${item.name}
+                                </h3>
 
-                    <div class="product-price">
-                        <span class="new-price">180.000đ/kg</span>
-                    </div>
+                                <p class="product-description">
+                                        ${item.short_description}
+                                </p>
 
-                    <button>Xem chi tiết</button>
-                </div>
-            </div>
+                                <div class="product-rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                    <span>(0)</span>
+                                </div>
 
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="product-tag">CAO CẤP</span>
-                    <img src="${pageContext.request.contextPath}/images/#">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Bò</p>
-                    <h3 class="product-name">Thịt Bò Wagyu</h3>
-                    <p class="product-description">Thăn nội cao cấp hương vị đậm đà</p>
+                                <div class="product-price">
+                            <span class="new-price">
+                                ${item.price}đ/${item.unit_name}
+                            </span>
 
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span>(89)</span>
-                    </div>
+                                    <c:if test="${item.discount > 0}">
+                                <span class="old-price">
+                                    ${item.price + item.discount}đ
+                                </span>
+                                    </c:if>
+                                </div>
 
-                    <div class="product-price">
-                        <span class="new-price">1.200.000đ/kg</span>
-                    </div>
+                                <button>Xem chi tiết</button>
+                            </div>
 
-                    <button>Xem chi tiết</button>
-                </div>
-            </div>
+                        </div>
+                    </c:forEach>
+                </c:when>
 
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/images/#">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Bò</p>
-                    <h3 class="product-name">Sườn Bò Non</h3>
-                    <p class="product-description">Phần sườn mềm ngon thích hợp nướng</p>
-
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span>(156)</span>
-                    </div>
-
-                    <div class="product-price">
-                        <span class="new-price">320.000đ/kg</span>
-                    </div>
-
-                    <button>Xem chi tiết</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/images/#" >
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Heo</p>
-                    <h3 class="product-name">Ba Chỉ Heo</h3>
-                    <p class="product-description">Tươi sạch loại 1 nhiều nạc ít mỡ</p>
-
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span>(134)</span>
-                    </div>
-
-                    <div class="product-price">
-                        <span class="new-price">170.000đ/kg</span>
-                    </div>
-
-                    <button>Xem chi tiết</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${pageContext.request.contextPath}/images/#">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Thịt Heo</p>
-                    <h3 class="product-name">Thăn Heo</h3>
-                    <p class="product-description">Nạc mềm dễ chế biến cho gia đình</p>
-
-                    <div class="product-rating">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span>(96)</span>
-                    </div>
-
-                    <div class="product-price">
-                        <span class="new-price">190.000đ/kg</span>
-                    </div>
-
-                    <button>Xem chi tiết</button>
+                <c:otherwise>
+                    <p>Không có sản phẩm nào</p>
+                </c:otherwise>
+            </c:choose>
                 </div>
             </div>
         </div>
