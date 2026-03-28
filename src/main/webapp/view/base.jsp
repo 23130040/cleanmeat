@@ -27,21 +27,42 @@
                 <span id="cart-quantity">0</span>
             </a>
             </li>
-            <li>
-                <c:choose>
-                    <c:when test="${not empty user}">
-                        <span class="auth-avatar">
-                            <img src="${pageContext.request.contextPath}${user.avatar}">
-                        </span>
-                        <span class="auth-name">
-                            ${user.name}
-                        </span>
-                    </c:when>
-                    <c:otherwise>
+            <c:choose>
+                <c:when test="${not empty user}">
+                    <li class="nav-notification">
+                        <div class="notification-icon-wrapper">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="notification-badge">4</span>
+                        </div>
+                    </li>
+                    <li class="nav-user-profile" id="userProfileDropdown">
+                        <div class="user-avatar">
+                            <c:choose>
+                                <c:when test="${not empty user.avatar}">
+                                    <img src="${pageContext.request.contextPath}${user.avatar}">
+                                </c:when>
+                                <c:otherwise>
+                                    <i class="fa-solid fa-user"></i>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">${user.name}</span>
+                            <span class="user-role">${user.role == 'admin' ? 'Quản trị viên' : 'Khách hàng'}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                        <ul class="dropdown-menu">
+                            <li><a href="${pageContext.request.contextPath}/profile"><i class="fa-regular fa-circle-user"></i> Tài khoản</a></li>
+                            <li><a href="${pageContext.request.contextPath}/sign-out"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-login-btn">
                         <a href="${pageContext.request.contextPath}/sign-in"><i class="fa-regular fa-user"></i> Đăng nhập</a>
-                    </c:otherwise>
-                </c:choose>
-            </li>
+                    </li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </nav>
@@ -90,5 +111,26 @@
     </div>
 </footer>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileDropdown = document.getElementById('userProfileDropdown');
+        if (profileDropdown) {
+            const dropdownMenu = profileDropdown.querySelector('.dropdown-menu');
+            
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                dropdownMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.remove('active');
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        }
+    });
+</script>
 <script src="${pageContext.request.contextPath}/js/${requestScope.pageJs}"></script>
 </html>
