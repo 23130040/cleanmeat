@@ -1,94 +1,129 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="cart-section">
+<div class="cart-section-premium">
     <div class="container">
-        <h2 class="cart-page-title">Giỏ hàng của bạn</h2>
+        <div class="cart-progress-stepper">
+            <div class="step active">
+                <span class="step-icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                <span class="step-label">Giỏ hàng</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <span class="step-icon"><i class="fa-solid fa-credit-card"></i></span>
+                <span class="step-label">Thanh toán</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <span class="step-icon"><i class="fa-solid fa-circle-check"></i></span>
+                <span class="step-label">Hoàn tất</span>
+            </div>
+        </div>
+
+        <h2 class="cart-premium-title">Giỏ hàng của bạn</h2>
         
-        <div class="cart-layout">
-            <div class="cart-items-container">
-                <c:choose>
-                    <c:when test="${not empty cartItems}">
+        <c:choose>
+            <c:when test="${not empty cartItems}">
+                <div class="cart-layout">
+                    <div class="cart-items-container">
                         <c:forEach var="item" items="${cartItems}">
-                            <div class="cart-item-card">
+                            <div class="cart-item-card-premium">
                                 <div class="cart-item-image">
                                     <img src="${pageContext.request.contextPath}${item.productImage}" alt="${item.productName}">
                                 </div>
-                                <div class="cart-item-details">
-                                    <div class="item-header">
-                                        <h3 class="item-name">${item.productName}</h3>
-                                        <button class="remove-item-btn" title="Xóa sản phẩm">
+                                <div class="cart-item-info">
+                                    <div class="item-main-details">
+                                        <div class="name-unit">
+                                            <h3 class="product-name">${item.productName}</h3>
+                                            <span class="product-unit">${item.unit != null ? item.unit : '200g'}</span>
+                                        </div>
+                                        <button class="remove-btn-icon" title="Xóa">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     </div>
-                                    <p class="item-unit">${item.unit != null ? item.unit : '200g'}</p>
-                                    <p class="item-price">${item.price}đ</p>
-                                    <div class="item-footer">
-                                        <div class="quantity-controls">
-                                            <button class="qty-btn minus">-</button>
-                                            <span class="qty-value">${item.quantity}</span>
-                                            <button class="qty-btn plus">+</button>
+                                    
+                                    <div class="item-pricing-row">
+                                        <div class="price-breakdown">
+                                            <div class="price-detail">
+                                                <span class="label">Đơn giá:</span>
+                                                <span class="val">${item.price}đ</span>
+                                            </div>
+                                            <div class="price-detail total">
+                                                <span class="label">Thành tiền:</span>
+                                                <span class="val highlighted">${item.price * item.quantity}đ</span>
+                                            </div>
+                                        </div>
+                                        <div class="quantity-picker">
+                                            <button class="picker-btn minus">-</button>
+                                            <span class="picker-val">${item.quantity}</span>
+                                            <button class="picker-btn plus">+</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="cart-item-card">
-                            <div class="cart-item-image">
-                                <img src="${pageContext.request.contextPath}/images/pork.jpg" alt="Thịt Heo Sạch">
-                            </div>
-                            <div class="cart-item-details">
-                                <div class="item-header">
-                                    <h3 class="item-name">Thịt Heo Sạch</h3>
-                                    <button class="remove-item-btn" title="Xóa sản phẩm">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                                <p class="item-unit">200g</p>
-                                <p class="item-price">180.000đ</p>
-                                <div class="item-footer">
-                                    <div class="quantity-controls">
-                                        <button class="qty-btn minus">-</button>
-                                        <span class="qty-value">2</span>
-                                        <button class="qty-btn plus">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-            <div class="cart-summary-container">
-                <div class="summary-card">
-                    <h3 class="summary-title">Tóm tắt đơn hàng</h3>
-                    
-                    <div class="summary-details">
-                        <div class="summary-row">
-                            <span class="label">Tạm tính</span>
-                            <span class="value">${subtotal != null ? subtotal : '360.000đ'}</span>
-                        </div>
-                        <div class="summary-row">
-                            <span class="label">Phí vận chuyển</span>
-                            <span class="value shipping-free">Miễn phí</span>
-                        </div>
-                        
-                        <div class="summary-divider"></div>
-                        
-                        <div class="summary-row total-row">
-                            <span class="label">Tổng cộng</span>
-                            <span class="value total-price">${total != null ? total : '360.000đ'}</span>
-                        </div>
                     </div>
-                    
-                    <div class="summary-actions">
-                        <a href="${pageContext.request.contextPath}/checkout"><button class="btn-checkout">Tiến hành đặt hàng</button></a>
-                        <a href="${pageContext.request.contextPath}/product"><button class="btn-continue">Tiếp tục mua sắm</button></a>
+
+                    <div class="cart-summary-sidebar">
+                        <div class="summary-card-premium sticky">
+                            <h3 class="summary-card-title">Tóm tắt đơn hàng</h3>
+                            
+                            <div class="coupon-box">
+                                <div class="coupon-input-wrapper">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <input type="text" placeholder="Mã giảm giá">
+                                </div>
+                                <button class="btn-apply-coupon">Áp dụng</button>
+                            </div>
+
+                            <div class="summary-bill-details">
+                                <div class="bill-row">
+                                    <span class="label">Tạm tính</span>
+                                    <span class="val">${subtotal != null ? subtotal : '360.000đ'}</span>
+                                </div>
+                                <div class="bill-row">
+                                    <span class="label">Khuyến mãi</span>
+                                    <span class="val discount-val">-0đ</span>
+                                </div>
+                                <div class="bill-row">
+                                    <span class="label">Phí vận chuyển</span>
+                                    <span class="val shipping-free">Miễn phí</span>
+                                </div>
+                                
+                                <div class="bill-divider"></div>
+                                
+                                <div class="bill-row grand-total">
+                                    <span class="label">Tổng cộng</span>
+                                    <span class="val final-price">${total != null ? total : '360.000đ'}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cart-actions-group">
+                                <a href="${pageContext.request.contextPath}/checkout" class="btn-checkout-link">
+                                    <button class="btn-checkout-premium">Thanh toán ngay <i class="fa-solid fa-arrow-right"></i></button>
+                                </a>
+                                <a href="${pageContext.request.contextPath}/product" class="btn-continue-link">
+                                    Tiếp tục mua sắm
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:when>
+            <c:otherwise>
+                <div class="cart-empty-state">
+                    <div class="empty-illustration">
+                        <div class="bag-icon-wrapper">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                    </div>
+                    <h2>Giỏ hàng của bạn đang trống</h2>
+                    <p>Có vẻ như bạn chưa chọn được món thịt nào ưng ý. Hãy khám phá ngay thế giới thịt sạch của chúng tôi!</p>
+                    <a href="${pageContext.request.contextPath}/product" class="btn-start-shopping">
+                        Khám phá sản phẩm <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>

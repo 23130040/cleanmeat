@@ -53,15 +53,35 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
 
     @Override
     public boolean insert(Address address) {
-        String sql = """
-                insert into address (user_id, address, is_default) values (?, ?, ?)
-                """;
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, address.getUser_id());
-            ps.setString(2, address.getAddress());
-            ps.setBoolean(3, address.isIs_Default());
-            if (ps.executeUpdate() >= 1) return true;
+        String sqlUnsetAll = "UPDATE address SET is_default = 0 WHERE user_id = ?";
+        String sqlInsert = "INSERT INTO address (user_id, address, is_default) VALUES (?, ?, ?)";
+
+        try (Connection conn = getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                if (address.isIs_Default()) {
+                    try (PreparedStatement ps1 = conn.prepareStatement(sqlUnsetAll)) {
+                        ps1.setInt(1, address.getUser_id());
+                        ps1.executeUpdate();
+                    }
+                }
+
+                try (PreparedStatement ps2 = conn.prepareStatement(sqlInsert)) {
+                    ps2.setInt(1, address.getUser_id());
+                    ps2.setString(2, address.getAddress());
+                    ps2.setBoolean(3, address.isIs_Default());
+                    if (ps2.executeUpdate() >= 1) {
+                        conn.commit();
+                        return true;
+                    }
+                }
+                conn.rollback();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException(e);
+            } finally {
+                conn.setAutoCommit(true);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -79,6 +99,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, address.getAddress());
             ps.setBoolean(2, address.isIs_Default());
+            ps.setInt(3, address.getId());
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -95,6 +116,41 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             if (ps.executeUpdate() >= 1) return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean setDefault(int user_id, int addressId) {
+        String sqlUnsetAll = "UPDATE address SET is_default = 0 WHERE user_id = ?";
+        String sqlSetDefault = "UPDATE address SET is_default = 1 WHERE id = ? AND user_id = ?";
+
+        try (Connection conn = getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                try (PreparedStatement ps1 = conn.prepareStatement(sqlUnsetAll)) {
+                    ps1.setInt(1, user_id);
+                    ps1.executeUpdate();
+                }
+
+                try (PreparedStatement ps2 = conn.prepareStatement(sqlSetDefault)) {
+                    ps2.setInt(1, addressId);
+                    ps2.setInt(2, user_id);
+                    int rows = ps2.executeUpdate();
+                    if (rows > 0) {
+                        conn.commit();
+                        return true;
+                    }
+                }
+                conn.rollback();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException(e);
+            } finally {
+                conn.setAutoCommit(true);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

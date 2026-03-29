@@ -79,4 +79,50 @@ public class UserService {
         return userDAO.findByEmail(email);
     }
 
+    public boolean updateProfile(int id, String name, String phone, String gender, LocalDate birthday) {
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPhone(phone);
+        user.setGender(gender);
+        user.setBirthday(birthday);
+        return userDAO.updateProfile(user);
+    }
+
+    public User findById(int id) {
+        return userDAO.findById(id);
+    }
+
+    public String validatePassword(int id, String oldPassword, String newPassword, String confirmPassword) {
+        User user = userDAO.findById(id);
+        if (!PasswordUtil.verifyPassword(oldPassword, user.getPassword()))
+            return "Mật khẩu hiện tại không đúng!";
+        if (newPassword.equals(oldPassword))
+            return "Mật khẩu mới không được trùng với mật khẩu hiện tại";
+        if (!UserValidate.passwordValidate(newPassword))
+            return "Mật khẩu mới không đủ mạnh!";
+        if (!newPassword.equals(confirmPassword))
+            return "Mật khẩu xác nhận không khớp";
+        return null;
+    }
+
+    public String validatePassword(int id, String password) {
+        User user = userDAO.findById(id);
+        if (!PasswordUtil.verifyPassword(password, user.getPassword()))
+            return "Mật khẩu không đúng!";
+        return null;
+    }
+
+    public boolean changePassword(int id, String newPassword) {
+        String hashedPassword = PasswordUtil.hashPassword(newPassword);
+        return userDAO.updatePassword(id, hashedPassword);
+    }
+
+    public boolean deactivatedAccount(int id) {
+        return userDAO.updateStatus(id);
+    }
+
+    public boolean updateAvatar(int id, String avatarUrl) {
+        return userDAO.updateAvatar(id, avatarUrl);
+    }
 }

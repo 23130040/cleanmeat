@@ -11,7 +11,7 @@ public interface UserDAO {
 
     public boolean insert(User user);
 
-    public boolean update(User user);
+    public boolean updateProfile(User user);
 
     public boolean delete(int id);
 
@@ -22,4 +22,10 @@ public interface UserDAO {
     public boolean verifyEmail(String token);
 
     public User findByEmail(String email);
+
+    public boolean updatePassword(int id, String password);
+
+    public boolean updateStatus(int id);
+
+    public boolean updateAvatar(int id, String avatarUrl);
 }

@@ -6,6 +6,9 @@
     <title>Clean Meat -
         <c:out value="${requestScope.pageTitle}"></c:out></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/${requestScope.pageCss}">
 </head>
@@ -29,24 +32,25 @@
         </ul>
         <ul class="nav-auth">
             <li class="${active == 'cart' ? 'active' : ''}">
-                <a href="${pageContext.request.contextPath}/cart">
-                    <span><i class="fa-solid fa-cart-shopping"></i></span>
+                <a href="${pageContext.request.contextPath}/cart" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-quantity">0</span>
                 </a>
             </li>
+            <li class="nav-separator">|</li>
             <c:choose>
                 <c:when test="${not empty user}">
-                    <li class="nav-notification">
-                        <div class="notification-icon-wrapper">
-                            <i class="fa-regular fa-bell"></i>
-                            <span class="notification-badge">4</span>
-                        </div>
-                    </li>
+<%--                    <li class="nav-notification">--%>
+<%--                        <div class="notification-icon-wrapper">--%>
+<%--                            <i class="fa-regular fa-bell"></i>--%>
+<%--                            <span class="notification-badge">4</span>--%>
+<%--                        </div>--%>
+<%--                    </li>--%>
                     <li class="nav-user-profile" id="userProfileDropdown">
                         <div class="user-avatar">
                             <c:choose>
                                 <c:when test="${not empty user.avatar}">
-                                    <img src="${pageContext.request.contextPath}${user.avatar}">
+                                    <img src="${user.avatar}">
                                 </c:when>
                                 <c:otherwise>
                                     <i class="fa-solid fa-user"></i>
@@ -67,8 +71,9 @@
                 </c:when>
                 <c:otherwise>
                     <li class="nav-login-btn">
-                        <a href="${pageContext.request.contextPath}/sign-in"><i class="fa-regular fa-user"></i> Đăng
-                            nhập</a>
+                        <a href="${pageContext.request.contextPath}/sign-in">
+                            <i class="fa-regular fa-user"></i> Đăng nhập
+                        </a>
                     </li>
                 </c:otherwise>
             </c:choose>
