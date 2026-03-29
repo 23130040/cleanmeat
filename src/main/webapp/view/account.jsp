@@ -48,7 +48,9 @@
                 <section id="personal-info" class="content-panel active">
                     <h2 class="section-title">Thông tin cá nhân</h2>
                     <p class="section-desc">Quản lý các thông tin cá nhân cơ bản của bạn</p>
-                    <form id="profile-form" class="profile-form" method="post" action="${pageContext.request.contextPath}/account">
+                    <form id="profile-form" class="profile-form" method="post"
+                          action="${pageContext.request.contextPath}/account">
+                        <input type="hidden" name="action" value="updateProfile">
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label>Họ và tên</label>
@@ -85,11 +87,8 @@
                             </div>
                             <div class="form-group col-6">
                                 <label>Ngày sinh</label>
-                                <input type="text"
-                                       id="birthday"
-                                       name="birthday"
-                                       value="${user.birthdayFormatted}"
-                                       placeholder="dd/MM/yyyy">
+                                <input type="text" id="birthday" name="birthday"
+                                       value="${user.birthdayFormatted}" placeholder="dd/MM/yyyy">
                                 <span class="error-message" id="birthday-error">${error}</span>
                             </div>
                         </div>
@@ -103,38 +102,52 @@
                             <h2 class="section-title">Danh sách địa chỉ</h2>
                             <p class="section-desc">Địa chỉ nhận hàng mặc định và các địa chỉ khác</p>
                         </div>
-                        <button class="btn-add-address"><i class="fa-solid fa-plus"></i> Thêm địa chỉ
-                            mới
+                        <button id="addAddressBtn" class="btn-add-address">
+                            <i class="fa-solid fa-plus"></i> Thêm địa chỉ mới
                         </button>
                     </div>
 
                     <div class="address-cards-list">
-                        <div class="address-item-card active">
-                            <div class="address-header">
-                                <h4 class="addr-name">Nguyễn Văn A <span class="badge-default">Mặc
-                                                    định</span></h4>
-                                <div class="addr-actions">
-                                    <button class="btn-icon-text">Sửa</button>
-                                    <button class="btn-icon-text text-danger">Xóa</button>
-                                </div>
-                            </div>
-                            <p class="addr-phone">0901234567</p>
-                            <p class="addr-detail">123 Đường ABC, Phường 1, Quận 1, TP. Hồ Chí Minh</p>
-                        </div>
-
-                        <div class="address-item-card">
-                            <div class="address-header">
-                                <h4 class="addr-name">Nguyễn Văn B</h4>
-                                <div class="addr-actions">
-                                    <button class="btn-icon-text">Sửa</button>
-                                    <button class="btn-icon-text text-danger">Xóa</button>
-                                </div>
-                            </div>
-                            <p class="addr-phone">0908765432</p>
-                            <p class="addr-detail">456 Đường XYZ, Phường Tân Quy, Quận 7, TP. Hồ Chí Minh
-                            </p>
-                            <button class="btn-set-default">Thiết lập mặc định</button>
-                        </div>
+                        <c:choose>
+                            <c:when test="${not empty addresses}">
+                                <c:forEach var="addr" items="${addresses}">
+                                    <div class="address-item-card ${addr.is_Default ? 'active' : ''}">
+                                        <div class="address-header">
+                                            <div class="addr-actions">
+                                                <c:if test="${not addr.is_Default}">
+                                                    <form action="${pageContext.request.contextPath}/account" method="post">
+                                                        <input type="hidden" name="action" value="deleteAddress">
+                                                        <input type="hidden" name="addressId" value="${addr.id}">
+                                                        <button type="submit" class="btn-icon-text text-danger"
+                                                            title="Xóa địa chỉ">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                        <p class="addr-detail">${addr.address}
+                                            <c:if test="${addr.is_Default}">
+                                                <span class="badge-default">Mặc định</span>
+                                            </c:if>
+                                        </p>
+                                        <c:if test="${not addr.is_Default}">
+                                            <form action="${pageContext.request.contextPath}/account" method="post"
+                                                  style="display:inline;">
+                                                <input type="hidden" name="action" value="setDefaultAddress">
+                                                <input type="hidden" name="addressId" value="${addr.id}">
+                                                <button type="submit" class="btn-set-default">
+                                                    <i class="fa-regular fa-star"></i> Đặt làm mặc định
+                                                </button>
+                                            </form>
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <p style="font-style: italic; color:#b3b7bf">Không có địa chỉ nào.</p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </section>
 
@@ -162,26 +175,6 @@
                     <h2 class="section-title">Cài đặt tài khoản</h2>
                     <p class="section-desc">Tùy chỉnh các thông báo và cài đặt riêng tư</p>
                     <div class="settings-list">
-                        <div class="settings-item">
-                            <div class="item-info">
-                                <h4>Thông báo qua Email</h4>
-                                <p>Nhận cập nhật về các ưu đãi và đơn hàng mới</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="settings-item">
-                            <div class="item-info">
-                                <h4>Thông báo qua SMS</h4>
-                                <p>Nhận mã ưu đãi trực tiếp vào tin nhắn</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
                         <div class="settings-item danger-zone">
                             <div class="item-info">
                                 <h4>Vô hiệu hóa tài khoản</h4>
@@ -193,6 +186,38 @@
                 </section>
             </main>
         </div>
+    </div>
+</div>
+
+<div id="add-address-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-close-icon" data-dismiss="modal">&times;</div>
+        <div class="modal-header">
+            <h3>Thêm địa chỉ mới</h3>
+        </div>
+        <form id="address-form" method="post" action="${pageContext.request.contextPath}/account">
+            <input type="hidden" name="action" value="addAddress">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Địa chỉ chi tiết</label>
+                    <textarea id="streetAddress" name="streetAddress" rows="3"
+                              placeholder="Số nhà, tên đường, tòa nhà..."></textarea>
+                    <span class="error-message" id="streetAddress-error"></span>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" name="isDefault" id="isDefault">
+                        <span class="checkbox-text">Đặt làm địa chỉ mặc định</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" data-dismiss="modal">
+                    Hủy bỏ
+                </button>
+                <button type="submit" class="btn-modal-save">Lưu địa chỉ</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -227,21 +252,5 @@
         </div>
     </div>
 </div>
-
-<c:if test="${param['update-profile'] == 'success'}">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            openModal("notification-modal");
-        });
-    </script>
-</c:if>
-
-<c:if test="${param['update-profile'] == 'failed'}">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            openModal("error-modal");
-        });
-    </script>
-</c:if>
 
 <script src="${pageContext.request.contextPath}/js/account.js"></script>

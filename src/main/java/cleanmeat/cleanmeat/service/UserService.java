@@ -92,4 +92,9 @@ public class UserService {
     public User findById(int id) {
         return userDAO.findById(id);
     }
+
+    public boolean changePassword(int id, String newPassword) {
+        String hashedPassword = PasswordUtil.hashPassword(newPassword);
+        return userDAO.updatePassword(id, hashedPassword);
+    }
 }

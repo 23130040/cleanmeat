@@ -1,6 +1,7 @@
 package cleanmeat.cleanmeat.controller;
 
 import cleanmeat.cleanmeat.model.User;
+import cleanmeat.cleanmeat.service.AddressService;
 import cleanmeat.cleanmeat.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -10,12 +11,19 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 @WebServlet(name = "account", value = "/account")
 public class Account extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("user") != null) {
+            User user = (User) session.getAttribute("user");
+            AddressService addressService = new AddressService();
+            request.setAttribute("addresses", addressService.getAddressesByUserId(user.getId()));
+        }
+
         request.setAttribute("pageTitle", "Tài khoản");
         request.setAttribute("pageContent", "/view/account.jsp");
         request.setAttribute("pageCss", "account.css");
@@ -33,6 +41,34 @@ public class Account extends HttpServlet {
             return;
         }
         User user = (User) session.getAttribute("user");
+        String action = request.getParameter("action");
+
+        if ("addAddress".equals(action)) {
+            String address = request.getParameter("streetAddress");
+            String isDefaultParam = request.getParameter("isDefault");
+            boolean isDefault = (isDefaultParam != null && isDefaultParam.equals("on"));
+            AddressService addressService = new AddressService();
+            addressService.addAddress(user.getId(), address, isDefault);
+            response.sendRedirect(request.getContextPath() + "/account#addresses");
+            return;
+        }
+
+        if ("setDefaultAddress".equals(action)) {
+            int addressId = Integer.parseInt(request.getParameter("addressId"));
+            AddressService addressService = new AddressService();
+            addressService.setDefaultAddress(user.getId(), addressId);
+            response.sendRedirect(request.getContextPath() + "/account#addresses");
+            return;
+        }
+
+        if ("deleteAddress".equals(action)) {
+            int addressId = Integer.parseInt(request.getParameter("addressId"));
+            AddressService addressService = new AddressService();
+            addressService.deleteAddress(addressId);
+            response.sendRedirect(request.getContextPath() + "/account#addresses");
+            return;
+        }
+
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
@@ -68,9 +104,9 @@ public class Account extends HttpServlet {
         if (updated) {
             User updatedUsser = userService.findById(user.getId());
             session.setAttribute("user", updatedUsser);
-            response.sendRedirect(request.getContextPath() + "/account?update-profile=success");
+            response.sendRedirect(request.getContextPath() + "/account#personal-info");
         } else {
-            response.sendRedirect(request.getContextPath() + "/account?update-profile=failed");
+            response.sendRedirect(request.getContextPath() + "/account#personal-info");
         }
     }
 }

@@ -22,4 +22,6 @@ public interface UserDAO {
     public boolean verifyEmail(String token);
 
     public User findByEmail(String email);
+
+    public boolean updatePassword(int id, String password);
 }

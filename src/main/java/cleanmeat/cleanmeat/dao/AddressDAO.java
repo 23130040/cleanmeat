@@ -14,4 +14,6 @@ public interface AddressDAO {
     public boolean update(Address address);
 
     public boolean delete(int id);
+
+    public boolean setDefault(int user_id, int addressId);
 }

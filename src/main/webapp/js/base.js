@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    document.addEventListener('click', function (e) {
+        const dismissBtn = e.target.closest('[data-dismiss="modal"]');
+        if (dismissBtn) {
+            const modal = dismissBtn.closest('.modal');
+            if (modal) {
+                closeModal(modal.id);
+            }
+        }
+    });
+
 });
 
 function openModal(id) {
@@ -27,3 +37,10 @@ function openModal(id) {
     }
 }
 
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+}

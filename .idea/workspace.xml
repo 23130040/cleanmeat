@@ -11,20 +11,20 @@
   <component name="ChangeListManager">
     <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/AddressDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/AddressDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/AddressDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/AddressDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/account.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/account.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/cart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/signup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/baseAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/baseAdmin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/contact.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/contact.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/account.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/base.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/view/account.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/account.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/base.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +36,10 @@
       <list>
         <option value="Interface" />
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="Jsp File" />
         <option value="CSS File" />
         <option value="Servlet" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -275,7 +275,8 @@
       <workItem from="1774720230261" duration="155000" />
       <workItem from="1774720422061" duration="1073000" />
       <workItem from="1774753635594" duration="8877000" />
-      <workItem from="1774763469662" duration="8334000" />
+      <workItem from="1774763469662" duration="14506000" />
+      <workItem from="1774782651881" duration="10558000" />
     </task>
     <servers />
   </component>
