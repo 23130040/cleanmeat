@@ -50,7 +50,7 @@
                         <div class="user-avatar">
                             <c:choose>
                                 <c:when test="${not empty user.avatar}">
-                                    <img src="${pageContext.request.contextPath}${user.avatar}">
+                                    <img src="${user.avatar}">
                                 </c:when>
                                 <c:otherwise>
                                     <i class="fa-solid fa-user"></i>

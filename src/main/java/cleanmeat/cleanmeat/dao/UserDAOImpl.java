@@ -189,4 +189,17 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean updateAvatar(int id, String avatarUrl) {
+        String sql = "UPDATE user SET avatar = ?, updated_at = NOW() WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, avatarUrl);
+            ps.setInt(2, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

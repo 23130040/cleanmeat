@@ -226,6 +226,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 } else if (window.location.hash === '#personal-info') {
                     successMsg.textContent = 'Thông tin cá nhân đã được cập nhật!';
+                } else if (window.location.hash === '#upload-avatar') {
+                    successMsg.textContent = 'Ảnh đại diện đã được cập nhật thành công!';
                 }
             }
             openModal('notification-modal');
@@ -259,5 +261,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const newUrl = window.location.pathname + window.location.hash;
             window.history.replaceState({}, document.title, newUrl);
         }
+    }
+
+    const avatarInput = document.getElementById("avatarUpload");
+    const displayAvatar = document.getElementById("displayAvatar");
+
+    if (avatarInput) {
+        avatarInput.addEventListener("change", function () {
+            const file = this.files[0];
+
+            if (file) {
+                if (!file.type.startsWith("image/")) {
+                    alert("Vui lòng chọn file hình ảnh");
+                    return;
+                }
+
+                const imageURL = URL.createObjectURL(file);
+                displayAvatar.src = imageURL;
+
+                const saveBtn = document.getElementById("btnSaveAvatar");
+                if (saveBtn) {
+                    saveBtn.style.display = "flex";
+                }
+            }
+        });
     }
 });

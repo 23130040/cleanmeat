@@ -121,4 +121,8 @@ public class UserService {
     public boolean deactivatedAccount(int id) {
         return userDAO.updateStatus(id);
     }
+
+    public boolean updateAvatar(int id, String avatarUrl) {
+        return userDAO.updateAvatar(id, avatarUrl);
+    }
 }

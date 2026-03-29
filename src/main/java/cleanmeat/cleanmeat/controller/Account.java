@@ -3,6 +3,7 @@ package cleanmeat.cleanmeat.controller;
 import cleanmeat.cleanmeat.model.User;
 import cleanmeat.cleanmeat.service.AddressService;
 import cleanmeat.cleanmeat.service.UserService;
+import cleanmeat.cleanmeat.utils.R2Util;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @WebServlet(name = "account", value = "/account")
+@MultipartConfig
 public class Account extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +25,6 @@ public class Account extends HttpServlet {
             AddressService addressService = new AddressService();
             request.setAttribute("addresses", addressService.getAddressesByUserId(user.getId()));
         }
-
         request.setAttribute("pageTitle", "Tài khoản");
         request.setAttribute("pageContent", "/view/account.jsp");
         request.setAttribute("pageCss", "account.css");
@@ -35,7 +36,6 @@ public class Account extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
-
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/sign-in");
             return;
@@ -102,6 +102,24 @@ public class Account extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/account?deactivated=success#settings");
             } else {
                 response.sendRedirect(request.getContextPath() + "/account?deactivated=failed#settings");
+            }
+            return;
+        }
+        if ("uploadAvatar".equals(action)) {
+            Part avatarPart = request.getPart("avatar");
+            boolean updated = false;
+            if (avatarPart != null && avatarPart.getSize() > 0) {
+                String fileName = user.getId() + "_" + avatarPart.getSubmittedFileName();
+                R2Util r2Util = new R2Util();
+                String avatarUrl = r2Util.uploadFile(fileName, avatarPart.getInputStream(), avatarPart.getSize(), avatarPart.getContentType());
+                updated = userService.updateAvatar(user.getId(), avatarUrl);
+                User updatedUser = userService.findById(user.getId());
+                session.setAttribute("user", updatedUser);
+            }
+            if (updated) {
+                response.sendRedirect(request.getContextPath() + "/account?updated=success");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/account?updated=failed");
             }
             return;
         }

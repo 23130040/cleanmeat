@@ -11,9 +11,10 @@
                 <div class="user-brief">
                     <form class="brief-avatar" action="${pageContext.request.contextPath}/account"
                           method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="uploadAvatar">
                         <div class="avatar-wrapper">
                             <img id="displayAvatar"
-                                 src="${pageContext.request.contextPath}/images/default-avatar.png"
+                                 src="${user.avatar != null ? user.avatar : pageContext.request.contextPath.concat('/images/default-avatar.png')}"
                                  alt="User Avatar">
                             <label for="avatarUpload" class="avatar-edit-icon"><i
                                     class="fa-solid fa-camera"></i></label>
@@ -278,7 +279,8 @@
                 <i class="fa-solid fa-user-slash"></i>
             </div>
             <h4>Bạn có chắc chắn muốn vô hiệu hóa tài khoản?</h4>
-            <p>Hành động này sẽ ngăn bạn đăng nhập vào hệ thống. Mọi dữ liệu cá nhân sẽ được bảo lưu nhưng tài khoản sẽ ở trạng thái không hoạt động cho đến khi được quản trị viên kích hoạt lại.</p>
+            <p>Hành động này sẽ ngăn bạn đăng nhập vào hệ thống. Mọi dữ liệu cá nhân sẽ được bảo lưu nhưng tài khoản sẽ
+                ở trạng thái không hoạt động cho đến khi được quản trị viên kích hoạt lại.</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn-secondary" data-dismiss="modal">
@@ -298,10 +300,12 @@
         <form id="deactivate-form" method="post" action="${pageContext.request.contextPath}/account">
             <input type="hidden" name="action" value="deactivateAccount">
             <div class="modal-body" style="text-align: left; padding: 0 30px 10px;">
-                <p style="color: #697386; margin-bottom: 20px;">Để bảo mật, vui lòng nhập mật khẩu tài khoản của bạn để xác nhận hành động vô hiệu hóa này.</p>
+                <p style="color: #697386; margin-bottom: 20px;">Để bảo mật, vui lòng nhập mật khẩu tài khoản của bạn để
+                    xác nhận hành động vô hiệu hóa này.</p>
                 <div class="form-group">
                     <label>Mật khẩu tài khoản</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Nhập mật khẩu của bạn" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword"
+                           placeholder="Nhập mật khẩu của bạn" required>
                     <span class="error-message" id="confirmPassword-error">${error}</span>
                 </div>
             </div>
@@ -314,7 +318,9 @@
         </form>
     </div>
 </div>
+
 <script>
     const CONTEXTPATH = "${pageContext.request.contextPath}";
 </script>
+
 <script src="${pageContext.request.contextPath}/js/account.js"></script>

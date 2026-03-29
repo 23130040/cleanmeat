@@ -26,4 +26,6 @@ public interface UserDAO {
     public boolean updatePassword(int id, String password);
 
     public boolean updateStatus(int id);
+
+    public boolean updateAvatar(int id, String avatarUrl);
 }
