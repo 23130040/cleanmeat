@@ -38,7 +38,6 @@ public class SignUp extends HttpServlet {
             request.getRequestDispatcher("/view/base.jsp").forward(request, response);
             return;
         }
-
         if (userService.signUp(username, email, phone, password)) {
             response.sendRedirect(request.getContextPath() + "/sign-up?signup=success");
         } else {

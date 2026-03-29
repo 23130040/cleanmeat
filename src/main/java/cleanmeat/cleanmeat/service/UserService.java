@@ -93,6 +93,19 @@ public class UserService {
         return userDAO.findById(id);
     }
 
+    public String validatePassword(int id, String oldPassword, String newPassword, String confirmPassword) {
+        User user = userDAO.findById(id);
+        if (!PasswordUtil.verifyPassword(oldPassword, user.getPassword()))
+            return "Mật khẩu hiện tại không đúng!";
+        if (newPassword.equals(oldPassword))
+            return "Mật khẩu mới không được trùng với mật khẩu hiện tại";
+        if (!UserValidate.passwordValidate(newPassword))
+            return "Mật khẩu mới không đủ mạnh!";
+        if (!newPassword.equals(confirmPassword))
+            return "Mật khẩu xác nhận không khớp";
+        return null;
+    }
+
     public boolean changePassword(int id, String newPassword) {
         String hashedPassword = PasswordUtil.hashPassword(newPassword);
         return userDAO.updatePassword(id, hashedPassword);

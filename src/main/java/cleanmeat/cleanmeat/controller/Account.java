@@ -40,6 +40,7 @@ public class Account extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/sign-in");
             return;
         }
+        UserService userService = new UserService();
         User user = (User) session.getAttribute("user");
         String action = request.getParameter("action");
 
@@ -66,6 +67,26 @@ public class Account extends HttpServlet {
             AddressService addressService = new AddressService();
             addressService.deleteAddress(addressId);
             response.sendRedirect(request.getContextPath() + "/account#addresses");
+            return;
+        }
+        if ("changePassword".equals(action)) {
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmNew = request.getParameter("confirmNew");
+            
+            String error = userService.validatePassword(user.getId(), oldPassword, newPassword, confirmNew);
+            if (error != null) {
+                session.setAttribute("error", error);
+                response.sendRedirect(request.getContextPath() + "/account?updated=error#change-password");
+                return;
+            }
+            
+            boolean updated = userService.changePassword(user.getId(), newPassword);
+            if (updated) {
+                response.sendRedirect(request.getContextPath() + "/account?updated=success#change-password");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/account?updated=failed#change-password");
+            }
             return;
         }
 
@@ -98,13 +119,13 @@ public class Account extends HttpServlet {
             return;
         }
 
-        UserService userService = new UserService();
+
         boolean updated = userService.updateProfile(user.getId(), name, phone, gender, birthday);
 
         if (updated) {
             User updatedUsser = userService.findById(user.getId());
             session.setAttribute("user", updatedUsser);
-            response.sendRedirect(request.getContextPath() + "/account#personal-info");
+            response.sendRedirect(request.getContextPath() + "/account?updated=success#personal-info");
         } else {
             response.sendRedirect(request.getContextPath() + "/account#personal-info");
         }

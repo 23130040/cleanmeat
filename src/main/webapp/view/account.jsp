@@ -115,11 +115,12 @@
                                         <div class="address-header">
                                             <div class="addr-actions">
                                                 <c:if test="${not addr.is_Default}">
-                                                    <form action="${pageContext.request.contextPath}/account" method="post">
+                                                    <form action="${pageContext.request.contextPath}/account"
+                                                          method="post">
                                                         <input type="hidden" name="action" value="deleteAddress">
                                                         <input type="hidden" name="addressId" value="${addr.id}">
                                                         <button type="submit" class="btn-icon-text text-danger"
-                                                            title="Xóa địa chỉ">
+                                                                title="Xóa địa chỉ">
                                                             <i class="fa-regular fa-trash-can"></i>
                                                         </button>
                                                     </form>
@@ -154,18 +155,25 @@
                 <section id="change-password" class="content-panel">
                     <h2 class="section-title">Đổi mật khẩu</h2>
                     <p class="section-desc">Thay đổi mật khẩu định kỳ để bảo mật tài khoản</p>
-                    <form class="profile-form">
+                    <form class="profile-form" id="password-form" method="post"
+                          action="${pageContext.request.contextPath}/account">
+                        <input type="hidden" name="action" value="changePassword">
                         <div class="form-group">
                             <label>Mật khẩu hiện tại</label>
-                            <input type="password" placeholder="Nhập mật khẩu hiện tại">
+                            <input type="password" id="oldPassword" name="oldPassword"
+                                   placeholder="Nhập mật khẩu hiện tại">
+                            <span class="error-message" id="oldPassword-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu mới</label>
-                            <input type="password" placeholder="Nhập mật khẩu mới">
+                            <input type="password" id="newPassword" name="newPassword" placeholder="Nhập mật khẩu mới">
+                            <span class="error-message" id="newPassword-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Xác nhận mật khẩu mới</label>
-                            <input type="password" placeholder="Xác nhận lại mật khẩu mới">
+                            <input type="password" id="confirmNew" name="confirmNew"
+                                   placeholder="Xác nhận lại mật khẩu mới">
+                            <span class="error-message" id="confirmNew-error"></span>
                         </div>
                         <button type="submit" class="btn-primary-premium">Cập nhật mật khẩu</button>
                     </form>
@@ -224,15 +232,14 @@
 <div id="notification-modal" class="modal">
     <div class="modal-content">
         <div class="modal-header success">
-            <h3><i class="fa-solid fa-check"></i> Thành công!</h3>
+            <h3><i class="fa-solid fa-circle-check"></i> <span id="success-modal-title">Thành công!</span></h3>
+            <span class="modal-close-icon" data-dismiss="modal"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class="modal-body">
-            <p>Thông tin cá nhân của bạn đã được cập nhật thành công.</p>
+            <p id="success-modal-message">Thông tin của bạn đã được cập nhật thành công.</p>
         </div>
         <div class="modal-footer">
-            <a href="${pageContext.request.contextPath}/account">
-                <button class="btn-modal-ok" data-dismiss="modal"> OK</button>
-            </a>
+            <button id="ok-btn" class="btn-modal-ok" data-dismiss="modal">Đồng ý</button>
         </div>
     </div>
 </div>
@@ -240,17 +247,26 @@
 <div id="error-modal" class="modal">
     <div class="modal-content">
         <div class="modal-header error">
-            <h3><i class="fa-solid fa-xmark"></i> Có lỗi xảy ra</h3>
+            <h3><i class="fa-solid fa-circle-exclamation"></i> <span id="error-modal-title">Có lỗi xảy ra</span></h3>
+            <span class="modal-close-icon" data-dismiss="modal"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class="modal-body">
-            <p>Không thể cập nhật thông tin lúc này. Vui lòng kiểm tra lại.</p>
+            <p id="error-modal-message">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.error}">
+                        ${sessionScope.error}
+                        <% session.removeAttribute("error"); %>
+                    </c:when>
+                    <c:otherwise>Không thể thực hiện yêu cầu lúc này. Vui lòng kiểm tra lại.</c:otherwise>
+                </c:choose>
+            </p>
         </div>
         <div class="modal-footer">
-            <a href="${pageContext.request.contextPath}/account">
-                <button class="btn-modal-ok" data-dismiss="modal">Đóng</button>
-            </a>
+            <button class="btn-modal-ok" data-dismiss="modal">Đóng</button>
         </div>
     </div>
 </div>
-
+<script>
+    const CONTEXTPATH = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/account.js"></script>

@@ -116,6 +116,77 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    const passwordForm = document.getElementById('password-form');
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', function (e) {
+            let isValid = true;
+            const oldPass = document.getElementById('oldPassword');
+            const newPass = document.getElementById('newPassword');
+            const confirmPass = document.getElementById('confirmNew');
+            
+            const oldError = document.getElementById('oldPassword-error');
+            const newError = document.getElementById('newPassword-error');
+            const confirmError = document.getElementById('confirmNew-error');
+
+            clearError(oldPass, oldError);
+            clearError(newPass, newError);
+            clearError(confirmPass, confirmError);
+
+            if (oldPass.value.trim() === '') {
+                showError(oldPass, oldError, 'Vui lòng nhập mật khẩu hiện tại');
+                isValid = false;
+            }
+
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (newPass.value.trim() === '') {
+                showError(newPass, newError, 'Vui lòng nhập mật khẩu mới');
+                isValid = false;
+            } else if (!passRegex.test(newPass.value)) {
+                showError(newPass, newError, 'Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt');
+                isValid = false;
+            }
+
+            if (confirmPass.value.trim() === '') {
+                showError(confirmPass, confirmError, 'Vui lòng xác nhận mật khẩu mới');
+                isValid = false;
+            } else if (confirmPass.value !== newPass.value) {
+                showError(confirmPass, confirmError, 'Mật khẩu xác nhận không khớp');
+                isValid = false;
+            }
+
+            if (!isValid) e.preventDefault();
+        });
+    }
+
+    function checkURLParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const updated = urlParams.get('updated');
+        
+        if (updated === 'success') {
+            const successMsg = document.getElementById('success-modal-message');
+            if (successMsg) {
+                if (window.location.hash === '#change-password') {
+                    successMsg.textContent = 'Mật khẩu của bạn đã được thay đổi thành công! Vui lòng đăng nhập lại.';
+                    document.getElementById("ok-btn").addEventListener("click", () => {
+                       window.location.href = CONTEXTPATH + "/sign-in";
+                    });
+                } else if (window.location.hash === '#personal-info') {
+                    successMsg.textContent = 'Thông tin cá nhân đã được cập nhật!';
+                }
+            }
+            openModal('notification-modal');
+        } else if (updated === 'failed' || updated === 'error') {
+            openModal('error-modal');
+        }
+
+        if (updated) {
+            const newUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    }
+
+    checkURLParams();
+
     const addAddressBtn = document.getElementById("addAddressBtn");
     if (addAddressBtn) {
         addAddressBtn.addEventListener('click', function () {
@@ -150,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.onclick = function (event) {
-        if (event.target === document.getElementById("add-address-modal")) {
-            modal.style.display = "none";
+        if (event.target.classList.contains('modal')) {
+            closeModal(event.target.id);
         }
     };
 });
