@@ -24,4 +24,6 @@ public interface UserDAO {
     public User findByEmail(String email);
 
     public boolean updatePassword(int id, String password);
+
+    public boolean updateStatus(int id);
 }

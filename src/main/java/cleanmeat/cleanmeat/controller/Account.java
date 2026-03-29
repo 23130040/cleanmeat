@@ -73,14 +73,14 @@ public class Account extends HttpServlet {
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String confirmNew = request.getParameter("confirmNew");
-            
+
             String error = userService.validatePassword(user.getId(), oldPassword, newPassword, confirmNew);
             if (error != null) {
                 session.setAttribute("error", error);
                 response.sendRedirect(request.getContextPath() + "/account?updated=error#change-password");
                 return;
             }
-            
+
             boolean updated = userService.changePassword(user.getId(), newPassword);
             if (updated) {
                 response.sendRedirect(request.getContextPath() + "/account?updated=success#change-password");
@@ -89,12 +89,27 @@ public class Account extends HttpServlet {
             }
             return;
         }
+        if ("deactivateAccount".equals(action)) {
+            String confirmPassword = request.getParameter("confirmPassword");
+            String error = userService.validatePassword(user.getId(), confirmPassword);
+            if (error != null) {
+                session.setAttribute("error", error);
+                response.sendRedirect(request.getContextPath() + "/account?confirm=error#settings");
+                return;
+            }
+            boolean deactivated = userService.deactivatedAccount(user.getId());
+            if (deactivated) {
+                response.sendRedirect(request.getContextPath() + "/account?deactivated=success#settings");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/account?deactivated=failed#settings");
+            }
+            return;
+        }
 
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String birthdayStr = request.getParameter("birthday");
-
         LocalDate birthday = null;
         if (birthdayStr != null && !birthdayStr.trim().isEmpty()) {
             try {
@@ -106,22 +121,17 @@ public class Account extends HttpServlet {
                 return;
             }
         }
-
         if (name == null || name.trim().isEmpty()) {
             request.setAttribute("error", "Họ và tên không được để trống!");
             doGet(request, response);
             return;
         }
-
         if (phone == null || phone.trim().isEmpty()) {
             request.setAttribute("error", "Số điện thoại không được để trống!");
             doGet(request, response);
             return;
         }
-
-
         boolean updated = userService.updateProfile(user.getId(), name, phone, gender, birthday);
-
         if (updated) {
             User updatedUsser = userService.findById(user.getId());
             session.setAttribute("user", updatedUsser);

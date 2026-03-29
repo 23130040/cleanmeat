@@ -106,8 +106,19 @@ public class UserService {
         return null;
     }
 
+    public String validatePassword(int id, String password) {
+        User user = userDAO.findById(id);
+        if (!PasswordUtil.verifyPassword(password, user.getPassword()))
+            return "Mật khẩu không đúng!";
+        return null;
+    }
+
     public boolean changePassword(int id, String newPassword) {
         String hashedPassword = PasswordUtil.hashPassword(newPassword);
         return userDAO.updatePassword(id, hashedPassword);
+    }
+
+    public boolean deactivatedAccount(int id) {
+        return userDAO.updateStatus(id);
     }
 }

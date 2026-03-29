@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const profileForm = document.getElementById('profile-form');
-
     if (profileForm) {
         profileForm.addEventListener('submit', function (e) {
             let isValid = true;
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const oldPass = document.getElementById('oldPassword');
             const newPass = document.getElementById('newPassword');
             const confirmPass = document.getElementById('confirmNew');
-            
+
             const oldError = document.getElementById('oldPassword-error');
             const newError = document.getElementById('newPassword-error');
             const confirmError = document.getElementById('confirmNew-error');
@@ -156,33 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!isValid) e.preventDefault();
         });
-    }
-
-    function checkURLParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const updated = urlParams.get('updated');
-        
-        if (updated === 'success') {
-            const successMsg = document.getElementById('success-modal-message');
-            if (successMsg) {
-                if (window.location.hash === '#change-password') {
-                    successMsg.textContent = 'Mật khẩu của bạn đã được thay đổi thành công! Vui lòng đăng nhập lại.';
-                    document.getElementById("ok-btn").addEventListener("click", () => {
-                       window.location.href = CONTEXTPATH + "/sign-in";
-                    });
-                } else if (window.location.hash === '#personal-info') {
-                    successMsg.textContent = 'Thông tin cá nhân đã được cập nhật!';
-                }
-            }
-            openModal('notification-modal');
-        } else if (updated === 'failed' || updated === 'error') {
-            openModal('error-modal');
-        }
-
-        if (updated) {
-            const newUrl = window.location.pathname + window.location.hash;
-            window.history.replaceState({}, document.title, newUrl);
-        }
     }
 
     checkURLParams();
@@ -220,9 +192,72 @@ document.addEventListener('DOMContentLoaded', function () {
         errorSpan.style.display = 'none';
     }
 
+    const disableBtn = document.getElementById("disableBtn");
+    if (disableBtn) {
+        disableBtn.addEventListener('click', function () {
+            openModal('deactivate-modal');
+        });
+    }
+    const dangerBtn = document.getElementById("dangerBtn");
+    if (dangerBtn) {
+        dangerBtn.addEventListener('click', function () {
+            closeModal('deactivate-modal');
+            openModal('password-confirm-modal');
+        });
+    }
+
     window.onclick = function (event) {
         if (event.target.classList.contains('modal')) {
             closeModal(event.target.id);
         }
     };
+
+    function checkURLParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const updated = urlParams.get('updated');
+
+        if (updated === 'success') {
+            const successMsg = document.getElementById('success-modal-message');
+            if (successMsg) {
+                if (window.location.hash === '#change-password') {
+                    successMsg.textContent = 'Mật khẩu của bạn đã được thay đổi thành công! Vui lòng đăng nhập lại.';
+                    document.getElementById("ok-btn").addEventListener("click", () => {
+                        window.location.href = CONTEXTPATH + "/sign-in";
+                    });
+                } else if (window.location.hash === '#personal-info') {
+                    successMsg.textContent = 'Thông tin cá nhân đã được cập nhật!';
+                }
+            }
+            openModal('notification-modal');
+        } else if (updated === 'failed' || updated === 'error') {
+            openModal('error-modal');
+        }
+
+        const deactivated = urlParams.get('deactivated');
+        if (deactivated === 'success') {
+            const successMsg = document.getElementById('success-modal-message');
+            const successTitle = document.getElementById('success-modal-title');
+            if (successMsg && successTitle) {
+                successTitle.textContent = 'Vô hiệu hóa thành công';
+                successMsg.textContent = 'Tài khoản của bạn đã được vô hiệu hóa. Bạn sẽ được chuyển hướng ra trang chủ.';
+                document.getElementById("ok-btn").addEventListener("click", () => {
+                    window.location.href = CONTEXTPATH + "/sign-in";
+                });
+            }
+            openModal('notification-modal');
+        } else if (deactivated === 'failed') {
+            openModal('error-modal');
+        }
+
+        const confirm = urlParams.get('confirm');
+        if (confirm === 'error') {
+            switchTab('settings');
+            openModal('password-confirm-modal');
+        }
+
+        if (updated) {
+            const newUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    }
 });

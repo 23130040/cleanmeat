@@ -188,7 +188,7 @@
                                 <h4>Vô hiệu hóa tài khoản</h4>
                                 <p>Cảnh báo: Tài khoản sẽ không thể đăng nhập sau khi vô hiệu hóa</p>
                             </div>
-                            <button class="btn-outline-danger">Xử lý ngay</button>
+                            <button class="btn-outline-danger" id="disableBtn">Xử lý ngay</button>
                         </div>
                     </div>
                 </section>
@@ -264,6 +264,54 @@
         <div class="modal-footer">
             <button class="btn-modal-ok" data-dismiss="modal">Đóng</button>
         </div>
+    </div>
+</div>
+
+<div id="deactivate-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-close-icon" data-dismiss="modal">&times;</div>
+        <div class="modal-header danger-header">
+            <h3><i class="fa-solid fa-triangle-exclamation"></i> Xác nhận vô hiệu hóa</h3>
+        </div>
+        <div class="modal-body danger-body">
+            <div class="warning-icon-large">
+                <i class="fa-solid fa-user-slash"></i>
+            </div>
+            <h4>Bạn có chắc chắn muốn vô hiệu hóa tài khoản?</h4>
+            <p>Hành động này sẽ ngăn bạn đăng nhập vào hệ thống. Mọi dữ liệu cá nhân sẽ được bảo lưu nhưng tài khoản sẽ ở trạng thái không hoạt động cho đến khi được quản trị viên kích hoạt lại.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" data-dismiss="modal">
+                Hủy bỏ
+            </button>
+            <button type="button" class="btn-danger-premium" id="dangerBtn" style="flex: 2;">Vô hiệu hóa ngay</button>
+        </div>
+    </div>
+</div>
+
+<div id="password-confirm-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-close-icon" data-dismiss="modal">&times;</div>
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-shield-halved"></i> Xác thực mật khẩu</h3>
+        </div>
+        <form id="deactivate-form" method="post" action="${pageContext.request.contextPath}/account">
+            <input type="hidden" name="action" value="deactivateAccount">
+            <div class="modal-body" style="text-align: left; padding: 0 30px 10px;">
+                <p style="color: #697386; margin-bottom: 20px;">Để bảo mật, vui lòng nhập mật khẩu tài khoản của bạn để xác nhận hành động vô hiệu hóa này.</p>
+                <div class="form-group">
+                    <label>Mật khẩu tài khoản</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Nhập mật khẩu của bạn" required>
+                    <span class="error-message" id="confirmPassword-error">${error}</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" data-dismiss="modal">
+                    Quay lại
+                </button>
+                <button type="submit" class="btn-danger-premium" style="flex: 2;">Xác nhận và vô hiệu hóa</button>
+            </div>
+        </form>
     </div>
 </div>
 <script>
