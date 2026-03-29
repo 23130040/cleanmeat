@@ -94,7 +94,6 @@
     </div>
 </div>
 
-<!-- Revenue and Top Products Row -->
 <div class="dashboard-section-row">
     <div class="section-card">
         <div class="section-header">

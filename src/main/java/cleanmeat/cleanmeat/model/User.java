@@ -3,6 +3,7 @@ package cleanmeat.cleanmeat.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class User implements Serializable {
     private int id;
@@ -19,7 +20,8 @@ public class User implements Serializable {
     private boolean status;
     private String verify_token;
 
-    public User() {}
+    public User() {
+    }
 
     public User(int id, String name, String email, String password, String phone, String gender, LocalDate birthday, String role, String avatar, LocalDateTime created_at, LocalDateTime updated_at, boolean status, String verify_token) {
         this.id = id;
@@ -139,5 +141,10 @@ public class User implements Serializable {
 
     public void setVerify_token(String verify_token) {
         this.verify_token = verify_token;
+    }
+
+    public String getBirthdayFormatted() {
+        if (birthday == null) return "";
+        return birthday.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }

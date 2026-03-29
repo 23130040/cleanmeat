@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="profile-section">
@@ -8,14 +9,22 @@
         <div class="profile-layout">
             <aside class="profile-sidebar glass">
                 <div class="user-brief">
-                    <div class="brief-avatar">
-                        <img id="displayAvatar" src="${pageContext.request.contextPath}/images/default-avatar.png" alt="User Avatar">
-                        <label for="avatarUpload" class="avatar-edit-icon"><i class="fa-solid fa-camera"></i></label>
-                        <input type="file" id="avatarUpload" hidden accept="image/*">
-                    </div>
+                    <form class="brief-avatar" action="${pageContext.request.contextPath}/account"
+                          method="post" enctype="multipart/form-data">
+                        <div class="avatar-wrapper">
+                            <img id="displayAvatar"
+                                 src="${pageContext.request.contextPath}/images/default-avatar.png"
+                                 alt="User Avatar">
+                            <label for="avatarUpload" class="avatar-edit-icon"><i
+                                    class="fa-solid fa-camera"></i></label>
+                        </div>
+                        <input type="file" id="avatarUpload" name="avatar" hidden accept="image/*">
+                        <button type="submit" class="btn-save-avatar" id="btnSaveAvatar">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Lưu ảnh đại diện
+                        </button>
+                    </form>
                     <div class="brief-info">
                         <span class="brief-name">${user.name != null ? user.name : 'Người dùng'}</span>
-                        <span class="brief-sub">Thành viên mẫn cán</span>
                     </div>
                 </div>
 
@@ -39,34 +48,49 @@
                 <section id="personal-info" class="content-panel active">
                     <h2 class="section-title">Thông tin cá nhân</h2>
                     <p class="section-desc">Quản lý các thông tin cá nhân cơ bản của bạn</p>
-                    <form class="profile-form">
+                    <form id="profile-form" class="profile-form" method="post" action="${pageContext.request.contextPath}/account">
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label>Họ và tên</label>
-                                <input type="text" value="${user.name}" placeholder="Nhập họ và tên">
+                                <input type="text" id="name" name="name" value="${user.name}"
+                                       placeholder="Nhập họ và tên">
+                                <span class="error-message" id="name-error">${error}</span>
                             </div>
                             <div class="form-group col-6">
                                 <label>Số điện thoại</label>
-                                <input type="tel" value="${user.phone}" placeholder="Nhập số điện thoại">
+                                <input type="tel" id="phone" name="phone" value="${user.phone}"
+                                       placeholder="Nhập số điện thoại">
+                                <span class="error-message" id="phone-error">${error}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Địa chỉ Email</label>
-                            <input type="email" value="${user.email}" placeholder="Nhập email" disabled>
+                            <input type="email" id="email" name="email" value="${user.email}"
+                                   placeholder="Nhập email" disabled>
                             <span class="field-note">Bạn không thể thay đổi địa chỉ email liên kết</span>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label>Giới tính</label>
-                                <select>
-                                    <option value="male">Nam</option>
-                                    <option value="female">Nữ</option>
-                                    <option value="other">Khác</option>
+                                <select id="gender" name="gender">
+                                    <option value="male" ${user.gender=='male' ? 'selected' : '' }>Nam
+                                    </option>
+                                    <option value="female" ${user.gender=='female' ? 'selected' : '' }>Nữ
+                                    </option>
+                                    <option value="other" ${user.gender !='male' && user.gender !='female'
+                                            ? 'selected' : '' }>
+                                        Khác
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group col-6">
                                 <label>Ngày sinh</label>
-                                <input type="date">
+                                <input type="text"
+                                       id="birthday"
+                                       name="birthday"
+                                       value="${user.birthdayFormatted}"
+                                       placeholder="dd/MM/yyyy">
+                                <span class="error-message" id="birthday-error">${error}</span>
                             </div>
                         </div>
                         <button type="submit" class="btn-primary-premium">Cập nhật thông tin</button>
@@ -79,13 +103,16 @@
                             <h2 class="section-title">Danh sách địa chỉ</h2>
                             <p class="section-desc">Địa chỉ nhận hàng mặc định và các địa chỉ khác</p>
                         </div>
-                        <button class="btn-add-address"><i class="fa-solid fa-plus"></i> Thêm địa chỉ mới</button>
+                        <button class="btn-add-address"><i class="fa-solid fa-plus"></i> Thêm địa chỉ
+                            mới
+                        </button>
                     </div>
 
                     <div class="address-cards-list">
                         <div class="address-item-card active">
                             <div class="address-header">
-                                <h4 class="addr-name">Nguyễn Văn A <span class="badge-default">Mặc định</span></h4>
+                                <h4 class="addr-name">Nguyễn Văn A <span class="badge-default">Mặc
+                                                    định</span></h4>
                                 <div class="addr-actions">
                                     <button class="btn-icon-text">Sửa</button>
                                     <button class="btn-icon-text text-danger">Xóa</button>
@@ -104,7 +131,8 @@
                                 </div>
                             </div>
                             <p class="addr-phone">0908765432</p>
-                            <p class="addr-detail">456 Đường XYZ, Phường Tân Quy, Quận 7, TP. Hồ Chí Minh</p>
+                            <p class="addr-detail">456 Đường XYZ, Phường Tân Quy, Quận 7, TP. Hồ Chí Minh
+                            </p>
                             <button class="btn-set-default">Thiết lập mặc định</button>
                         </div>
                     </div>
@@ -167,3 +195,53 @@
         </div>
     </div>
 </div>
+
+<div id="notification-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header success">
+            <h3><i class="fa-solid fa-check"></i> Thành công!</h3>
+        </div>
+        <div class="modal-body">
+            <p>Thông tin cá nhân của bạn đã được cập nhật thành công.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="${pageContext.request.contextPath}/account">
+                <button class="btn-modal-ok" data-dismiss="modal"> OK</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="error-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header error">
+            <h3><i class="fa-solid fa-xmark"></i> Có lỗi xảy ra</h3>
+        </div>
+        <div class="modal-body">
+            <p>Không thể cập nhật thông tin lúc này. Vui lòng kiểm tra lại.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="${pageContext.request.contextPath}/account">
+                <button class="btn-modal-ok" data-dismiss="modal">Đóng</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<c:if test="${param['update-profile'] == 'success'}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            openModal("notification-modal");
+        });
+    </script>
+</c:if>
+
+<c:if test="${param['update-profile'] == 'failed'}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            openModal("error-modal");
+        });
+    </script>
+</c:if>
+
+<script src="${pageContext.request.contextPath}/js/account.js"></script>

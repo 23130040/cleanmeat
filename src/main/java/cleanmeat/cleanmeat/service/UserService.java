@@ -79,4 +79,17 @@ public class UserService {
         return userDAO.findByEmail(email);
     }
 
+    public boolean updateProfile(int id, String name, String phone, String gender, LocalDate birthday) {
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPhone(phone);
+        user.setGender(gender);
+        user.setBirthday(birthday);
+        return userDAO.updateProfile(user);
+    }
+
+    public User findById(int id) {
+        return userDAO.findById(id);
+    }
 }

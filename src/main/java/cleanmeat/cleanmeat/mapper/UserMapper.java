@@ -2,6 +2,7 @@ package cleanmeat.cleanmeat.mapper;
 
 import cleanmeat.cleanmeat.model.User;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -14,7 +15,12 @@ public class UserMapper {
         user.setPassword(rs.getString("password"));
         user.setPhone(rs.getString("phone"));
         user.setGender(rs.getString("gender"));
-        user.setBirthday(rs.getDate("birthday").toLocalDate());
+        Date sqlDate = rs.getDate("birthday");
+        if (sqlDate != null) {
+            user.setBirthday(sqlDate.toLocalDate());
+        } else {
+            user.setBirthday(null);
+        }
         user.setRole(rs.getString("role"));
         user.setAvatar(rs.getString("avatar"));
         user.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());

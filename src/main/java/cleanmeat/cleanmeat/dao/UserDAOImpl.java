@@ -66,29 +66,23 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean updateProfile(User user) {
         String sql = """
                 update user
-                set name = ?, email = ?, password = ?, phone = ?, gender = ?, birthday = ?, role = ?, avatar = ? ,status = ?, verify_token = ?, updated_at = NOW()
+                set name = ?, phone = ?, gender = ?, birthday = ?, updated_at = NOW()
                 where id = ?
                 """;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getPhone());
-            ps.setString(5, user.getGender());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getGender());
             if (user.getBirthday() != null) {
-                ps.setDate(6, Date.valueOf(user.getBirthday()));
+                ps.setDate(4, Date.valueOf(user.getBirthday()));
             } else {
-                ps.setNull(6, Types.DATE);
+                ps.setNull(4, Types.DATE);
             }
-            ps.setString(7, user.getRole());
-            ps.setString(8, user.getAvatar());
-            ps.setBoolean(9, user.isStatus());
-            ps.setString(10, user.getVerify_token());
-            ps.setInt(11, user.getId());
+            ps.setInt(5, user.getId());
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);

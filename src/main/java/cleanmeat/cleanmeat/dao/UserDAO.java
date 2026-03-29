@@ -11,7 +11,7 @@ public interface UserDAO {
 
     public boolean insert(User user);
 
-    public boolean update(User user);
+    public boolean updateProfile(User user);
 
     public boolean delete(int id);
 
