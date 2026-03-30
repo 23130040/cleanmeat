@@ -11,20 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/OrdersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/OrdersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/OrdersDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/OrdersDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/StockHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/StockHistoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/StockHistoryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/StockHistoryDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/ItemMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/OrdersMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/OrdersMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/StockHistoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/StockHistoryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/StockHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/StockHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/service/OrdersService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +67,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.494.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/product-admin",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Git/Github/cleanmeat/src/main/webapp/images",
