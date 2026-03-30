@@ -12,5 +12,7 @@ public interface ItemImagesDAO {
     public boolean insert(ItemImages image);
 
     public boolean delete(int id);
+
+    public String getPrimaryImageUrl(int item_id);
 }
 

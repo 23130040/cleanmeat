@@ -99,4 +99,43 @@ public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
         }
         return false;
     }
+
+    @Override
+    public List<Orders> findByUserId(int user_id) {
+        String sql = "select * from orders where user_id = ?";
+        List<Orders> orders = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, user_id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Orders order = OrdersMapper.map(rs);
+                    orders.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Orders> findByStatus(String status, int user_id) {
+        String sql = "select * from orders where user_id = ? and status = ?";
+        List<Orders> orders = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, user_id);
+            ps.setString(2, status);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Orders order = OrdersMapper.map(rs);
+                    orders.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
 }

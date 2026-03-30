@@ -107,8 +107,6 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/returns-policy">Chính sách đổi trả</a></li>
                     <li><a href="${pageContext.request.contextPath}/order-guide">Hướng dẫn đặt hàng</a></li>
-                    <li><a href="${pageContext.request.contextPath}/">Thanh toán</a></li>
-                    <li><a href="${pageContext.request.contextPath}/">Vận chuyển</a></li>
                 </ul>
             </div>
             <div class="footer-col footer-about">

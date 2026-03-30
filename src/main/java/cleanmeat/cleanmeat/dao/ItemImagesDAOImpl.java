@@ -79,4 +79,19 @@ public class ItemImagesDAOImpl extends BaseDAO implements ItemImagesDAO {
         }
         return false;
     }
+
+    @Override
+    public String getPrimaryImageUrl(int item_id) {
+        String sql = "select * from item_image where item_id = ? and is_primary = 1";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, item_id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return ItemImagesMapper.map(rs).getUrl();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }
