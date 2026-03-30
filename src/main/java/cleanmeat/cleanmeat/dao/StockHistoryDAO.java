@@ -14,6 +14,12 @@ public interface StockHistoryDAO {
 
     public List<StockHistory> findAll();
 
+    public List<StockHistory> findAll(int limit, int offset);
+
+    public int countAll();
+
+    public int sumQuantityByType(String type);
+
     public boolean delete(int id);
 
     public boolean deleteAll();

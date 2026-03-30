@@ -9,6 +9,10 @@ public interface ItemDAO {
 
     public List<Item> findAll();
 
+    public List<Item> findAll(int limit, int offset);
+
+    public int countAll();
+
     public boolean insert(Item item);
 
     public boolean update(Item item);

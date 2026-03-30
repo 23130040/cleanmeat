@@ -11,6 +11,9 @@ public class StockHistory implements Serializable {
     private LocalDateTime created_day;
     private int created_by;
 
+    private String item_name;
+    private String user_name;
+
     public StockHistory() {}
 
     public StockHistory(int id, int item_id, String type, double quantity, LocalDateTime created_day, int created_by) {
@@ -69,4 +72,12 @@ public class StockHistory implements Serializable {
     public void setCreated_by(int created_by) {
         this.created_by = created_by;
     }
+    
+    public String getItem_name() { return item_name; }
+    
+    public void setItem_name(String item_name) { this.item_name = item_name; }
+    
+    public String getUser_name() { return user_name; }
+    
+    public void setUser_name(String user_name) { this.user_name = user_name; }
 }

@@ -14,6 +14,10 @@ public class StockHistoryMapper {
         stockHistory.setQuantity(rs.getDouble("quantity"));
         stockHistory.setCreated_day(rs.getTimestamp("created_at").toLocalDateTime());
         stockHistory.setCreated_by(rs.getInt("created_by"));
+        
+        try { stockHistory.setItem_name(rs.getString("item_name")); } catch (SQLException ignored) {}
+        try { stockHistory.setUser_name(rs.getString("user_name")); } catch (SQLException ignored) {}
+        
         return stockHistory;
     }
 }
