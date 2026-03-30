@@ -9,9 +9,14 @@ import cleanmeat.cleanmeat.utils.EmailUtil;
 import cleanmeat.cleanmeat.validate.UserValidate;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UserService {
     private UserDAO userDAO = new UserDAOImpl();
+
+    public List<User> getAllUsers() {
+        return userDAO.findAll();
+    }
 
     public String validateSignUp(String username, String email, String phone, String password, String confirmPassword) {
         if (username == null || username.trim().isEmpty())
