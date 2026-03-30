@@ -46,6 +46,63 @@ public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
     }
 
     @Override
+    public List<Orders> findAll(int limit, int offset) {
+        String sql = """
+            SELECT o.*, u.name as user_name, u.email as user_email, 
+                   p.name as payment_method, t.name as transport_method 
+            FROM orders o 
+            LEFT JOIN user u ON o.user_id = u.id 
+            LEFT JOIN payment p ON o.payment_id = p.id 
+            LEFT JOIN transport t ON o.transport_id = t.id 
+            ORDER BY o.id DESC 
+            LIMIT ? OFFSET ?
+        """;
+        List<Orders> orders = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Orders order = OrdersMapper.map(rs);
+                    orders.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public int countAll() {
+        String sql = "SELECT COUNT(*) FROM orders";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public int countByStatus(String status) {
+        String sql = "SELECT COUNT(*) FROM orders WHERE status = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
     public boolean insert(Orders order) {
         String sql = """
                 insert into orders (user_id, total_price, status, address_id, transport_id, payment_id) 

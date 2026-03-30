@@ -10,6 +10,12 @@ public interface OrdersDAO {
 
     public List<Orders> findAll();
 
+    public List<Orders> findAll(int limit, int offset);
+
+    public int countAll();
+
+    public int countByStatus(String status);
+
     public boolean insert(Orders order);
 
     public boolean update(Orders order);

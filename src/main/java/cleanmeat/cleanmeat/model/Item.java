@@ -19,6 +19,7 @@ public class Item implements Serializable {
     private LocalDateTime updated_at;
     private String category_name;
     private String unit_name;
+    private String origin_name;
     private String image;
     public Item() {}
 
@@ -153,5 +154,9 @@ public class Item implements Serializable {
     public String getImage() { return image; }
 
     public void setImage(String image) { this.image = image; }
+
+    public String getOrigin_name() { return origin_name; }
+
+    public void setOrigin_name(String origin_name) { this.origin_name = origin_name; }
 
 }

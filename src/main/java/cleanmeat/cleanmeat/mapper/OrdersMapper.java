@@ -17,6 +17,12 @@ public class OrdersMapper {
         orders.setAddress_id(rs.getInt("address_id"));
         orders.setTransport_id(rs.getInt("transport_id"));
         orders.setPayment_id(rs.getInt("payment_id"));
+        
+        try { orders.setUser_name(rs.getString("user_name")); } catch (SQLException ignored) {}
+        try { orders.setUser_email(rs.getString("user_email")); } catch (SQLException ignored) {}
+        try { orders.setPayment_method(rs.getString("payment_method")); } catch (SQLException ignored) {}
+        try { orders.setTransport_method(rs.getString("transport_method")); } catch (SQLException ignored) {}
+        
         return orders;
     }
 }
