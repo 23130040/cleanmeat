@@ -35,7 +35,7 @@
                                     <div class="item-main-details">
                                         <div class="name-unit">
                                             <h3 class="product-name">${item.productName}</h3>
-                                            <span class="product-unit">${item.unit != null ? item.unit : '200g'}</span>
+                                            <span class="product-unit">${item.unit != null ? item.unit : ''}</span>
                                         </div>
                                         <button class="remove-btn-icon" title="Xóa">
                                             <i class="fa-regular fa-trash-can"></i>
@@ -79,7 +79,7 @@
                             <div class="summary-bill-details">
                                 <div class="bill-row">
                                     <span class="label">Tạm tính</span>
-                                    <span class="val">${subtotal != null ? subtotal : '360.000đ'}</span>
+                                    <span class="val">${subtotal != null ? subtotal : '0đ'}</span>
                                 </div>
                                 <div class="bill-row">
                                     <span class="label">Khuyến mãi</span>
