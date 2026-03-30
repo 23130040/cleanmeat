@@ -86,4 +86,19 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
         }
         return false;
     }
+
+    @Override
+    public String getPackage(int unitId) {
+        String sql = "select * from unit where id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, unitId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return UnitMapper.map(rs).getAmount() + UnitMapper.map(rs).getName();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

@@ -1,5 +1,7 @@
 package cleanmeat.cleanmeat.model;
 
+import cleanmeat.cleanmeat.service.OrderItemService;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -102,4 +104,9 @@ public class Orders implements Serializable {
     public void setPayment_id(int payment_id) {
         this.payment_id = payment_id;
     }
+
+    public String getOrderIDFormatted() {
+        return "#CM" + String.format("%03d", id) + user_id + created_at.toString();
+    }
+
 }

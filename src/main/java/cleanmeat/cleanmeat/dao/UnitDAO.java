@@ -14,4 +14,6 @@ public interface UnitDAO {
     public boolean update(Unit unit);
 
     public boolean delete(int id);
+
+    public String getPackage(int unitId);
 }
