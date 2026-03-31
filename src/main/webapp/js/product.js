@@ -58,15 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
-
-            // reset active
             buttons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
 
-            // update state
             currentCategory = button.dataset.category;
 
-            // call filter
             filter();
         });
     });
