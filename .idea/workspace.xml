@@ -72,10 +72,10 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.494.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/cart",
+    "git-widget-placeholder": "feature/orders-history",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Git/Github/cleanmeat/src/main/java/cleanmeat/cleanmeat",
+    "last_opened_file_path": "D:/Git/Github/cleanmeat/src/main/webapp/images",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -98,7 +98,6 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Git\Github\cleanmeat\src\main\java\cleanmeat\cleanmeat" />
       <recent name="D:\Git\Github\cleanmeat\src\main\webapp\images" />
       <recent name="D:\Git\Github\cleanmeat\src\main\resources" />
       <recent name="D:\Git\Github\cleanmeat\src\main\webapp\css" />
@@ -271,7 +270,6 @@
       <workItem from="1774782651881" duration="14077000" />
       <workItem from="1774797906732" duration="964000" />
       <workItem from="1774801702290" duration="8076000" />
-      <workItem from="1774886160155" duration="2606000" />
     </task>
     <servers />
   </component>

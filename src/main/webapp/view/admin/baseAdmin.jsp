@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
 <body>
 <nav>
     <div class="nav-logo">
-        <img src="${pageContext.request.contextPath}/images/cleanmeat.png">
+        <img src="${pageContext.request.contextPath}/images/cleanmeat.png"> <span style="color:white; font-size:20px; font-weight: 600; margin-left: 5px">Clean Meat</span>
     </div>
     <ul class="nav-menu">
         <li class="${active == 'dashboard' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/dashboard"><i
@@ -64,13 +65,38 @@
                     <i class="fa-regular fa-bell"></i>
                     <span id="noti-count">0</span>
                 </button>
-                <div class="user-info">
-                    <div class="user-name">
-                        <span>${user.name}</span>
-                        <span>Quản trị viên</span>
+                <div class="user-profile-container" style="position: relative;">
+                    <div class="user-info" onclick="toggleAdminDropdown(event)">
+                        <div class="user-avatar-wrapper">
+                            <c:choose>
+                                <c:when test="${not empty user.avatar}">
+                                    <img src="${user.avatar}" class="user-avatar">
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="user-avatar placeholder"><i class="fa-solid fa-user"></i></div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="user-name">
+                            <span>${user.name}</span>
+                            <span>Quản trị viên</span>
+                        </div>
+                        <button class="user-down"><i class="fa-solid fa-angle-down"></i></button>
                     </div>
-                    <img src="${pageContext.request.contextPath}${user.avatar}" class="user-avatar">
-                    <button class="user-down"><i class="fa-solid fa-angle-down"></i></button>
+
+                    <div class="admin-dropdown-menu" id="adminDropdown">
+                        <div class="dropdown-header">
+                            <span class="dd-name">${user.name}</span>
+                            <span class="dd-email">${user.email}</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="${pageContext.request.contextPath}/profile" class="dropdown-item">
+                            <i class="fa-solid fa-user-gear"></i> Thông tin tài khoản
+                        </a>
+                        <a href="${pageContext.request.contextPath}/sign-out" class="dropdown-item text-danger">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -80,4 +106,21 @@
     </div>
 </main>
 </body>
+<script>
+    function toggleAdminDropdown(event) {
+        event.stopPropagation();
+        var dropdown = document.getElementById("adminDropdown");
+        dropdown.classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        var dropdown = document.getElementById("adminDropdown");
+        if (dropdown && dropdown.classList.contains("show")) {
+            var isClickInside = event.target.closest('.user-profile-container');
+            if (!isClickInside) {
+                dropdown.classList.remove("show");
+            }
+        }
+    }
+</script>
 </html>

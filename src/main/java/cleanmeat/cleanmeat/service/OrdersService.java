@@ -24,4 +24,16 @@ public class OrdersService {
     public List<Orders> findByStatus(String status, int user_id) {
         return ordersDAO.findByStatus(status, user_id);
     }
+
+    public List<Orders> getOrdersByPage(int limit, int offset) {
+        return ordersDAO.findAll(limit, offset);
+    }
+
+    public int countAllOrders() {
+        return ordersDAO.countAll();
+    }
+
+    public int countOrdersByStatus(String status) {
+        return ordersDAO.countByStatus(status);
+    }
 }
