@@ -92,4 +92,36 @@ public class FeedbackDAOImpl extends BaseDAO implements FeedbackDAO {
         }
         return false;
     }
+    @Override
+    public List<Feedback> findByItemId(int itemId) {
+        String sql = """
+            select f.*, u.name, u.avatar
+            from feedback f
+            join user u on f.user_id = u.id
+            where f.item_id = ?
+            order by f.created_at desc
+            """;
+
+        List<Feedback> list = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, itemId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Feedback f = FeedbackMapper.map(rs);
+                    f.setName(rs.getString("name"));
+                    f.setAvatar(rs.getString("avatar"));
+                    list.add(f);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
 }

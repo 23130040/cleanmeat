@@ -14,4 +14,7 @@ public interface FeedbackDAO {
     public boolean update(Feedback feedback);
 
     public boolean delete(int id);
+
+    public List<Feedback> findByItemId(int itemId);
+
 }

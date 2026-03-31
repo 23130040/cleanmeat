@@ -16,8 +16,7 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     @Override
     public Unit findById(int id) {
         String sql = "select * from unit where id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) return UnitMapper.map(rs);
@@ -32,9 +31,7 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     public List<Unit> findAll() {
         String sql = "select * from unit";
         List<Unit> units = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Unit unit = UnitMapper.map(rs);
                 units.add(unit);
@@ -47,9 +44,8 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
 
     @Override
     public boolean insert(Unit unit) {
-        String sql = "insert into category (name, amount) values (?, ?)";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "insert into unit (name, amount) values (?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, unit.getName());
             ps.setDouble(2, unit.getAmount());
             if (ps.executeUpdate() >= 1) return true;
@@ -62,8 +58,7 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     @Override
     public boolean update(Unit unit) {
         String sql = "update unit set name = ?, amount = ? where id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, unit.getName());
             ps.setDouble(2, unit.getAmount());
             ps.setInt(3, unit.getId());
@@ -77,8 +72,7 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     @Override
     public boolean delete(int id) {
         String sql = "delete from unit where id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
@@ -90,15 +84,21 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     @Override
     public String getPackage(int unitId) {
         String sql = "select * from unit where id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, unitId);
+
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) return UnitMapper.map(rs).getAmount() + UnitMapper.map(rs).getName();
+                if (rs.next()) {
+                    Unit u = UnitMapper.map(rs);
+                    return u.getName();
+                }
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return null;
     }
 }
