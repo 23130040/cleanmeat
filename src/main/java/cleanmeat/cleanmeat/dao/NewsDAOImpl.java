@@ -48,7 +48,7 @@ public class NewsDAOImpl extends BaseDAO implements NewsDAO {
     @Override
     public boolean insert(News news) {
         String sql = """
-                insert into category (title, author, picture_url, content, status, created_by) 
+                insert into news (title, author, picture_url, content, status, created_by) 
                 values (?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = getConnection();

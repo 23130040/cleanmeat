@@ -67,45 +67,60 @@
 
 <div class="modal" id="verify-modal">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3 style="color: green;">Thông báo</h3>
-        <p>Xác thực email thành công! Bạn có thể đăng nhập.</p>
-        <a href="${pageContext.request.contextPath}/sign-in">
-            <button>Đăng nhập</button>
-        </a>
+        <button class="modal-close-icon close-btn"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header success">
+            <h3><i class="fa-solid fa-circle-check"></i> Thông báo</h3>
+        </div>
+        <div class="modal-body">
+            <p>Xác thực email thành công! Bạn có thể đăng nhập.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="${pageContext.request.contextPath}/sign-in">
+                <button class="btn-modal-ok">Đăng nhập</button>
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="modal" id="error-modal">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3 style="color: red;">Lỗi</h3>
-        <p>Link xác thực không hợp lệ hoặc đã hết hạn.</p>
-        <a href="${pageContext.request.contextPath}/sign-in">
-            <button>Đăng nhập</button>
-        </a>
+        <button class="modal-close-icon close-btn"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header error">
+            <h3><i class="fa-solid fa-circle-xmark"></i> Lỗi</h3>
+        </div>
+        <div class="modal-body">
+            <p>Link xác thực không hợp lệ hoặc đã hết hạn.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="${pageContext.request.contextPath}/sign-in">
+                <button class="btn-modal-ok" style="background: #ef4444; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">Đăng nhập</button>
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="modal" id="register-success-modal">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3 style="color: green;">Đăng ký thành công</h3>
-        <p>Vui lòng kiểm tra email để xác thực tài khoản.</p>
+        <div class="modal-header success">
+            <h3><i class="fa-solid fa-circle-check"></i> Đăng ký thành công</h3>
+        </div>
+        <div class="modal-body">
+            <p>Vui lòng kiểm tra email để xác thực tài khoản.</p>
+        </div>
     </div>
 </div>
 
 <c:if test="${param.verified == 'true'}">
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("verify-modal").style.display = "block";
+            document.getElementById("verify-modal").classList.add("show");
         });
     </script>
 </c:if>
 <c:if test="${param.error == 'invalid-token'}">
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("error-modal").style.display = "block";
+            document.getElementById("error-modal").classList.add("show");
         });
     </script>
 </c:if>
@@ -113,7 +128,7 @@
 <c:if test="${param.signup == 'success'}">
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("register-success-modal").style.display = "block";
+            document.getElementById("register-success-modal").classList.add("show");
         });
     </script>
 </c:if>
