@@ -74,6 +74,54 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         return items;
     }
 
+
+    @Override
+    public List<Item> findAll(int limit, int offset) {
+        String sql = """
+    SELECT i.*, 
+           c.name AS category_name,
+           u.name AS unit_name,
+           o.name AS origin_name,
+           img.url AS image
+    FROM item i
+    LEFT JOIN category c ON i.category_id = c.id
+    LEFT JOIN unit u ON i.unit_id = u.id
+    LEFT JOIN origin o ON i.origin_id = o.id
+    LEFT JOIN item_image img 
+        ON i.id = img.item_id AND img.is_primary = 1
+    ORDER BY i.id DESC
+    LIMIT ? OFFSET ?
+    """;
+        List<Item> items = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Item item = ItemMapper.map(rs);
+                    items.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
+    }
+
+    @Override
+    public int countAll() {
+        String sql = "SELECT COUNT(*) FROM item";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
     @Override
     public boolean insert(Item item) {
         String sql = """
