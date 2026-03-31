@@ -256,3 +256,39 @@
     cursor: pointer;
     transition: 0.5s;
 }
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.pagination ul {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    list-style: none;
+}
+
+.pagination a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    background: #f1f1f1;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination .active a {
+    background: #28a745;
+    color: white;
+}
