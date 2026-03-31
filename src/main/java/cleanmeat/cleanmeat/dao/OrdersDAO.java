@@ -15,6 +15,16 @@ public interface OrdersDAO {
     public int countAll();
 
     public int countByStatus(String status);
+    
+    public double sumTotalRevenue();
+
+    public int countTodayOrders();
+
+    public double sumTodayRevenue();
+
+    public double calculateOrderGrowth();
+
+    public double calculateRevenueGrowth();
 
     public boolean insert(Orders order);
 

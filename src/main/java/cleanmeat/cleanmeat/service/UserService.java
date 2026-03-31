@@ -18,6 +18,14 @@ public class UserService {
         return userDAO.findAll();
     }
 
+    public int countTotalUsers() {
+        return userDAO.countAll();
+    }
+
+    public double calculateUserGrowth() {
+        return userDAO.calculateUserGrowth();
+    }
+
     public String validateSignUp(String username, String email, String phone, String password, String confirmPassword) {
         if (username == null || username.trim().isEmpty())
             return "Họ và tên không được để trống!";
@@ -78,6 +86,10 @@ public class UserService {
         if (!user.isStatus())
             return "Tài khoản này chưa được xác thực hoặc đã bị khóa!";
         return null;
+    }
+
+    public boolean updateInfoAdmin(int id, String name, String phone) {
+        return userDAO.updateInfoAdmin(id, name, phone);
     }
 
     public User signin(String email, String password) {

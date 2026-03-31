@@ -9,6 +9,8 @@ public interface UserDAO {
 
     public List<User> findAll();
 
+    public int countAll();
+
     public boolean insert(User user);
 
     public boolean updateProfile(User user);
@@ -28,4 +30,8 @@ public interface UserDAO {
     public boolean updateStatus(int id);
 
     public boolean updateAvatar(int id, String avatarUrl);
+
+    public boolean updateInfoAdmin(int id, String name, String phone);
+
+    public double calculateUserGrowth();
 }

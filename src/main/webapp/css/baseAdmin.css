@@ -44,6 +44,7 @@ nav {
     display: flex;
     flex-direction: column;
     z-index: 1000;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-logo {
@@ -125,6 +126,7 @@ main {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
@@ -353,4 +355,412 @@ main {
 
 .dropdown-item.text-danger:hover i {
     color: #dc2626;
+}
+
+body.sidebar-collapsed {
+    --sidebar-width: 80px;
+}
+
+body.sidebar-collapsed .nav-logo {
+    padding: 24px 10px;
+}
+
+body.sidebar-collapsed .nav-logo img {
+    max-height: 28px;
+    object-fit: contain;
+}
+
+body.sidebar-collapsed .nav-menu li.active::after {
+    display: none;
+}
+
+body.sidebar-collapsed .nav-menu li a {
+    font-size: 0;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+body.sidebar-collapsed .nav-menu li a i {
+    font-size: 1.3rem;
+    margin-right: 0;
+    width: auto;
+}
+
+body.sidebar-collapsed .nav-footer {
+    padding: 15px 10px;
+}
+
+body.sidebar-collapsed .nav-footer p {
+    font-size: 0;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+}
+
+.admin-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(15, 23, 42, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1099;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-out;
+}
+
+.admin-modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-modal-container {
+    background: #ffffff;
+    width: 480px;
+    max-width: 90%;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+    transition: transform 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.admin-modal-overlay.show .admin-modal-container {
+    transform: scale(1);
+}
+
+.modal-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+}
+
+.modal-topbar h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close-modal:hover {
+    color: #ef4444;
+}
+
+.modal-tabs {
+    display: flex;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin: 0 24px 20px;
+    padding: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn i {
+    font-size: 1rem;
+}
+
+.tab-btn:hover:not(.active) {
+    color: #1e293b;
+}
+
+.tab-btn.active {
+    background-color: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.tab-content {
+    display: none;
+    padding: 0 24px 24px;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #f8fafc;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.us-avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.us-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #94a3b8;
+    overflow: hidden;
+}
+
+.us-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-edit-btn {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #475569;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.avatar-edit-btn:hover {
+    background-color: #f8fafc;
+    color: #10b981;
+    border-color: #10b981;
+}
+
+.us-details h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 2px 0;
+}
+
+.us-details p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 4px 0;
+}
+
+.us-details span {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.admin-form-group {
+    margin-bottom: 16px;
+}
+
+.admin-form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.admin-input-control {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: border-color 0.2s, background-color 0.2s;
+    outline: none;
+}
+
+.admin-input-control:focus {
+    background-color: #ffffff;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.admin-input-control[readonly] {
+    cursor: default;
+}
+
+.form-actions-left {
+    margin-top: 24px;
+}
+
+.form-actions-full {
+    margin-top: 24px;
+    display: flex;
+}
+
+.btn-edit-outline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-edit-outline:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.btn-update-solid {
+    flex: 1;
+    background-color: #10b981;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-update-solid:hover {
+    background-color: #059669;
+}
+
+.admin-alert-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(15, 23, 42, 0.4);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.admin-alert-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-alert-content {
+    background: #fff;
+    width: 380px;
+    padding: 30px 24px;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.9);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-alert-modal.show .admin-alert-content {
+    transform: scale(1);
+}
+
+.btn-close-alert {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.btn-close-alert:hover {
+    color: #1e293b;
+}
+
+.alert-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.alert-icon.success {
+    color: #10b981;
+}
+
+.alert-icon.error {
+    color: #ef4444;
+}
+
+.admin-alert-content h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.admin-alert-content p {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.btn-alert-ok {
+    background-color: #1e293b;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-alert-ok:hover {
+    background-color: #0f172a;
 }

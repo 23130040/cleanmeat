@@ -24,4 +24,11 @@ public class ItemService {
         return itemDAO.countAll();
     }
 
+    public int countLowStockItems() {
+        return itemDAO.countLowStockItems();
+    }
+
+    public List<Item> getTopSellingItems(int limit) {
+        return itemDAO.getTopSellingItems(limit);
+    }
 }

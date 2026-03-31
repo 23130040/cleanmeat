@@ -14,7 +14,8 @@
 <body>
 <nav>
     <div class="nav-logo">
-        <img src="${pageContext.request.contextPath}/images/cleanmeat.png"> <span style="color:white; font-size:20px; font-weight: 600; margin-left: 5px">Clean Meat</span>
+        <img src="${pageContext.request.contextPath}/images/cleanmeat.png"> <span
+            style="color:white; font-size:20px; font-weight: 600; margin-left: 5px" id="navTitle">Clean Meat</span>
     </div>
     <ul class="nav-menu">
         <li class="${active == 'dashboard' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/dashboard"><i
@@ -58,7 +59,8 @@
 <main>
     <div class="container">
         <header class="main-header">
-            <button class="header-btn"><i class="fa-solid fa-outdent"></i></button>
+            <button class="header-btn" onclick="toggleSidebar()"><i class="fa-solid fa-outdent"
+                                                                    id="sidebarToggleIcon"></i></button>
             <h1 class="header-title">${requestScope.adminTitle}</h1>
             <div class="header-user">
                 <button class="header-btn">
@@ -90,7 +92,7 @@
                             <span class="dd-email">${user.email}</span>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a href="${pageContext.request.contextPath}/profile" class="dropdown-item">
+                        <a href="javascript:void(0)" onclick="openAccountModal(event)" class="dropdown-item">
                             <i class="fa-solid fa-user-gear"></i> Thông tin tài khoản
                         </a>
                         <a href="${pageContext.request.contextPath}/sign-out" class="dropdown-item text-danger">
@@ -105,22 +107,130 @@
         </div>
     </div>
 </main>
-</body>
-<script>
-    function toggleAdminDropdown(event) {
-        event.stopPropagation();
-        var dropdown = document.getElementById("adminDropdown");
-        dropdown.classList.toggle("show");
-    }
+<div class="admin-modal-overlay" id="adminAccountModal">
+    <div class="admin-modal-container">
+        <div class="modal-topbar">
+            <h2>Thông tin tài khoản</h2>
+            <button class="btn-close-modal" onclick="closeAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
 
-    window.onclick = function(event) {
-        var dropdown = document.getElementById("adminDropdown");
-        if (dropdown && dropdown.classList.contains("show")) {
-            var isClickInside = event.target.closest('.user-profile-container');
-            if (!isClickInside) {
-                dropdown.classList.remove("show");
-            }
-        }
-    }
-</script>
+        <div class="modal-tabs">
+            <button class="tab-btn active" onclick="switchAccountTab('info', this)">
+                <i class="fa-regular fa-user"></i> Thông tin cá nhân
+            </button>
+            <button class="tab-btn" onclick="switchAccountTab('password', this)">
+                <i class="fa-solid fa-lock"></i> Đổi mật khẩu
+            </button>
+        </div>
+
+        <form method="post" action="${pageContext.request.contextPath}/edit-info" class="tab-content active"
+              id="tab-info" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="changeInfo">
+            <div class="user-summary-card">
+                <div class="us-avatar-container">
+                    <div class="us-avatar">
+                        <c:choose>
+                            <c:when test="${not empty user.avatar}">
+                                <img src="${user.avatar}" alt="Avatar" id="preview-avatar">
+                            </c:when>
+                            <c:otherwise>
+                                <i class="fa-solid fa-user" id="preview-avatar-icon"></i>
+                                <img src="" alt="Avatar" id="preview-avatar" style="display:none;">
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <label for="avatar-upload" class="avatar-edit-btn">
+                        <i class="fa-solid fa-camera"></i>
+                    </label>
+                    <input type="file" id="avatar-upload" name="avatar" accept="image/*" style="display: none;"
+                           onchange="previewAvatar(event)">
+                </div>
+                <div class="us-details">
+                    <h3>${user.name}</h3>
+                    <p>Admin</p>
+                    <span>Tham gia: <c:choose><c:when
+                            test="${not empty user.created_at}">${user.created_at.toLocalDate()}</c:when><c:otherwise>1/1/1999</c:otherwise></c:choose></span>
+                </div>
+            </div>
+
+            <div class="admin-form-group">
+                <label>Họ và tên</label>
+                <input type="text" class="admin-input-control" name="name" value="${user.name}">
+            </div>
+            <div class="admin-form-group">
+                <label>Email</label>
+                <input type="text" class="admin-input-control" value="${user.email}" readonly>
+            </div>
+            <div class="admin-form-group">
+                <label>Số điện thoại</label>
+                <input type="text" class="admin-input-control" name="phone" value="${user.phone}">
+            </div>
+
+            <div class="form-actions-left">
+                <button class="btn-edit-outline" type="submit">
+                    <i class="fa-solid fa-pen"></i> Chỉnh sửa
+                </button>
+            </div>
+        </form>
+
+        <div class="tab-content" id="tab-password">
+            <div class="admin-form-group">
+                <label>Mật khẩu hiện tại</label>
+                <input type="password" class="admin-input-control" placeholder="••••••••">
+            </div>
+            <div class="admin-form-group">
+                <label>Mật khẩu mới</label>
+                <input type="password" class="admin-input-control" placeholder="••••••••">
+            </div>
+            <div class="admin-form-group">
+                <label>Xác nhận mật khẩu mới</label>
+                <input type="password" class="admin-input-control" placeholder="••••••••">
+            </div>
+            <div class="form-actions-full">
+                <button class="btn-update-solid" onclick="alert('Tính năng cập nhật chưa kích hoạt database!')">Cập nhật
+                    mật khẩu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<c:if test="${not empty param.success}">
+    <div class="admin-alert-modal show" id="adminSuccessModal">
+        <div class="admin-alert-content">
+            <button class="btn-close-alert" onclick="this.closest('.admin-alert-modal').classList.remove('show')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="alert-icon success"><i class="fa-solid fa-circle-check"></i></div>
+            <h3>Thành công!</h3>
+            <p>
+                <c:choose>
+                    <c:when test="${param.success == 'info_updated'}">Cập nhật thông tin cá nhân thành công.</c:when>
+                    <c:when test="${param.success == 'password_updated'}">Đổi mật khẩu thành công.</c:when>
+                    <c:otherwise>Thao tác đã được thực hiện.</c:otherwise>
+                </c:choose>
+            </p>
+            <button class="btn-alert-ok" onclick="this.closest('.admin-alert-modal').classList.remove('show')">Đồng ý</button>
+        </div>
+    </div>
+</c:if>
+
+<c:if test="${not empty param.error}">
+    <div class="admin-alert-modal show" id="adminErrorModal">
+        <div class="admin-alert-content">
+            <button class="btn-close-alert" onclick="this.closest('.admin-alert-modal').classList.remove('show')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="alert-icon error"><i class="fa-solid fa-circle-xmark"></i></div>
+            <h3>Có lỗi xảy ra</h3>
+            <p>
+                <c:choose>
+                    <c:when test="${param.error == 'update_failed'}">Có lỗi trong quá trình cập nhật, vui lòng thử lại.</c:when>
+                    <c:when test="${param.error == 'wrong_password'}">Mật khẩu hiện tại không chính xác.</c:when>
+                    <c:otherwise>Đã có lỗi không xác định xảy ra.</c:otherwise>
+                </c:choose>
+            </p>
+            <button class="btn-alert-ok" style="background-color: #ef4444;" onclick="this.closest('.admin-alert-modal').classList.remove('show')">Đóng lại</button>
+        </div>
+    </div>
+</c:if>
+
+</body>
+<script src="${pageContext.request.contextPath}/js/baseAdmin.js"></script>
 </html>

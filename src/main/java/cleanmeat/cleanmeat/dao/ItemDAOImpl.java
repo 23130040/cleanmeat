@@ -1,8 +1,6 @@
 package cleanmeat.cleanmeat.dao;
 
-import cleanmeat.cleanmeat.mapper.CategoryMapper;
 import cleanmeat.cleanmeat.mapper.ItemMapper;
-import cleanmeat.cleanmeat.model.Category;
 import cleanmeat.cleanmeat.model.Item;
 
 import java.sql.Connection;
@@ -209,6 +207,56 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         }
 
         return 0;
+    }
+
+    @Override
+    public int countLowStockItems() {
+        String sql = "SELECT COUNT(*) FROM item WHERE current_stock <= min_stock";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Item> getTopSellingItems(int limit) {
+        String sql = """
+            SELECT i.*, 
+                   c.name AS category_name,
+                   u.name AS unit_name,
+                   o_ref.name AS origin_name,
+                   img.url AS image,
+                   SUM(oi.quantity) AS total_sold
+            FROM item i
+            JOIN orders_item oi ON i.id = oi.item_id
+            JOIN orders o ON oi.order_id = o.id
+            LEFT JOIN category c ON i.category_id = c.id
+            LEFT JOIN unit u ON i.unit_id = u.id
+            LEFT JOIN origin o_ref ON i.origin_id = o_ref.id
+            LEFT JOIN item_image img ON i.id = img.item_id AND img.is_primary = 1
+            WHERE o.status = 'Hoàn thành'
+            GROUP BY i.id
+            ORDER BY total_sold DESC
+            LIMIT ?
+        """;
+        List<Item> items = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Item item = ItemMapper.map(rs);
+                    items.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
     }
 
     @Override

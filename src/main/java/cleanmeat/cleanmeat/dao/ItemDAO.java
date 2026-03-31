@@ -20,5 +20,10 @@ public interface ItemDAO {
     public boolean delete(int id);
 
     public int countItems();
+
+    public int countLowStockItems();
+
+    public List<Item> getTopSellingItems(int limit);
+
     public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort);
 }

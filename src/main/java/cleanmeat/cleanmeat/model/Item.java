@@ -21,6 +21,7 @@ public class Item implements Serializable {
     private String unit_name;
     private String image;
     private String origin_name;
+    private int total_sold;
 
     public Item() {
     }
@@ -175,5 +176,13 @@ public class Item implements Serializable {
 
     public void setOrigin_name(String origin_name) {
         this.origin_name = origin_name;
+    }
+
+    public int getTotal_sold() {
+        return total_sold;
+    }
+
+    public void setTotal_sold(int total_sold) {
+        this.total_sold = total_sold;
     }
 }

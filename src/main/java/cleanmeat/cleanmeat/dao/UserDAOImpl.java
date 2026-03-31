@@ -4,7 +4,6 @@ import cleanmeat.cleanmeat.mapper.UserMapper;
 import cleanmeat.cleanmeat.model.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +39,19 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new RuntimeException(e);
         }
         return users;
+    }
+
+    @Override
+    public int countAll() {
+        String sql = "SELECT COUNT(*) FROM user";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     @Override
@@ -201,5 +213,44 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean updateInfoAdmin(int id, String name, String phone) {
+        String sql = "UPDATE user SET name = ?, phone = ?, updated_at = NOW() WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            ps.setInt(3, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public double calculateUserGrowth() {
+        String sql = """
+            SELECT
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURRENT_DATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE()) THEN 1 ELSE 0 END) as this_month,
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) THEN 1 ELSE 0 END) as last_month
+            FROM user;
+        """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int thisMonth = rs.getInt("this_month");
+                int lastMonth = rs.getInt("last_month");
+                if (lastMonth == 0) {
+                    return thisMonth > 0 ? 100.0 : 0.0;
+                }
+                return ((double) (thisMonth - lastMonth) / lastMonth) * 100;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
     }
 }

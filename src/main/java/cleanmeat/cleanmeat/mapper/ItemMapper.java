@@ -44,6 +44,10 @@ public class ItemMapper {
         try {
             item.setOrigin_name(rs.getString("origin_name"));
         } catch (SQLException ignored) {}
+        
+        try {
+            item.setTotal_sold(rs.getInt("total_sold"));
+        } catch (SQLException ignored) {}
 
         return item;
     }
