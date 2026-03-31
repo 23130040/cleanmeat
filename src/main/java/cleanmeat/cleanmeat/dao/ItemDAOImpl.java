@@ -16,34 +16,50 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
 
     @Override
     public Item findById(int id) {
-        String sql = "select * from item where id = ?";
+        String sql = """
+                    SELECT i.*, 
+                           c.name AS category_name,
+                           u.name AS unit_name,
+                           o.name AS origin_name,
+                           img.url AS image
+                    FROM item i   
+                    LEFT JOIN category c ON i.category_id = c.id
+                    LEFT JOIN unit u ON i.unit_id = u.id
+                    LEFT JOIN origin o ON i.origin_id = o.id
+                    LEFT JOIN item_image img 
+                        ON i.id = img.item_id AND img.is_primary = 1
+                    WHERE i.id = ?
+                """;
+
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, id);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) return ItemMapper.map(rs);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return null;
     }
 
     @Override
     public List<Item> findAll() {
         String sql = """
-    SELECT i.*, 
-           c.name AS category_name,
-           u.name AS unit_name,
-           o.name AS origin_name,
-           img.url AS image
-    FROM item i
-    LEFT JOIN category c ON i.category_id = c.id
-    LEFT JOIN unit u ON i.unit_id = u.id
-    LEFT JOIN origin o ON i.origin_id = o.id
-    LEFT JOIN item_image img 
-        ON i.id = img.item_id AND img.is_primary = 1
-    """;
+                SELECT i.*, 
+                       c.name AS category_name,
+                       u.name AS unit_name,
+                       img.url AS image
+                FROM item i
+                LEFT JOIN category c ON i.category_id = c.id
+                LEFT JOIN unit u ON i.unit_id = u.id
+                LEFT JOIN item_image img 
+                    ON i.id = img.item_id AND img.is_primary = 1
+                """;
         List<Item> items = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -56,53 +72,6 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             throw new RuntimeException(e);
         }
         return items;
-    }
-
-    @Override
-    public List<Item> findAll(int limit, int offset) {
-        String sql = """
-    SELECT i.*, 
-           c.name AS category_name,
-           u.name AS unit_name,
-           o.name AS origin_name,
-           img.url AS image
-    FROM item i
-    LEFT JOIN category c ON i.category_id = c.id
-    LEFT JOIN unit u ON i.unit_id = u.id
-    LEFT JOIN origin o ON i.origin_id = o.id
-    LEFT JOIN item_image img 
-        ON i.id = img.item_id AND img.is_primary = 1
-    ORDER BY i.id DESC
-    LIMIT ? OFFSET ?
-    """;
-        List<Item> items = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, limit);
-            ps.setInt(2, offset);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Item item = ItemMapper.map(rs);
-                    items.add(item);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return items;
-    }
-
-    @Override
-    public int countAll() {
-        String sql = "SELECT COUNT(*) FROM item";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) return rs.getInt(1);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return 0;
     }
 
     @Override
@@ -173,5 +142,96 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    @Override
+    public int countItems() {
+        String sql = "SELECT COUNT(*) FROM item";
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return 0;
+    }
+
+    @Override
+    public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort) {
+
+        StringBuilder sql = new StringBuilder("""
+    SELECT i.*, 
+           c.name AS category_name,
+           u.name AS unit_name,
+           img.url AS image
+    FROM item i
+    JOIN unit u ON i.unit_id = u.id
+    JOIN (
+        SELECT i2.name, MIN(u2.amount) AS min_amount
+        FROM item i2
+        JOIN unit u2 ON i2.unit_id = u2.id
+        GROUP BY i2.name
+    ) t 
+        ON i.name = t.name AND u.amount = t.min_amount
+    LEFT JOIN category c ON i.category_id = c.id
+    LEFT JOIN item_image img 
+        ON i.id = img.item_id AND img.is_primary = 1
+    WHERE 1=1
+""");
+
+        if (category != null && !category.isEmpty()) {
+            sql.append(" AND c.id = ?");
+        }
+
+        if ("1".equals(price)) {
+            sql.append(" AND i.price < 200000");
+        } else if ("2".equals(price)) {
+            sql.append(" AND i.price BETWEEN 200000 AND 500000");
+        } else if ("3".equals(price)) {
+            sql.append(" AND i.price > 500000");
+        }
+
+        if ("asc".equals(sort)) {
+            sql.append(" ORDER BY i.price ASC");
+        } else if ("desc".equals(sort)) {
+            sql.append(" ORDER BY i.price DESC");
+        } else {
+            sql.append(" ORDER BY i.created_at DESC");
+        }
+
+        sql.append(" LIMIT ? OFFSET ?");
+
+        List<Item> items = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            int index = 1;
+
+            if (category != null && !category.isEmpty()) {
+                ps.setString(index++, category);
+            }
+
+            ps.setInt(index++, pageSize);
+            ps.setInt(index, (page - 1) * pageSize);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                items.add(ItemMapper.map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return items;
     }
 }
