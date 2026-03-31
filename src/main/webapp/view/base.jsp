@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="vi">
 <head>
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/${requestScope.pageCss}">
 </head>
 <body>
+<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
 <nav>
     <div class="container">
         <div class="nav-logo">
@@ -34,7 +36,7 @@
             <li class="${active == 'cart' ? 'active' : ''}">
                 <a href="${pageContext.request.contextPath}/cart" class="cart-link">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-quantity">0</span>
+                    <span id="cart-quantity">${sessionScope.cart != null ? sessionScope.cart.totalQuantity : 0}</span>
                 </a>
             </li>
             <li class="nav-separator">|</li>

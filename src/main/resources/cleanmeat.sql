@@ -54,6 +54,10 @@ CREATE TABLE `category`  (
 -- ----------------------------
 -- Records of category
 -- ----------------------------
+INSERT INTO `category` VALUES (1, 'Thịt bò', 'Các loại thịt bò tươi sống và nhập khẩu', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `category` VALUES (2, 'Thịt heo', 'Thịt heo sạch, hữu cơ', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `category` VALUES (3, 'Thịt gà', 'Gà thả vườn, gà công nghiệp sạch', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `category` VALUES (4, 'Hải sản', 'Hải sản tươi sống mỗi ngày', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
 
 -- ----------------------------
 -- Table structure for comment_tree
@@ -551,6 +555,9 @@ CREATE TABLE `origin`  (
 -- ----------------------------
 -- Records of origin
 -- ----------------------------
+INSERT INTO `origin` VALUES (1, 'Việt Nam', 'Sản phẩm chăn nuôi tại trang trại Việt Nam', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `origin` VALUES (2, 'Mỹ', 'Thịt nhập khẩu từ Hoa Kỳ', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `origin` VALUES (3, 'Úc', 'Thịt nhập khẩu từ Australia', '2026-03-31 00:00:00', '2026-03-31 00:00:00');
 
 -- ----------------------------
 -- Table structure for payment
@@ -649,6 +656,10 @@ CREATE TABLE `unit`  (
 -- ----------------------------
 -- Records of unit
 -- ----------------------------
+INSERT INTO `unit` VALUES (1, '200g', 0.20, '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `unit` VALUES (2, '500g', 0.50, '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `unit` VALUES (3, '1kg', 1.00, '2026-03-31 00:00:00', '2026-03-31 00:00:00');
+INSERT INTO `unit` VALUES (4, 'Khay', 1.00, '2026-03-31 00:00:00', '2026-03-31 00:00:00');
 
 -- ----------------------------
 -- Table structure for user

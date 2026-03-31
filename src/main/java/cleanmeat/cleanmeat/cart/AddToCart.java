@@ -1,22 +1,16 @@
 package cleanmeat.cleanmeat.cart;
 
 import cleanmeat.cleanmeat.model.Item;
-import cleanmeat.cleanmeat.service.ItemService;
+import cleanmeat.cleanmeat.dao.ItemDAO;
+import cleanmeat.cleanmeat.dao.ItemDAOImpl;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet("/add-to-cart")
+@WebServlet(name = "add-to-cart", value = "/add-to-cart")
 public class AddToCart extends HttpServlet {
-    ItemService itemService = new ItemService();
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -25,21 +19,22 @@ public class AddToCart extends HttpServlet {
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
+        
+        String itemIdParam = request.getParameter("itemId");
+        String quantityParam = request.getParameter("quantity");
+        
+        if (itemIdParam != null) {
+            int itemId = Integer.parseInt(itemIdParam);
+            int quantity = (quantityParam != null) ? Integer.parseInt(quantityParam) : 1;
+            
+            ItemDAO itemDAO = new ItemDAOImpl();
+            Item item = itemDAO.findById(itemId);
+            
+            if (item != null) {
+                cart.addCartItem(new CartItem(itemId, item, quantity));
+            }
 
-        int itemId = Integer.parseInt(request.getParameter("itemId"));
-        Item item = itemService.findById(itemId);
-        int quantity = 1;
-        String q = request.getParameter("quantity");
-        if (q != null) quantity = Integer.parseInt(q);
-        cart.addCartItem(new CartItem(item.getId(), item, quantity));
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        response.getWriter().write("""
-                    {
-                        "success": true,
-                        "totalQuantity": %d
-                    }
-                """.formatted(cart.getTotalQuantity()));
+            response.sendRedirect(request.getContextPath() + "/product-detail?id=" + itemId);
+        }
     }
 }

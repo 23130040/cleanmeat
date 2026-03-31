@@ -1,3 +1,31 @@
+window.CONTEXTPATH = document.getElementById('contextPath')?.value || '';
+
+function updateCartBadge(count) {
+    const badge = document.getElementById('cart-quantity');
+    if (badge) {
+        badge.textContent = count;
+        badge.classList.add('pulse');
+        setTimeout(() => badge.classList.remove('pulse'), 500);
+    }
+}
+
+function showNotification(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast-notice ${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const profileDropdown = document.getElementById('userProfileDropdown');
     if (profileDropdown) {

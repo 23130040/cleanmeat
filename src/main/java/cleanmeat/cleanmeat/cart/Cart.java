@@ -19,7 +19,8 @@ public class Cart implements Serializable {
         if (!map.containsKey(cartItem.getId())) {
             map.put(cartItem.getId(), cartItem);
         } else {
-            map.get(cartItem.getId()).quantityUp();
+            CartItem existing = map.get(cartItem.getId());
+            existing.setQuantity(existing.getQuantity() + cartItem.getQuantity());
         }
     }
 
@@ -36,7 +37,11 @@ public class Cart implements Serializable {
     }
 
     public int getTotalQuantity() {
-        return map.size();
+        int total = 0;
+        for (CartItem item : map.values()) {
+            total += item.getQuantity();
+        }
+        return total;
     }
 
     public Collection<CartItem> getList() {
