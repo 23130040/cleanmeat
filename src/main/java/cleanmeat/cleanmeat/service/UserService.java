@@ -26,6 +26,14 @@ public class UserService {
         return userDAO.calculateUserGrowth();
     }
 
+    public List<User> searchUsers(String query) {
+        return userDAO.search(query);
+    }
+
+    public List<User> searchUsers(String query, String role, String status) {
+        return userDAO.findAllFiltered(query, role, status);
+    }
+
     public String validateSignUp(String username, String email, String phone, String password, String confirmPassword) {
         if (username == null || username.trim().isEmpty())
             return "Họ và tên không được để trống!";
@@ -141,5 +149,13 @@ public class UserService {
 
     public boolean updateAvatar(int id, String avatarUrl) {
         return userDAO.updateAvatar(id, avatarUrl);
+    }
+
+    public boolean updateRoleAndStatus(int id, String role, boolean status) {
+        return userDAO.updateRoleAndStatus(id, role, status);
+    }
+
+    public boolean deleteUser(int id) {
+        return userDAO.delete(id);
     }
 }

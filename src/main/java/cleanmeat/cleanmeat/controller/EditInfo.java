@@ -66,6 +66,37 @@ public class EditInfo extends HttpServlet {
             } else {
                 response.sendRedirect(redirectUrl + separator + "error=update_failed");
             }
+        } else if ("changePassword".equals(action)) {
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+
+            String validationError = userService.validatePassword(user.getId(), oldPassword, newPassword, confirmPassword);
+
+            String redirectUrl = request.getHeader("referer");
+            if (redirectUrl == null) {
+                redirectUrl = request.getContextPath() + "/dashboard";
+            }
+            redirectUrl = redirectUrl.replaceAll("[&?]success=[^&]*", "");
+            redirectUrl = redirectUrl.replaceAll("[&?]error=[^&]*", "");
+            String separator = redirectUrl.contains("?") ? "&" : "?";
+
+            if (validationError == null) {
+                boolean isChanged = userService.changePassword(user.getId(), newPassword);
+                if (isChanged) {
+                    response.sendRedirect(redirectUrl + separator + "success=password_updated");
+                } else {
+                    response.sendRedirect(redirectUrl + separator + "error=update_failed");
+                }
+            } else {
+                String errorParam = "update_failed";
+                if (validationError.contains("hiện tại không đúng")) errorParam = "wrong_password";
+                else if (validationError.contains("không đủ mạnh")) errorParam = "not_strong";
+                else if (validationError.contains("không khớp")) errorParam = "mismatch";
+                else if (validationError.contains("trùng với mật khẩu hiện tại")) errorParam = "same_as_old";
+                
+                response.sendRedirect(redirectUrl + separator + "error=" + errorParam);
+            }
         }
     }
 

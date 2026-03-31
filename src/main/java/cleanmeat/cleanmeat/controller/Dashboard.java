@@ -39,6 +39,18 @@ public class Dashboard extends HttpServlet {
         int maxSold = topSellingItems.isEmpty() ? 1 : topSellingItems.get(0).getTotal_sold();
         if (maxSold == 0) maxSold = 1;
 
+        java.util.List<cleanmeat.cleanmeat.model.Orders> recentOrders = ordersService.getOrdersByPage(5, 0);
+
+        int countCompleted = ordersService.countOrdersByStatus("Hoàn thành");
+        int countProcessing = ordersService.countOrdersByStatus("Đang xử lý");
+        int countPending = ordersService.countOrdersByStatus("Chờ duyệt");
+        int countCancelled = ordersService.countOrdersByStatus("Đã hủy");
+        
+        double percentCompleted = totalOrders > 0 ? (countCompleted * 100.0 / totalOrders) : 0;
+        double percentProcessing = totalOrders > 0 ? (countProcessing * 100.0 / totalOrders) : 0;
+        double percentPending = totalOrders > 0 ? (countPending * 100.0 / totalOrders) : 0;
+        double percentCancelled = totalOrders > 0 ? (countCancelled * 100.0 / totalOrders) : 0;
+
         request.setAttribute("totalUsers", totalUsers);
         request.setAttribute("totalOrders", totalOrders);
         request.setAttribute("totalRevenue", totalRevenue);
@@ -50,10 +62,16 @@ public class Dashboard extends HttpServlet {
         request.setAttribute("lowStockProducts", lowStockProducts);
         request.setAttribute("topSellingItems", topSellingItems);
         request.setAttribute("maxSold", maxSold);
+        request.setAttribute("recentOrders", recentOrders);
         
         request.setAttribute("userGrowth", userGrowth);
         request.setAttribute("orderGrowth", orderGrowth);
         request.setAttribute("revenueGrowth", revenueGrowth);
+        
+        request.setAttribute("percentCompleted", percentCompleted);
+        request.setAttribute("percentProcessing", percentProcessing);
+        request.setAttribute("percentPending", percentPending);
+        request.setAttribute("percentCancelled", percentCancelled);
 
         request.setAttribute("pageContent", "/view/admin/dashboard.jsp");
         request.setAttribute("pageCss", "dashboard.css");

@@ -34,4 +34,10 @@ public interface UserDAO {
     public boolean updateInfoAdmin(int id, String name, String phone);
 
     public double calculateUserGrowth();
+
+    public List<User> search(String query);
+
+    public List<User> findAllFiltered(String query, String role, String status);
+
+    public boolean updateRoleAndStatus(int id, String role, boolean status);
 }

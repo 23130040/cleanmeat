@@ -173,62 +173,77 @@
             </div>
         </form>
 
-        <div class="tab-content" id="tab-password">
+        <form method="post" action="${pageContext.request.contextPath}/edit-info" class="tab-content" id="tab-password">
+            <input type="hidden" name="action" value="changePassword">
             <div class="admin-form-group">
                 <label>Mật khẩu hiện tại</label>
-                <input type="password" class="admin-input-control" placeholder="••••••••">
+                <input type="password" class="admin-input-control" name="oldPassword" placeholder="••••••••" required>
             </div>
             <div class="admin-form-group">
                 <label>Mật khẩu mới</label>
-                <input type="password" class="admin-input-control" placeholder="••••••••">
+                <input type="password" class="admin-input-control" name="newPassword" placeholder="••••••••" required>
             </div>
             <div class="admin-form-group">
                 <label>Xác nhận mật khẩu mới</label>
-                <input type="password" class="admin-input-control" placeholder="••••••••">
+                <input type="password" class="admin-input-control" name="confirmPassword" placeholder="••••••••"
+                       required>
             </div>
             <div class="form-actions-full">
-                <button class="btn-update-solid" onclick="alert('Tính năng cập nhật chưa kích hoạt database!')">Cập nhật
-                    mật khẩu
-                </button>
+                <button class="btn-update-solid" type="submit">Cập nhật mật khẩu</button>
             </div>
-        </div>
+        </form>
+    </div>
+</div>
+
+<div class="admin-modal-overlay" id="adminSuccessModal">
+    <div class="admin-alert-content">
+        <button class="btn-close-alert" onclick="this.closest('.admin-modal-overlay').classList.remove('show')"><i
+                class="fa-solid fa-xmark"></i></button>
+        <div class="alert-icon success"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Thành công!</h3>
+        <p id="successMessage">
+            <c:choose>
+                <c:when test="${param.success == 'info_updated'}">Cập nhật thông tin cá nhân thành công.</c:when>
+                <c:when test="${param.success == 'password_updated'}">Đổi mật khẩu thành công.</c:when>
+                <c:otherwise>Thao tác đã được thực hiện.</c:otherwise>
+            </c:choose>
+        </p>
+        <c:if test="${param.success == 'password_updated'}">
+            <a href="${pageContext.request.contextPath}/sign-in">
+                <button class="btn-alert-ok">Đăng nhập lại</button>
+            </a>
+        </c:if>
+        <button class="btn-alert-ok" onclick="this.closest('.admin-modal-overlay').classList.remove('show')">Đồng ý</button>
+    </div>
+</div>
+
+<div class="admin-modal-overlay" id="adminErrorModal">
+    <div class="admin-alert-content">
+        <button class="btn-close-alert" onclick="this.closest('.admin-modal-overlay').classList.remove('show')"><i
+                class="fa-solid fa-xmark"></i></button>
+        <div class="alert-icon error"><i class="fa-solid fa-circle-xmark"></i></div>
+        <h3>Có lỗi xảy ra</h3>
+        <p id="errorMessage">
+            <c:choose>
+                <c:when test="${param.error == 'update_failed'}">Có lỗi trong quá trình cập nhật, vui lòng thử lại.</c:when>
+                <c:when test="${param.error == 'wrong_password'}">Mật khẩu hiện tại không chính xác.</c:when>
+                <c:when test="${param.error == 'not_strong'}">Mật khẩu mới không đủ mạnh (ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số).</c:when>
+                <c:when test="${param.error == 'mismatch'}">Xác nhận mật khẩu mới không khớp.</c:when>
+                <c:when test="${param.error == 'same_as_old'}">Mật khẩu mới không được trùng với mật khẩu hiện tại.</c:when>
+                <c:otherwise>Đã có lỗi không xác định xảy ra.</c:otherwise>
+            </c:choose>
+        </p>
+        <button class="btn-alert-ok" style="background-color: #ef4444;"
+                onclick="this.closest('.admin-modal-overlay').classList.remove('show')">Đóng lại
+        </button>
     </div>
 </div>
 
 <c:if test="${not empty param.success}">
-    <div class="admin-alert-modal show" id="adminSuccessModal">
-        <div class="admin-alert-content">
-            <button class="btn-close-alert" onclick="this.closest('.admin-alert-modal').classList.remove('show')"><i class="fa-solid fa-xmark"></i></button>
-            <div class="alert-icon success"><i class="fa-solid fa-circle-check"></i></div>
-            <h3>Thành công!</h3>
-            <p>
-                <c:choose>
-                    <c:when test="${param.success == 'info_updated'}">Cập nhật thông tin cá nhân thành công.</c:when>
-                    <c:when test="${param.success == 'password_updated'}">Đổi mật khẩu thành công.</c:when>
-                    <c:otherwise>Thao tác đã được thực hiện.</c:otherwise>
-                </c:choose>
-            </p>
-            <button class="btn-alert-ok" onclick="this.closest('.admin-alert-modal').classList.remove('show')">Đồng ý</button>
-        </div>
-    </div>
+    <script>document.getElementById('adminSuccessModal').classList.add('show');</script>
 </c:if>
-
 <c:if test="${not empty param.error}">
-    <div class="admin-alert-modal show" id="adminErrorModal">
-        <div class="admin-alert-content">
-            <button class="btn-close-alert" onclick="this.closest('.admin-alert-modal').classList.remove('show')"><i class="fa-solid fa-xmark"></i></button>
-            <div class="alert-icon error"><i class="fa-solid fa-circle-xmark"></i></div>
-            <h3>Có lỗi xảy ra</h3>
-            <p>
-                <c:choose>
-                    <c:when test="${param.error == 'update_failed'}">Có lỗi trong quá trình cập nhật, vui lòng thử lại.</c:when>
-                    <c:when test="${param.error == 'wrong_password'}">Mật khẩu hiện tại không chính xác.</c:when>
-                    <c:otherwise>Đã có lỗi không xác định xảy ra.</c:otherwise>
-                </c:choose>
-            </p>
-            <button class="btn-alert-ok" style="background-color: #ef4444;" onclick="this.closest('.admin-alert-modal').classList.remove('show')">Đóng lại</button>
-        </div>
-    </div>
+    <script>document.getElementById('adminErrorModal').classList.add('show');</script>
 </c:if>
 
 </body>
