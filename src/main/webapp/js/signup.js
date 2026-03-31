@@ -74,16 +74,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    const modal = document.getElementById("verify-modal");
-    const closeBtn = document.querySelector(".close-btn");
+    const modals = document.querySelectorAll(".modal");
+    const closeBtns = document.querySelectorAll(".close-btn");
 
-    closeBtn.onclick = function () {
-        modal.style.display = "none";
-    };
+    closeBtns.forEach((btn) => {
+        btn.onclick = function () {
+            btn.closest(".modal").classList.remove("show");
+        };
+    });
 
     window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
+        if (event.target.classList.contains("modal")) {
+            event.target.classList.remove("show");
         }
     };
 });
