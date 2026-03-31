@@ -115,32 +115,43 @@
 .actions {
     margin-top: 20px;
     display: flex;
-    gap: 15px;
+    gap: 16px;
 }
 
 .actions button {
-    flex: 1;
-    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
     border: none;
     cursor: pointer;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 14px;
+    font-weight: 700;
     font-size: 16px;
+    transition: all 0.3s;
 }
 
-.actions .add {
-    background: #28a745 !important;
+.btn-add-to-cart {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-add-to-cart:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-buy-now {
+    background: #1e293b;
     color: white;
 }
 
-.actions .buy {
-    background: #ff5722 !important;
-    color: white;
-}
-
-.actions button:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
+.btn-buy-now:hover {
+    background: #0f172a;
+    transform: translateY(-2px);
 }
 
 .product-extra {

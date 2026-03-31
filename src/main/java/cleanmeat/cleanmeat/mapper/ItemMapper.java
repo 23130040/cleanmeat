@@ -41,9 +41,6 @@ public class ItemMapper {
         try {
             item.setImage(rs.getString("image"));
         } catch (SQLException ignored) {}
-        try {
-            item.setOrigin_name(rs.getString("origin_name"));
-        } catch (SQLException ignored) {}
 
         return item;
     }

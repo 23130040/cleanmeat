@@ -62,8 +62,14 @@
                 </div>
 
                 <div class="actions">
-                    <button class="add" ${item.current_stock == 0 ? "disabled" : ""}>Thêm vào giỏ</button>
-                    <button class="buy" ${item.current_stock == 0 ? "disabled" : ""}>Mua ngay</button>
+                    <form action="${pageContext.request.contextPath}/add-to-cart" method="post" id="addToCartForm">
+                        <input type="hidden" name="itemId" value="${item.id}">
+                        <input type="hidden" name="quantity" id="form-quantity" value="1">
+                        <button type="submit" class="btn-add-to-cart">
+                            <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
+                        </button>
+                    </form>
+                    <button class="btn-buy-now">Mua ngay</button>
                 </div>
             </div>
         </div>

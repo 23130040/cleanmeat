@@ -13,15 +13,12 @@
             <input type="text" placeholder="Tìm kiếm sản phẩm...">
         </div>
     </div>
-
 </div>
 
 <div class="products-filter">
     <div class="container">
         <form method="get" action="${pageContext.request.contextPath}/product">
-
             <div class="filter-box">
-
                 <div class="filter-item">
                     <span class="filter-title">Danh mục</span>
                     <div class="category-buttons">
@@ -66,7 +63,6 @@
                         <option value="hot" ${param.sort == 'hot' ? 'selected' : ''}>Bán chạy</option>
                     </select>
                 </div>
-
             </div>
         </form>
     </div>
