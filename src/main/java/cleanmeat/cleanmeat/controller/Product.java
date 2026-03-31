@@ -14,18 +14,28 @@ public class Product extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ItemDAO itemDAO = new ItemDAOImpl();
-        List<Item> items = itemDAO.findAll();
-        request.setAttribute("items", items);
+        int page = 1;
+        int pageSize = 6;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            page = Integer.parseInt(pageParam);
+        }
+        String category = request.getParameter("category");
+        String price = request.getParameter("price");
+        String sort = request.getParameter("sort");
+        int totalItems = itemDAO.countItems();
+        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+        List<Item> items = itemDAO.getItemsByPage(page, pageSize, category, price, sort);
 
+        request.setAttribute("items", items);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalItems", totalItems);
         request.setAttribute("pageTitle", "Sản phẩm");
         request.setAttribute("pageContent", "/view/product.jsp");
         request.setAttribute("pageCss", "product.css");
         request.setAttribute("active", "product");
+
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

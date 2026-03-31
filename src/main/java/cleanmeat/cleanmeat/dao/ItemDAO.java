@@ -18,4 +18,7 @@ public interface ItemDAO {
     public boolean update(Item item);
 
     public boolean delete(int id);
+
+    public int countItems();
+    public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort);
 }
