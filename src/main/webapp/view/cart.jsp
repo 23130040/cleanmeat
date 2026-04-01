@@ -5,7 +5,13 @@
 <div class="cart-section-premium">
     <div class="container">
 
-        <h2 class="cart-premium-title">Giỏ hàng của bạn</h2>
+        <div class="cart-header-row">
+            <h2 class="cart-premium-title">Giỏ hàng của bạn</h2>
+            <button class="btn-clear-cart" id="btn-clear-all" title="Xóa tất cả sản phẩm">
+                <i class="fa-regular fa-trash-can"></i>
+                Xóa tất cả
+            </button>
+        </div>
 
         <c:choose>
             <c:when test="${not empty cartItems}">
@@ -33,9 +39,13 @@
                                         <div class="price-breakdown">
                                             <div class="price-detail">
                                                 <span class="label">Đơn giá:</span>
-                                                <span class="val"><fmt:formatNumber
-                                                        value="${item.item.price * (1 - item.item.discount/100.0)}"
-                                                        maxFractionDigits="0"/>đ</span>
+                                                <div class="unit-price-wrapper">
+                                                    <c:set var="finalPrice" value="${item.item.price}" />
+                                                    <c:if test="${item.item.discount > 0}">
+                                                        <span class="old-val"><fmt:formatNumber value="${finalPrice + item.item.discount}" maxFractionDigits="0"/>đ</span>
+                                                    </c:if>
+                                                    <span class="val current-unit-price"><fmt:formatNumber value="${finalPrice}" maxFractionDigits="0"/>đ</span>
+                                                </div>
                                             </div>
                                             <div class="price-detail total">
                                                 <span class="label">Thành tiền:</span>

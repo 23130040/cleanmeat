@@ -53,7 +53,6 @@
     margin-bottom: 20px;
 }
 
-/* Form Styling */
 .form-row {
     display: flex;
     gap: 20px;
@@ -104,7 +103,6 @@
     resize: vertical;
 }
 
-/* Address Selection */
 .address-selection-list {
     display: flex;
     flex-direction: column;
@@ -198,7 +196,6 @@
     align-items: center;
 }
 
-/* Shipping Methods */
 .shipping-methods-list {
     display: flex;
     flex-direction: column;
@@ -285,11 +282,17 @@
     color: #111827;
 }
 
+.free-ship-note {
+    font-size: 11px;
+    color: #10b981;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
 .shipping-method-option input:checked ~ .shipping-price {
     color: #10b981;
 }
 
-/* Payment Methods */
 .payment-methods-list {
     display: flex;
     flex-direction: column;
@@ -367,7 +370,6 @@
     color: #6b7280;
 }
 
-/* Sidebar Summary */
 .checkout-summary-container {
     flex: 1;
     position: sticky;

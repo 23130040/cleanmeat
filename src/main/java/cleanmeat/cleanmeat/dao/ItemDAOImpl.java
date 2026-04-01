@@ -30,7 +30,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
                 """;
 
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
 
@@ -61,8 +61,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
                 """;
         List<Item> items = new ArrayList<>();
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Item item = ItemMapper.map(rs);
                 items.add(item);
@@ -92,7 +92,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
                 """;
         List<Item> items = new ArrayList<>();
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limit);
             ps.setInt(2, offset);
             try (ResultSet rs = ps.executeQuery()) {
@@ -111,8 +111,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     public int countAll() {
         String sql = "SELECT COUNT(*) FROM item";
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             if (rs.next())
                 return rs.getInt(1);
         } catch (SQLException e) {
@@ -129,7 +129,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, item.getName());
             ps.setString(2, item.getShort_description());
             ps.setString(3, item.getLong_description());
@@ -160,7 +160,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
                 where id = ?
                 """;
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, item.getName());
             ps.setString(2, item.getShort_description());
             ps.setString(3, item.getLong_description());
@@ -184,7 +184,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     public boolean delete(int id) {
         String sql = "delete from item where id = ?";
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             if (ps.executeUpdate() >= 1)
                 return true;
@@ -199,8 +199,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         String sql = "SELECT COUNT(*) FROM item";
 
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt(1);
@@ -259,7 +259,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         List<Item> items = new ArrayList<>();
 
         try (Connection conn = getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 
             int index = 1;
 
@@ -280,6 +280,38 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             throw new RuntimeException(e);
         }
 
+        return items;
+    }
+
+    @Override
+    public List<Item> findBestSellers(int limit) {
+        String sql = """
+                    SELECT i.*,
+                           c.name AS category_name,
+                           u.name AS unit_name,
+                           o.name AS origin_name,
+                           img.url AS image
+                    FROM item i
+                    LEFT JOIN category c ON i.category_id = c.id
+                    LEFT JOIN unit u ON i.unit_id = u.id
+                    LEFT JOIN origin o ON i.origin_id = o.id
+                    LEFT JOIN item_image img
+                        ON i.id = img.item_id AND img.is_primary = 1
+                    ORDER BY i.current_stock DESC
+                    LIMIT ?
+                """;
+        List<Item> items = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    items.add(ItemMapper.map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return items;
     }
 }
