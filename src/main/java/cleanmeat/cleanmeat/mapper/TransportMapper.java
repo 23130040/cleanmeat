@@ -11,8 +11,9 @@ public class TransportMapper {
         transport.setId(rs.getInt("id"));
         transport.setName(rs.getString("name"));
         transport.setBase_fee(rs.getInt("base_fee"));
-        transport.setEstimate_day(rs.getInt("estimate_day"));
+        transport.setEstimate_day(rs.getInt("estimated_day"));
         transport.setStatus(rs.getBoolean("status"));
+        transport.setFree_ship(rs.getInt("free_ship"));
         transport.setCreated_at(rs.getTimestamp("created_day").toLocalDateTime());
         transport.setUpdated_at(rs.getTimestamp("updated_day").toLocalDateTime());
         return transport;

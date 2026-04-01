@@ -21,9 +21,14 @@ public interface ItemDAO {
 
     public int countItems();
 
+<<<<<<< HEAD
     public int countLowStockItems();
 
     public List<Item> getTopSellingItems(int limit);
 
+=======
+>>>>>>> main
     public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort);
+
+    public List<Item> findBestSellers(int limit);
 }

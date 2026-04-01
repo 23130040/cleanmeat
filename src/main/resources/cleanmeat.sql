@@ -11,7 +11,7 @@
  Target Server Version : 80407 (8.4.7)
  File Encoding         : 65001
 
- Date: 31/03/2026 02:11:48
+ Date: 01/04/2026 21:10:45
 */
 
 SET NAMES utf8mb4;
@@ -22,34 +22,35 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address`  (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `user_id` int NOT NULL,
-                            `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                            `is_default` bit(1) NULL DEFAULT NULL,
-                            `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                            `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                            PRIMARY KEY (`id`) USING BTREE,
-                            INDEX `user_id`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `is_default` bit(1) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES (9, 1, 'vffgfdg', b'1', '2026-03-29 20:03:41', '2026-03-29 20:03:41');
+INSERT INTO `address` VALUES (11, 3, 'tpHCM', b'1', '2026-04-01 10:57:53', '2026-04-01 10:57:55');
 
 -- ----------------------------
 -- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                             `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -60,10 +61,10 @@ CREATE TABLE `category`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `comment_tree`;
 CREATE TABLE `comment_tree`  (
-                                 `ancestor_id` int NOT NULL,
-                                 `descendant_id` int NOT NULL,
-                                 `depth` int NOT NULL,
-                                 PRIMARY KEY (`ancestor_id`, `descendant_id`) USING BTREE
+  `ancestor_id` int NOT NULL,
+  `descendant_id` int NOT NULL,
+  `depth` int NOT NULL,
+  PRIMARY KEY (`ancestor_id`, `descendant_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -75,19 +76,19 @@ CREATE TABLE `comment_tree`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts`  (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `full_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `status` enum('pending','processing','replied') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'pending',
-                             `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `handled_by` int NULL DEFAULT NULL,
-                             PRIMARY KEY (`id`) USING BTREE,
-                             INDEX `idx_status`(`status`) USING BTREE,
-                             INDEX `idx_created_at`(`created_at`) USING BTREE,
-                             INDEX `idx_email`(`email`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('pending','processing','replied') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'pending',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `handled_by` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_status`(`status`) USING BTREE,
+  INDEX `idx_created_at`(`created_at`) USING BTREE,
+  INDEX `idx_email`(`email`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -99,17 +100,17 @@ CREATE TABLE `contacts`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback`  (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `user_id` int NOT NULL,
-                             `item_id` int NULL DEFAULT NULL,
-                             `rating` int NULL DEFAULT NULL,
-                             `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                             `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `status` bit(1) NULL DEFAULT NULL,
-                             PRIMARY KEY (`id`) USING BTREE,
-                             INDEX `user_id`(`user_id` ASC) USING BTREE,
-                             INDEX `item_id`(`item_id` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `item_id` int NULL DEFAULT NULL,
+  `rating` int NULL DEFAULT NULL,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` bit(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `item_id`(`item_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -121,23 +122,23 @@ CREATE TABLE `feedback`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`  (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `short_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                         `long_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                         `category_id` int NOT NULL,
-                         `origin_id` int NOT NULL,
-                         `unit_id` int NOT NULL,
-                         `price` decimal(10, 2) NOT NULL,
-                         `discount` decimal(5, 2) NULL DEFAULT 0.00,
-                         `current_stock` int NULL DEFAULT 0,
-                         `min_stock` int NULL DEFAULT NULL,
-                         `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         PRIMARY KEY (`id`) USING BTREE,
-                         INDEX `category_id`(`category_id` ASC) USING BTREE,
-                         INDEX `origin_id`(`origin_id` ASC) USING BTREE,
-                         INDEX `unit_id`(`unit_id` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `long_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `category_id` int NOT NULL,
+  `origin_id` int NOT NULL,
+  `unit_id` int NOT NULL,
+  `price` decimal(10, 2) NOT NULL,
+  `discount` decimal(5, 2) NULL DEFAULT 0.00,
+  `current_stock` int NULL DEFAULT 0,
+  `min_stock` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `category_id`(`category_id` ASC) USING BTREE,
+  INDEX `origin_id`(`origin_id` ASC) USING BTREE,
+  INDEX `unit_id`(`unit_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -281,13 +282,13 @@ INSERT INTO `item` VALUES (132, 'Mề gà', NULL, NULL, 3, 1, 3, 280800.00, 0.00
 -- ----------------------------
 DROP TABLE IF EXISTS `item_image`;
 CREATE TABLE `item_image`  (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `item_id` int NOT NULL,
-                               `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                               `is_primary` bit(1) NULL DEFAULT NULL,
-                               `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                               PRIMARY KEY (`id`) USING BTREE,
-                               INDEX `item_id`(`item_id` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `item_id` int NOT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `is_primary` bit(1) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `item_id`(`item_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 157 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -338,9 +339,9 @@ INSERT INTO `item_image` VALUES (42, 9, 'sp_3_1.jpg', b'0', '2026-01-03 17:01:31
 INSERT INTO `item_image` VALUES (43, 9, 'sp_3_2.jpg', b'0', '2026-01-03 17:01:31');
 INSERT INTO `item_image` VALUES (44, 9, 'sp_3_3.jpg', b'0', '2026-01-03 17:01:31');
 INSERT INTO `item_image` VALUES (45, 9, 'sp_3_4.jpg', b'0', '2026-01-03 17:01:31');
-INSERT INTO `item_image` VALUES (46, 22, 'images/Bo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (47, 23, 'images/Bo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (48, 24, 'images/Bo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (46, 22, 'Bo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (47, 23, 'Bo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (48, 24, 'Bo1.png', b'1', '2026-01-23 11:30:00');
 INSERT INTO `item_image` VALUES (49, 25, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
 INSERT INTO `item_image` VALUES (50, 26, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
 INSERT INTO `item_image` VALUES (51, 27, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
@@ -455,17 +456,17 @@ INSERT INTO `item_image` VALUES (156, 132, 'images/Ga11.png', b'1', '2026-01-23 
 -- ----------------------------
 DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news`  (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `title` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                         `picture_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                         `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                         `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                         `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                         `created_by` int NOT NULL,
-                         `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         PRIMARY KEY (`id`) USING BTREE,
-                         INDEX `created_by`(`created_by` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `picture_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int NOT NULL,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `created_by`(`created_by` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -477,16 +478,16 @@ CREATE TABLE `news`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `notification`;
 CREATE TABLE `notification`  (
-                                 `id` int NOT NULL AUTO_INCREMENT,
-                                 `user_id` int NOT NULL,
-                                 `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                                 `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                 `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                                 `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                                 `is_read` bit(1) NULL DEFAULT NULL,
-                                 `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                 PRIMARY KEY (`id`) USING BTREE,
-                                 INDEX `user_id`(`user_id` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_read` bit(1) NULL DEFAULT NULL,
+  `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -498,18 +499,18 @@ CREATE TABLE `notification`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `user_id` int NOT NULL,
-                           `total_price` decimal(10, 2) NULL DEFAULT NULL,
-                           `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                           `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                           `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                           `address_id` int NOT NULL,
-                           `transport_id` int NULL DEFAULT NULL,
-                           `payment_id` int NULL DEFAULT NULL,
-                           PRIMARY KEY (`id`) USING BTREE,
-                           INDEX `user_id`(`user_id` ASC) USING BTREE,
-                           INDEX `address_id`(`address_id` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `total_price` decimal(10, 2) NULL DEFAULT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `address_id` int NOT NULL,
+  `transport_id` int NULL DEFAULT NULL,
+  `payment_id` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `address_id`(`address_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -521,13 +522,13 @@ CREATE TABLE `orders`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `orders_item`;
 CREATE TABLE `orders_item`  (
-                                `order_id` int NOT NULL,
-                                `item_id` int NOT NULL,
-                                `price` decimal(10, 2) NULL DEFAULT NULL,
-                                `quantity` decimal(10, 2) NULL DEFAULT NULL,
-                                `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                                PRIMARY KEY (`order_id`, `item_id`) USING BTREE,
-                                INDEX `item_id`(`item_id` ASC) USING BTREE
+  `order_id` int NOT NULL,
+  `item_id` int NOT NULL,
+  `price` decimal(10, 2) NULL DEFAULT NULL,
+  `quantity` decimal(10, 2) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`, `item_id`) USING BTREE,
+  INDEX `item_id`(`item_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -539,13 +540,13 @@ CREATE TABLE `orders_item`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `origin`;
 CREATE TABLE `origin`  (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                           `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                           `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                           `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                           PRIMARY KEY (`id`) USING BTREE,
-                           UNIQUE INDEX `name`(`name` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -557,32 +558,35 @@ CREATE TABLE `origin`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment`  (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `status` bit(1) NULL DEFAULT b'1',
-                            `created_day` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                            `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                            PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` bit(1) NULL DEFAULT b'1',
+  `created_day` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
 -- ----------------------------
+INSERT INTO `payment` VALUES (1, 'Thanh toán khi nhận hàng (COD)', b'1', '2026-04-01 11:05:18', '2026-04-01 11:06:21');
+INSERT INTO `payment` VALUES (2, 'Thanh toán qua VNPay', b'1', '2026-04-01 11:05:33', '2026-04-01 11:06:36');
+INSERT INTO `payment` VALUES (3, 'Thanh toán qua Momo', b'1', '2026-04-01 11:06:51', '2026-04-01 11:06:51');
 
 -- ----------------------------
 -- Table structure for stock_history
 -- ----------------------------
 DROP TABLE IF EXISTS `stock_history`;
 CREATE TABLE `stock_history`  (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `item_id` int NULL DEFAULT NULL,
-                                  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                  `quantity` decimal(10, 2) NULL DEFAULT NULL,
-                                  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                                  `created_by` int NOT NULL,
-                                  PRIMARY KEY (`id`) USING BTREE,
-                                  INDEX `product_id`(`item_id` ASC) USING BTREE,
-                                  INDEX `created_by`(`created_by` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `item_id` int NULL DEFAULT NULL,
+  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` decimal(10, 2) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `product_id`(`item_id` ASC) USING BTREE,
+  INDEX `created_by`(`created_by` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -594,17 +598,17 @@ CREATE TABLE `stock_history`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_config`;
 CREATE TABLE `system_config`  (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                  `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                  `hotline` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                  `tax_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                  `facebook` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                                  `logo_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                                  `created_by` int NULL DEFAULT NULL,
-                                  PRIMARY KEY (`id`) USING BTREE,
-                                  INDEX `created_by`(`created_by` ASC) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `hotline` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `tax_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `facebook` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `logo_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_by` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `created_by`(`created_by` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -616,35 +620,36 @@ CREATE TABLE `system_config`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `transport`;
 CREATE TABLE `transport`  (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                              `base_fee` int NULL DEFAULT 0,
-                              `estimated_day` int NULL DEFAULT NULL,
-                              `status` bit(1) NULL DEFAULT b'1',
-                              `created_day` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                              `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                              `area` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-                              `free_ship` int NULL DEFAULT NULL,
-                              PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `base_fee` int NULL DEFAULT 0,
+  `estimated_day` int NULL DEFAULT NULL,
+  `status` bit(1) NULL DEFAULT b'1',
+  `created_day` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `free_ship` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of transport
 -- ----------------------------
+INSERT INTO `transport` VALUES (1, 'Giao hàng nhanh', 15000, 2, b'1', '2026-04-01 11:08:43', '2026-04-01 20:52:31', 100000);
+INSERT INTO `transport` VALUES (2, 'Giao hàng tiết kiệm', 25000, 3, b'1', '2026-04-01 11:09:32', '2026-04-01 20:52:35', 100000);
 
 -- ----------------------------
 -- Table structure for unit
 -- ----------------------------
 DROP TABLE IF EXISTS `unit`;
 CREATE TABLE `unit`  (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `amount` decimal(10, 2) NULL DEFAULT NULL,
-                         `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         PRIMARY KEY (`id`) USING BTREE,
-                         UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` decimal(10, 2) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of unit
@@ -655,25 +660,27 @@ CREATE TABLE `unit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                         `gender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT ' ',
-                         `birthday` date NULL DEFAULT '2005-02-02',
-                         `role` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'user',
-                         `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT ' ',
-                         `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         `status` bit(1) NULL DEFAULT b'0',
-                         `verify_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                         PRIMARY KEY (`id`) USING BTREE,
-                         UNIQUE INDEX `email`(`email` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `gender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT ' ',
+  `birthday` date NULL DEFAULT '2005-02-02',
+  `role` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'user',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT ' ',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` bit(1) NULL DEFAULT b'0',
+  `verify_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `email`(`email` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (1, 'Nguyễn Bích Dân', '23130040@st.hcmuaf.edu.vn', '$2a$12$KooUNBYAOltcr.gzrDM6luFM6AXJTaq23VfEj61fmUEUyzNdy33nq', '0312345678', 'other', '2026-03-31', 'admin', 'https://pub-71ec9cf4f0b64801a2907204d81a0b26.r2.dev/1_1713542063746.png', '2026-03-31 15:49:51', '2026-03-31 22:52:56', b'1', NULL);
+INSERT INTO `user` VALUES (3, 'Nguyễn Bích Dân', 'bichdantqn2005@gmail.com', '$2a$12$1YY7cndfEIO8WWGfQZ.Cf.OOv6tIBxdJNTOP5fBbQzWgCyRagwDtG', '0312345678', 'Other', '2026-03-31', 'customer', NULL, '2026-03-31 16:09:26', '2026-03-31 23:42:13', b'1', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

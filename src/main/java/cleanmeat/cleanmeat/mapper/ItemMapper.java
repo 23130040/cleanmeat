@@ -41,6 +41,7 @@ public class ItemMapper {
         try {
             item.setImage(rs.getString("image"));
         } catch (SQLException ignored) {}
+<<<<<<< HEAD
         try {
             item.setOrigin_name(rs.getString("origin_name"));
         } catch (SQLException ignored) {}
@@ -48,6 +49,8 @@ public class ItemMapper {
         try {
             item.setTotal_sold(rs.getInt("total_sold"));
         } catch (SQLException ignored) {}
+=======
+>>>>>>> main
 
         return item;
     }

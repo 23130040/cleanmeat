@@ -15,16 +15,16 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     @Override
     public Item findById(int id) {
         String sql = """
-                    SELECT i.*, 
+                    SELECT i.*,
                            c.name AS category_name,
                            u.name AS unit_name,
                            o.name AS origin_name,
                            img.url AS image
-                    FROM item i   
+                    FROM item i
                     LEFT JOIN category c ON i.category_id = c.id
                     LEFT JOIN unit u ON i.unit_id = u.id
                     LEFT JOIN origin o ON i.origin_id = o.id
-                    LEFT JOIN item_image img 
+                    LEFT JOIN item_image img
                         ON i.id = img.item_id AND img.is_primary = 1
                     WHERE i.id = ?
                 """;
@@ -35,7 +35,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) return ItemMapper.map(rs);
+                if (rs.next())
+                    return ItemMapper.map(rs);
             }
 
         } catch (SQLException e) {
@@ -48,14 +49,14 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     @Override
     public List<Item> findAll() {
         String sql = """
-                SELECT i.*, 
+                SELECT i.*,
                        c.name AS category_name,
                        u.name AS unit_name,
                        img.url AS image
                 FROM item i
                 LEFT JOIN category c ON i.category_id = c.id
                 LEFT JOIN unit u ON i.unit_id = u.id
-                LEFT JOIN item_image img 
+                LEFT JOIN item_image img
                     ON i.id = img.item_id AND img.is_primary = 1
                 """;
         List<Item> items = new ArrayList<>();
@@ -72,24 +73,23 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         return items;
     }
 
-
     @Override
     public List<Item> findAll(int limit, int offset) {
         String sql = """
-    SELECT i.*, 
-           c.name AS category_name,
-           u.name AS unit_name,
-           o.name AS origin_name,
-           img.url AS image
-    FROM item i
-    LEFT JOIN category c ON i.category_id = c.id
-    LEFT JOIN unit u ON i.unit_id = u.id
-    LEFT JOIN origin o ON i.origin_id = o.id
-    LEFT JOIN item_image img 
-        ON i.id = img.item_id AND img.is_primary = 1
-    ORDER BY i.id DESC
-    LIMIT ? OFFSET ?
-    """;
+                SELECT i.*,
+                       c.name AS category_name,
+                       u.name AS unit_name,
+                       o.name AS origin_name,
+                       img.url AS image
+                FROM item i
+                LEFT JOIN category c ON i.category_id = c.id
+                LEFT JOIN unit u ON i.unit_id = u.id
+                LEFT JOIN origin o ON i.origin_id = o.id
+                LEFT JOIN item_image img
+                    ON i.id = img.item_id AND img.is_primary = 1
+                ORDER BY i.id DESC
+                LIMIT ? OFFSET ?
+                """;
         List<Item> items = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -113,7 +113,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) return rs.getInt(1);
+            if (rs.next())
+                return rs.getInt(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -123,9 +124,9 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     @Override
     public boolean insert(Item item) {
         String sql = """
-                insert into item 
-                (name, short_description, long_description, category_id, origin_id, unit_id, price, discount, current_stock, min_stock) 
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+                insert into item
+                (name, short_description, long_description, category_id, origin_id, unit_id, price, discount, current_stock, min_stock)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -139,7 +140,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             ps.setDouble(8, item.getDiscount());
             ps.setDouble(9, item.getCurrent_stock());
             ps.setDouble(10, item.getMin_stock());
-            if (ps.executeUpdate() >= 1) return true;
+            if (ps.executeUpdate() >= 1)
+                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -170,7 +172,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             ps.setDouble(9, item.getCurrent_stock());
             ps.setDouble(10, item.getMin_stock());
             ps.setInt(11, item.getId());
-            if (ps.executeUpdate() >= 1) return true;
+            if (ps.executeUpdate() >= 1)
+                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -183,7 +186,8 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
-            if (ps.executeUpdate() >= 1) return true;
+            if (ps.executeUpdate() >= 1)
+                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -263,24 +267,22 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
     public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort) {
 
         StringBuilder sql = new StringBuilder("""
-    SELECT i.*, 
-           c.name AS category_name,
-           u.name AS unit_name,
-           img.url AS image
-    FROM item i
-    JOIN unit u ON i.unit_id = u.id
-    JOIN (
-        SELECT i2.name, MIN(u2.amount) AS min_amount
-        FROM item i2
-        JOIN unit u2 ON i2.unit_id = u2.id
-        GROUP BY i2.name
-    ) t 
-        ON i.name = t.name AND u.amount = t.min_amount
-    LEFT JOIN category c ON i.category_id = c.id
-    LEFT JOIN item_image img 
-        ON i.id = img.item_id AND img.is_primary = 1
-    WHERE 1=1
-""");
+                    SELECT i.*,
+                           c.name AS category_name,
+                           u.name AS unit_name,
+                           img.url AS image
+                    FROM item i
+                    JOIN (
+                        SELECT MIN(id) as id
+                        FROM item
+                        GROUP BY name
+                    ) t ON i.id = t.id
+                    LEFT JOIN unit u ON i.unit_id = u.id
+                    LEFT JOIN category c ON i.category_id = c.id
+                    LEFT JOIN item_image img 
+                        ON i.id = img.item_id AND img.is_primary = 1
+                    WHERE 1=1
+                """);
 
         if (category != null && !category.isEmpty()) {
             sql.append(" AND c.id = ?");
@@ -312,7 +314,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             int index = 1;
 
             if (category != null && !category.isEmpty()) {
-                ps.setString(index++, category);
+                ps.setInt(index++, Integer.parseInt(category));
             }
 
             ps.setInt(index++, pageSize);
@@ -328,6 +330,38 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
             throw new RuntimeException(e);
         }
 
+        return items;
+    }
+
+    @Override
+    public List<Item> findBestSellers(int limit) {
+        String sql = """
+                    SELECT i.*,
+                           c.name AS category_name,
+                           u.name AS unit_name,
+                           o.name AS origin_name,
+                           img.url AS image
+                    FROM item i
+                    LEFT JOIN category c ON i.category_id = c.id
+                    LEFT JOIN unit u ON i.unit_id = u.id
+                    LEFT JOIN origin o ON i.origin_id = o.id
+                    LEFT JOIN item_image img
+                        ON i.id = img.item_id AND img.is_primary = 1
+                    ORDER BY i.current_stock DESC
+                    LIMIT ?
+                """;
+        List<Item> items = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    items.add(ItemMapper.map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return items;
     }
 }

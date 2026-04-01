@@ -9,17 +9,19 @@ public class Transport implements Serializable {
     private int base_fee;
     private int estimate_day;
     private boolean status;
+    private int free_ship;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
     public Transport() {}
 
-    public Transport(int id, String name, int base_fee, int estimate_day, boolean status, LocalDateTime created_at, LocalDateTime updated_at) {
+    public Transport(int id, String name, int base_fee, int estimate_day, boolean status, int free_ship, LocalDateTime created_at, LocalDateTime updated_at) {
         this.id = id;
         this.name = name;
         this.base_fee = base_fee;
         this.estimate_day = estimate_day;
         this.status = status;
+        this.free_ship = free_ship;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -70,6 +72,14 @@ public class Transport implements Serializable {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public int getFree_ship() {
+        return free_ship;
+    }
+
+    public void setFree_ship(int free_ship) {
+        this.free_ship = free_ship;
     }
 
     public LocalDateTime getUpdated_at() {

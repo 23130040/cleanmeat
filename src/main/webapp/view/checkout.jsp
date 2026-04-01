@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="checkout-section">
     <div class="container">
@@ -33,27 +34,19 @@
                 <div class="checkout-card">
                     <h3 class="section-title">Địa chỉ giao hàng</h3>
                     <div class="address-selection-list">
-                        <label class="address-option">
-                            <input type="radio" name="addressOption" value="1" checked>
-                            <div class="address-radio-custom"></div>
-                            <div class="address-info">
-                                <span class="receiver-name">Nguyễn Văn A <span class="tag-default">Mặc định</span></span>
-                                <span class="receiver-phone">0901234567</span>
-                                <span class="receiver-address">123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
-                            </div>
-                        </label>
+                        <c:forEach var="address" items="${addresses}">
+                            <label class="address-option">
+                                <input type="radio" name="addressOption" value="${address.id}" ${address.is_Default ? 'checked' : ''}>
+                                <div class="address-radio-custom"></div>
+                                <div class="address-info">
+                                    <span class="receiver-name">${user.name} <c:if test="${address.is_Default}"><span class="tag-default">Mặc định</span></c:if></span>
+                                    <span class="receiver-phone">${user.phone}</span>
+                                    <span class="receiver-address">${address.address}</span>
+                                </div>
+                            </label>
+                        </c:forEach>
 
                         <label class="address-option">
-                            <input type="radio" name="addressOption" value="2">
-                            <div class="address-radio-custom"></div>
-                            <div class="address-info">
-                                <span class="receiver-name">Nguyễn Văn B</span>
-                                <span class="receiver-phone">0908765432</span>
-                                <span class="receiver-address">456 Đường XYZ, Quận 7, TP. Hồ Chí Minh</span>
-                            </div>
-                        </label>
-
-                        <label class="address-option" id="useNewAddressBtn">
                             <input type="radio" name="addressOption" value="new" id="useNewAddress">
                             <div class="address-radio-custom"></div>
                             <div class="address-info">
@@ -63,103 +56,89 @@
                     </div>
 
                     <div id="newAddressForm" class="manual-address-form" style="display: none; border-top: 1px solid #f3f4f6; padding-top: 20px; margin-top: 15px;">
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="city">Tỉnh/Thành phố <span class="required">*</span></label>
-                                <select id="city" name="city">
-                                    <option value="" disabled selected>Chọn tỉnh/thành phố</option>
-                                    <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Đà Nẵng">Đà Nẵng</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="district">Quận/Huyện <span class="required">*</span></label>
-                                <input type="text" id="district" name="district" placeholder="Nhập quận/huyện">
-                            </div>
-                        </div>
                         <div class="form-group full-width">
                             <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
                             <input type="text" id="address" name="address" placeholder="Số nhà, tên đường...">
                         </div>
                     </div>
 
-                    <div class="form-group full-width" style="margin-top: 15px;">
-                        <label for="orderNote">Ghi chú đơn hàng</label>
-                        <textarea id="orderNote" name="orderNote" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn"></textarea>
-                    </div>
                 </div>
 
                 <div class="checkout-card">
                     <h3 class="section-title">Phương thức vận chuyển</h3>
                     <div class="shipping-methods-list">
-                        <!-- Option: Standard Shipping -->
-                        <label class="shipping-method-option">
-                            <input type="radio" name="shippingOption" value="STANDARD" checked>
-                            <div class="shipping-radio-custom"></div>
-                            <div class="shipping-method-icon">
-                                <i class="fa-solid fa-truck"></i>
-                            </div>
-                            <div class="shipping-method-info">
-                                <span class="shipping-name">Giao hàng tiêu chuẩn</span>
-                                <span class="shipping-description">Giao hàng từ 2 - 3 ngày làm việc</span>
-                            </div>
-                            <span class="shipping-price">Miễn phí</span>
-                        </label>
-
-                        <label class="shipping-method-option">
-                            <input type="radio" name="shippingOption" value="EXPRESS">
-                            <div class="shipping-radio-custom"></div>
-                            <div class="shipping-method-icon">
-                                <i class="fa-solid fa-bolt"></i>
-                            </div>
-                            <div class="shipping-method-info">
-                                <span class="shipping-name">Giao hàng nhanh</span>
-                                <span class="shipping-description">Giao hàng trong ngày hoặc hỏa tốc</span>
-                            </div>
-                            <span class="shipping-price">30.000đ</span>
-                        </label>
+                        <c:forEach var="t" items="${transports}" varStatus="loop">
+                            <label class="shipping-method-option">
+                                <input type="radio" name="shippingOption" value="${t.id}" 
+                                       data-fee="${t.base_fee}" 
+                                       data-free-threshold="${t.free_ship != null ? t.free_ship : 9999999}"
+                                       ${loop.first ? 'checked' : ''}>
+                                <div class="shipping-radio-custom"></div>
+                                <div class="shipping-method-icon">
+                                    <i class="fa-solid ${t.name.contains('nhanh') ? 'fa-bolt' : 'fa-truck'}"></i>
+                                </div>
+                                <div class="shipping-method-info">
+                                    <span class="shipping-name">${t.name}</span>
+                                    <span class="shipping-description">Giao hàng trong khoảng ${t.estimate_day} ngày</span>
+                                    <c:if test="${t.free_ship > 0}">
+                                        <span class="free-ship-note">Miễn phí cho đơn từ <fmt:formatNumber value="${t.free_ship}" maxFractionDigits="0"/>đ</span>
+                                    </c:if>
+                                </div>
+                                <span class="shipping-price dynamic-fee" data-base-fee="${t.base_fee}">
+                                    <c:choose>
+                                        <c:when test="${t.base_fee == 0}">Miễn phí</c:when>
+                                        <c:otherwise><fmt:formatNumber value="${t.base_fee}" maxFractionDigits="0"/>đ</c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </label>
+                        </c:forEach>
                     </div>
                 </div>
 
                 <div class="checkout-card">
                     <h3 class="section-title">Phương thức thanh toán</h3>
                     <div class="payment-methods-list">
-                        <label class="payment-method-option active">
-                            <input type="radio" name="paymentOption" value="COD" checked>
-                            <div class="payment-radio-custom"></div>
-                            <div class="payment-method-icon">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
-                            </div>
-                            <div class="payment-method-info">
-                                <span class="payment-name">Thanh toán khi nhận hàng (COD)</span>
-                                <span class="payment-description">Thanh toán bằng tiền mặt khi nhận hàng</span>
-                            </div>
-                        </label>
-
-                        <label class="payment-method-option">
-                            <input type="radio" name="paymentOption" value="BANK">
-                            <div class="payment-radio-custom"></div>
-                            <div class="payment-method-icon">
-                                <i class="fa-regular fa-credit-card"></i>
-                            </div>
-                            <div class="payment-method-info">
-                                <span class="payment-name">Chuyển khoản ngân hàng</span>
-                                <span class="payment-description">Chuyển khoản qua tài khoản ngân hàng</span>
-                            </div>
-                        </label>
-
-                        <label class="payment-method-option">
-                            <input type="radio" name="paymentOption" value="WALLET">
-                            <div class="payment-radio-custom"></div>
-                            <div class="payment-method-icon">
-                                <i class="fa-regular fa-wallet"></i>
-                            </div>
-                            <div class="payment-method-info">
-                                <span class="payment-name">Ví điện tử (MoMo/ZaloPay)</span>
-                                <span class="payment-description">Thanh toán qua ví điện tử MoMo hoặc ZaloPay</span>
-                            </div>
-                        </label>
+                        <c:forEach var="p" items="${payments}" varStatus="loop">
+                            <label class="payment-method-option ${loop.first ? 'active' : ''}">
+                                <input type="radio" name="paymentOption" value="${p.id}" ${loop.first ? 'checked' : ''}>
+                                <div class="payment-radio-custom"></div>
+                                <div class="payment-method-icon">
+                                    <c:choose>
+                                        <c:when test="${p.name.contains('nhận hàng') || p.name.contains('COD')}">
+                                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                                        </c:when>
+                                        <c:when test="${p.name.contains('VNPay')}">
+                                            <i class="fa-solid fa-qrcode"></i>
+                                        </c:when>
+                                        <c:when test="${p.name.contains('Momo')}">
+                                            <i class="fa-regular fa-wallet"></i>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <i class="fa-solid fa-credit-card"></i>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div class="payment-method-info">
+                                    <span class="payment-name">${p.name}</span>
+                                    <span class="payment-description">
+                                        <c:choose>
+                                            <c:when test="${p.name.contains('nhận hàng') || p.name.contains('COD')}">
+                                                Thanh toán bằng tiền mặt khi nhận hàng
+                                            </c:when>
+                                            <c:when test="${p.name.contains('VNPay')}">
+                                                Thanh toán qua cổng thanh toán VNPay
+                                            </c:when>
+                                            <c:when test="${p.name.contains('Momo')}">
+                                                Thanh toán qua ví điện tử Momo
+                                            </c:when>
+                                            <c:otherwise>
+                                                Phương thức thanh toán an toàn
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                </div>
+                            </label>
+                        </c:forEach>
                     </div>
                 </div>
             </form>
@@ -169,38 +148,24 @@
                     <h3 class="summary-title">Đơn hàng của bạn</h3>
                     
                     <div class="order-items-list">
-                        <c:choose>
-                            <c:when test="${not empty cartItems}">
-                                <c:forEach var="item" items="${cartItems}">
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            <img src="${pageContext.request.contextPath}${item.productImage}">
-                                        </div>
-                                        <div class="order-item-details">
-                                            <div class="name-qty">
-                                                <span class="item-name">${item.productName}</span>
-                                                <span class="item-qty">${item.price}đ x ${item.quantity}</span>
-                                            </div>
-                                            <span class="item-subtotal">${item.price * item.quantity}đ</span>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="order-item">
-                                    <div class="order-item-image">
-                                        <img src="${pageContext.request.contextPath}/images/pork.jpg">
-                                    </div>
-                                    <div class="order-item-details">
-                                        <div class="name-qty">
-                                            <span class="item-name">Thịt Heo Sạch</span>
-                                            <span class="item-qty">180.000đ x 1</span>
-                                        </div>
-                                        <span class="item-subtotal">180.000đ</span>
-                                    </div>
+                        <c:forEach var="item" items="${cartItems}">
+                            <div class="order-item">
+                                <div class="order-item-image">
+                                    <img src="${pageContext.request.contextPath}/images/${item.item.image}">
                                 </div>
-                            </c:otherwise>
-                        </c:choose>
+                                <div class="order-item-details">
+                                    <div class="name-qty">
+                                        <span class="item-name">${item.item.name}</span>
+                                        <span class="item-qty">
+                                            <fmt:formatNumber value="${item.item.price}" maxFractionDigits="0"/>đ x ${item.quantity}
+                                        </span>
+                                    </div>
+                                    <span class="item-subtotal">
+                                        <fmt:formatNumber value="${item.subTotal}" maxFractionDigits="0"/>đ
+                                    </span>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
 
                     <div class="summary-divider"></div>
@@ -208,18 +173,27 @@
                     <div class="summary-details">
                         <div class="summary-row">
                             <span class="label">Tạm tính</span>
-                            <span class="value">${subtotal != null ? subtotal : '180.000đ'}</span>
+                            <span class="value subtotal-value">
+                                <fmt:formatNumber value="${subtotal}" maxFractionDigits="0"/>đ
+                            </span>
                         </div>
                         <div class="summary-row">
                             <span class="label">Phí vận chuyển</span>
-                            <span class="value shipping-free">Miễn phí</span>
+                            <span class="value shipping-value ${shipping == 0 ? 'shipping-free' : ''}">
+                                <c:choose>
+                                    <c:when test="${shipping == 0}">Miễn phí</c:when>
+                                    <c:otherwise><fmt:formatNumber value="${shipping}" maxFractionDigits="0"/>đ</c:otherwise>
+                                </c:choose>
+                            </span>
                         </div>
                         
                         <div class="summary-divider thick"></div>
                         
                         <div class="summary-row total-row">
                             <span class="label">Tổng cộng</span>
-                            <span class="value total-price">${total != null ? total : '180.000đ'}</span>
+                            <span class="value total-value">
+                                <fmt:formatNumber value="${total}" maxFractionDigits="0"/>đ
+                            </span>
                         </div>
                     </div>
 
