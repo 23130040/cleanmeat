@@ -11,16 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="25245252-4b57-4a9a-8bec-ac46b9dd0b30" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/cart/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/cart/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/ItemDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/cart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Checkout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/controller/Checkout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/TransportDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/dao/TransportDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/TransportMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/mapper/TransportMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Transport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cleanmeat/cleanmeat/model/Transport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/checkout.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/checkout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view/checkout.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +272,8 @@
       <workItem from="1774797906732" duration="964000" />
       <workItem from="1774801702290" duration="8076000" />
       <workItem from="1774978838345" duration="4890000" />
-      <workItem from="1775013866813" duration="1099000" />
+      <workItem from="1775013866813" duration="3291000" />
+      <workItem from="1775051347563" duration="1039000" />
     </task>
     <servers />
   </component>

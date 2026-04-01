@@ -47,13 +47,14 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
 
     @Override
     public boolean insert(Transport transport) {
-        String sql = "insert into category (name, base_fee, estimated_day, status) values (?, ?, ?, ?)";
+        String sql = "insert into transport (name, base_fee, estimated_day, status, free_ship) values (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, transport.getName());
             ps.setInt(2, transport.getBase_fee());
             ps.setInt(3, transport.getEstimate_day());
             ps.setBoolean(4, transport.isStatus());
+            ps.setInt(5, transport.getFree_ship());
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -64,8 +65,8 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
     @Override
     public boolean update(Transport transport) {
         String sql = """
-                update category
-                set name = ?, base_fee = ?, estimated_day = ?, status = ?, updated_day = NOW()
+                update transport
+                set name = ?, base_fee = ?, estimated_day = ?, status = ?, free_ship = ?, updated_day = NOW()
                 where id = ?
                 """;
         try (Connection conn = getConnection();
@@ -74,7 +75,8 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
             ps.setInt(2, transport.getBase_fee());
             ps.setInt(3, transport.getEstimate_day());
             ps.setBoolean(4, transport.isStatus());
-            ps.setInt(5, transport.getId());
+            ps.setInt(5, transport.getFree_ship());
+            ps.setInt(6, transport.getId());
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
