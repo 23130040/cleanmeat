@@ -11,10 +11,15 @@ public class Feedback implements Serializable {
     private String comment;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
+    private String name;
+    private String avatar;
 
-    public Feedback() {}
+    public Feedback() {
+    }
 
-    public Feedback(int id, int user_id, int item_id, int rating, String comment, LocalDateTime created_at, LocalDateTime updated_at) {
+    public Feedback(int id, int user_id, int item_id, int rating, String comment,
+                    LocalDateTime created_at, LocalDateTime updated_at,
+                    String name, String avatar) {
         this.id = id;
         this.user_id = user_id;
         this.item_id = item_id;
@@ -22,6 +27,8 @@ public class Feedback implements Serializable {
         this.comment = comment;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.name = name;
+        this.avatar = avatar;
     }
 
     public int getId() {
@@ -79,4 +86,21 @@ public class Feedback implements Serializable {
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 }
