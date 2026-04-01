@@ -55,4 +55,8 @@ public class Cart implements Serializable {
         }
     }
 
+    public void clear() {
+        map.clear();
+    }
+
 }
