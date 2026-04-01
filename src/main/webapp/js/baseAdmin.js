@@ -44,7 +44,19 @@ function openAccountModal(event) {
 }
 
 function closeAccountModal() {
-    document.getElementById('adminAccountModal').classList.remove('show');
+    closeModal('adminAccountModal');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+}
+
+function hideAlertModal() {
+    document.getElementById('adminAlertModal').classList.remove('show');
+    const url = new URL(window.location);
+    url.searchParams.delete('success');
+    url.searchParams.delete('error');
+    window.history.replaceState({}, '', url);
 }
 
 function switchAccountTab(tabId, btn) {

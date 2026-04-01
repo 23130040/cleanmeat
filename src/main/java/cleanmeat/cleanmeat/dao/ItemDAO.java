@@ -9,11 +9,19 @@ public interface ItemDAO {
 
     public List<Item> findAll();
 
-    public List<Item> findAll(int limit, int offset);
-
     public int countAll();
 
-    public boolean insert(Item item);
+    public int countAll(int categoryId);
+
+    public int countAll(int categoryId, String keyword);
+
+    public List<Item> findAll(int limit, int offset);
+
+    public List<Item> findAll(int limit, int offset, int categoryId);
+
+    public List<Item> findAll(int limit, int offset, int categoryId, String keyword);
+
+    public int insert(Item item);
 
     public boolean update(Item item);
 
@@ -21,13 +29,10 @@ public interface ItemDAO {
 
     public int countItems();
 
-<<<<<<< HEAD
     public int countLowStockItems();
 
     public List<Item> getTopSellingItems(int limit);
 
-=======
->>>>>>> main
     public List<Item> getItemsByPage(int page, int pageSize, String category, String price, String sort);
 
     public List<Item> findBestSellers(int limit);

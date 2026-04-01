@@ -133,6 +133,7 @@ CREATE TABLE `item`  (
   `discount` decimal(5, 2) NULL DEFAULT 0.00,
   `current_stock` int NULL DEFAULT 0,
   `min_stock` int NULL DEFAULT NULL,
+  `packaging` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,

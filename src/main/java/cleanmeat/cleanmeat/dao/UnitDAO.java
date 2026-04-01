@@ -9,7 +9,9 @@ public interface UnitDAO {
 
     public List<Unit> findAll();
 
-    public boolean insert(Unit unit);
+    public Unit findByName(String name);
+
+    public int insert(Unit unit);
 
     public boolean update(Unit unit);
 

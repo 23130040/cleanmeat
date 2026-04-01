@@ -23,6 +23,9 @@
         </li>
         <li class="${active == 'user-admin' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/user-admin"><i
                 class="fa-regular fa-user"></i> Người dùng</a></li>
+        <li class="${active == 'category-admin' ? 'active' : ''}"><a
+                href="${pageContext.request.contextPath}/category-admin"><i
+                class="fa-solid fa-list"></i> Danh mục</a></li>
         <li class="${active == 'products-admin' ? 'active' : ''}"><a
                 href="${pageContext.request.contextPath}/products-admin"><i
                 class="fa-solid fa-store"></i> Sản phẩm</a></li>
@@ -205,7 +208,9 @@
             <c:choose>
                 <c:when test="${param.success == 'info_updated'}">Cập nhật thông tin cá nhân thành công.</c:when>
                 <c:when test="${param.success == 'password_updated'}">Đổi mật khẩu thành công.</c:when>
-                <c:otherwise>Thao tác đã được thực hiện.</c:otherwise>
+                <c:when test="${param.success == 'category_updated'}">Thao tác xử lý danh mục thành công.</c:when>
+                <c:when test="${param.success == 'product_added'}">Sản phẩm mới đã được thêm thành công vào hệ thống.</c:when>
+                <c:otherwise>Thao tác đã được thực hiện thành công.</c:otherwise>
             </c:choose>
         </p>
         <c:if test="${param.success == 'password_updated'}">
@@ -213,7 +218,7 @@
                 <button class="btn-alert-ok">Đăng nhập lại</button>
             </a>
         </c:if>
-        <button class="btn-alert-ok" onclick="this.closest('.admin-modal-overlay').classList.remove('show')">Đồng ý</button>
+        <button class="btn-alert-ok" onclick="hideAlertModal()">Đồng ý</button>
     </div>
 </div>
 
@@ -230,11 +235,13 @@
                 <c:when test="${param.error == 'not_strong'}">Mật khẩu mới không đủ mạnh (ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số).</c:when>
                 <c:when test="${param.error == 'mismatch'}">Xác nhận mật khẩu mới không khớp.</c:when>
                 <c:when test="${param.error == 'same_as_old'}">Mật khẩu mới không được trùng với mật khẩu hiện tại.</c:when>
+                <c:when test="${param.error == 'duplicate_name'}">Tên danh mục này đã tồn tại trong hệ thống.</c:when>
+                <c:when test="${param.error == 'add_failed'}">Không thể thêm dữ liệu mới. Vui lòng kiểm tra lại.</c:when>
                 <c:otherwise>Đã có lỗi không xác định xảy ra.</c:otherwise>
             </c:choose>
         </p>
         <button class="btn-alert-ok" style="background-color: #ef4444;"
-                onclick="this.closest('.admin-modal-overlay').classList.remove('show')">Đóng lại
+                onclick="hideAlertModal()">Đóng lại
         </button>
     </div>
 </div>
@@ -248,4 +255,7 @@
 
 </body>
 <script src="${pageContext.request.contextPath}/js/baseAdmin.js"></script>
+<c:if test="${not empty requestScope.pageJs}">
+    <script src="${pageContext.request.contextPath}/js/${requestScope.pageJs}"></script>
+</c:if>
 </html>
