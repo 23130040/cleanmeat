@@ -1,8 +1,6 @@
 package cleanmeat.cleanmeat.dao;
 
-import cleanmeat.cleanmeat.mapper.CategoryMapper;
 import cleanmeat.cleanmeat.mapper.OrdersMapper;
-import cleanmeat.cleanmeat.model.Category;
 import cleanmeat.cleanmeat.model.Orders;
 
 import java.sql.Connection;
@@ -100,6 +98,91 @@ public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
             throw new RuntimeException(e);
         }
         return 0;
+    }
+
+    @Override
+    public double sumTotalRevenue() {
+        String sql = "SELECT SUM(total_price) FROM orders WHERE status = 'Hoàn thành'";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getDouble(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
+    }
+
+    @Override
+    public int countTodayOrders() {
+        String sql = "SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public double sumTodayRevenue() {
+        String sql = "SELECT SUM(total_price) FROM orders WHERE DATE(created_at) = CURDATE() AND status = 'Hoàn thành'";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getDouble(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
+    }
+
+    @Override
+    public double calculateOrderGrowth() {
+        String sql = """
+            SELECT 
+                COUNT(CASE WHEN MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) THEN 1 END) as current_month,
+                COUNT(CASE WHEN MONTH(created_at) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND YEAR(created_at) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN 1 END) as last_month
+            FROM orders;
+        """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int currentMonth = rs.getInt("current_month");
+                int lastMonth = rs.getInt("last_month");
+                if (lastMonth == 0) return currentMonth > 0 ? 100.0 : 0.0;
+                return ((double) (currentMonth - lastMonth) / lastMonth) * 100.0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
+    }
+
+    @Override
+    public double calculateRevenueGrowth() {
+        String sql = """
+            SELECT 
+                SUM(CASE WHEN MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) AND status = 'Hoàn thành' THEN total_price ELSE 0 END) as current_month,
+                SUM(CASE WHEN MONTH(created_at) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND YEAR(created_at) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND status = 'Hoàn thành' THEN total_price ELSE 0 END) as last_month
+            FROM orders;
+        """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                double currentMonth = rs.getDouble("current_month");
+                double lastMonth = rs.getDouble("last_month");
+                if (lastMonth == 0) return currentMonth > 0 ? 100.0 : 0.0;
+                return ((currentMonth - lastMonth) / lastMonth) * 100.0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
     }
 
     @Override

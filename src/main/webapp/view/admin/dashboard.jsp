@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="dashboard-welcome">
     <p>Chào mừng trở lại! Đây là tổng quan hệ thống hôm nay.</p>
 </div>
@@ -11,9 +12,10 @@
         </div>
         <div class="card-content">
             <span class="card-label">Tổng người dùng</span>
-            <span class="card-value">1,284</span>
-            <span class="card-trend trend-up">
-                <i class="fa-solid fa-angle-up"></i> +12% so với tháng trước
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${totalUsers}" /></span>
+            <span class="card-trend ${userGrowth >= 0 ? 'trend-up' : 'trend-down'}">
+                <i class="fa-solid ${userGrowth >= 0 ? 'fa-angle-up' : 'fa-angle-down'}"></i> 
+                ${userGrowth >= 0 ? '+' : ''}<fmt:formatNumber value="${userGrowth}" maxFractionDigits="1" />% so với tháng trước
             </span>
         </div>
     </div>
@@ -23,9 +25,10 @@
         </div>
         <div class="card-content">
             <span class="card-label">Tổng đơn hàng</span>
-            <span class="card-value">3,472</span>
-            <span class="card-trend trend-up">
-                <i class="fa-solid fa-angle-up"></i> +8% so với tháng trước
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${totalOrders}" /></span>
+            <span class="card-trend ${orderGrowth >= 0 ? 'trend-up' : 'trend-down'}">
+                <i class="fa-solid ${orderGrowth >= 0 ? 'fa-angle-up' : 'fa-angle-down'}"></i> 
+                ${orderGrowth >= 0 ? '+' : ''}<fmt:formatNumber value="${orderGrowth}" maxFractionDigits="1" />% so với tháng trước
             </span>
         </div>
     </div>
@@ -35,9 +38,19 @@
         </div>
         <div class="card-content">
             <span class="card-label">Doanh thu</span>
-            <span class="card-value">847.6Mđ</span>
-            <span class="card-trend trend-up">
-                <i class="fa-solid fa-angle-up"></i> +15% so với tháng trước
+            <span class="card-value">
+                <c:choose>
+                    <c:when test="${totalRevenue >= 1000000}">
+                        <fmt:formatNumber type="number" groupingUsed="true" maxFractionDigits="1" value="${totalRevenue / 1000000}" />Mđ
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber type="number" groupingUsed="true" value="${totalRevenue}" />đ
+                    </c:otherwise>
+                </c:choose>
+            </span>
+            <span class="card-trend ${revenueGrowth >= 0 ? 'trend-up' : 'trend-down'}">
+                <i class="fa-solid ${revenueGrowth >= 0 ? 'fa-angle-up' : 'fa-angle-down'}"></i> 
+                ${revenueGrowth >= 0 ? '+' : ''}<fmt:formatNumber value="${revenueGrowth}" maxFractionDigits="1" />% so với tháng trước
             </span>
         </div>
     </div>
@@ -47,9 +60,9 @@
         </div>
         <div class="card-content">
             <span class="card-label">Sản phẩm</span>
-            <span class="card-value">86</span>
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${totalProducts}" /></span>
             <span class="card-trend trend-down">
-                8 sản phẩm sắp hết hàng
+                ${lowStockProducts} sản phẩm sắp hết hàng
             </span>
         </div>
     </div>
@@ -62,7 +75,7 @@
         </div>
         <div class="card-content">
             <span class="card-label">Đơn hôm nay</span>
-            <span class="card-value">24</span>
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${todayOrders}" /></span>
         </div>
     </div>
     <div class="dashboard-card dashboard-card-sm">
@@ -71,7 +84,16 @@
         </div>
         <div class="card-content">
             <span class="card-label">Doanh thu hôm nay</span>
-            <span class="card-value">12.5Mđ</span>
+            <span class="card-value">
+                <c:choose>
+                    <c:when test="${todayRevenue >= 1000000}">
+                        <fmt:formatNumber type="number" groupingUsed="true" maxFractionDigits="1" value="${todayRevenue / 1000000}" />Mđ
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber type="number" groupingUsed="true" value="${todayRevenue}" />đ
+                    </c:otherwise>
+                </c:choose>
+            </span>
         </div>
     </div>
     <div class="dashboard-card dashboard-card-sm">
@@ -80,7 +102,7 @@
         </div>
         <div class="card-content">
             <span class="card-label">Đơn chờ xử lý</span>
-            <span class="card-value">47</span>
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${pendingOrders}" /></span>
         </div>
     </div>
     <div class="dashboard-card dashboard-card-sm">
@@ -89,7 +111,7 @@
         </div>
         <div class="card-content">
             <span class="card-label">Sắp hết hàng</span>
-            <span class="card-value">8</span>
+            <span class="card-value"><fmt:formatNumber type="number" groupingUsed="true" value="${lowStockProducts}" /></span>
         </div>
     </div>
 </div>
@@ -164,51 +186,26 @@
             </div>
         </div>
         <div class="top-products-list">
-            <div class="product-item">
-                <div class="product-info-row">
-                    <span class="product-name">Thịt bò Wagyu Úc</span>
-                    <span class="product-sales">342 đã bán</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 85%"></div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-info-row">
-                    <span class="product-name">Ức gà hữu cơ</span>
-                    <span class="product-sales">518 đã bán</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 95%"></div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-info-row">
-                    <span class="product-name">Thịt lợn rừng</span>
-                    <span class="product-sales">284 đã bán</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 70%"></div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-info-row">
-                    <span class="product-name">Cá hồi Na Uy</span>
-                    <span class="product-sales">196 đã bán</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 55%"></div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-info-row">
-                    <span class="product-name">Thịt bê non Nhật</span>
-                    <span class="product-sales">147 đã bán</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 40%"></div>
-                </div>
-            </div>
+            <c:choose>
+                <c:when test="${not empty topSellingItems}">
+                    <c:forEach var="item" items="${topSellingItems}">
+                        <div class="product-item">
+                            <div class="product-info-row">
+                                <span class="product-name">${item.name}</span>
+                                <span class="product-sales"><fmt:formatNumber type="number" groupingUsed="true" value="${item.total_sold}" /> đã bán</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${(item.total_sold * 100.0) / maxSold}%"></div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <div class="no-data-msg" style="text-align: center; color: var(--text-muted); padding: 20px 0;">
+                        Chưa có dữ liệu sản phẩm bán chạy
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -219,63 +216,45 @@
             <div class="section-title">
                 <h3>Đơn hàng gần đây</h3>
             </div>
-            <a href="#" class="btn-view-all">Xem tất cả</a>
+            <a href="${pageContext.request.contextPath}/orders-admin" class="btn-view-all">Xem tất cả</a>
         </div>
-        <table class="recent-orders-table">
-            <thead>
-                <tr>
-                    <th>Mã đơn</th>
-                    <th>Khách hàng</th>
-                    <th>Tổng tiền</th>
-                    <th>Trạng thái</th>
-                    <th>Ngày đặt</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0472</a></td>
-                    <td>Nguyễn Văn An</td>
-                    <td>485.000đ</td>
-                    <td><span class="badge badge-done">Hoàn thành</span></td>
-                    <td>2026-03-27</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0471</a></td>
-                    <td>Trần Thị Bình</td>
-                    <td>1.250.000đ</td>
-                    <td><span class="badge badge-processing">Đang xử lý</span></td>
-                    <td>2026-03-27</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0470</a></td>
-                    <td>Lê Hoàng Nam</td>
-                    <td>320.000đ</td>
-                    <td><span class="badge badge-pending">Chờ duyệt</span></td>
-                    <td>2026-03-26</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0469</a></td>
-                    <td>Phạm Thị Lan</td>
-                    <td>780.000đ</td>
-                    <td><span class="badge badge-done">Hoàn thành</span></td>
-                    <td>2026-03-26</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0468</a></td>
-                    <td>Hoàng Minh Tú</td>
-                    <td>560.000đ</td>
-                    <td><span class="badge badge-cancelled">Đã huỷ</span></td>
-                    <td>2026-03-25</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="order-id">ORD-0467</a></td>
-                    <td>Võ Thị Hoa</td>
-                    <td>990.000đ</td>
-                    <td><span class="badge badge-done">Hoàn thành</span></td>
-                    <td>2026-03-25</td>
-                </tr>
-            </tbody>
-        </table>
+        <c:choose>
+            <c:when test="${not empty recentOrders}">
+                <table class="recent-orders-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày đặt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="order" items="${recentOrders}">
+                            <tr>
+                                <td><a href="#" class="order-id">#${order.id}</a></td>
+                                <td>${order.user_name}</td>
+                                <td><fmt:formatNumber type="number" groupingUsed="true" value="${order.total_price}" />đ</td>
+                                <td>
+                                    <span class="badge ${order.status == 'Hoàn thành' ? 'badge-done' : 
+                                                       (order.status == 'Đang xử lý' ? 'badge-processing' : 
+                                                       (order.status == 'Chờ duyệt' ? 'badge-pending' : 'badge-cancelled'))}">
+                                        ${order.status}
+                                    </span>
+                                </td>
+                                <td><fmt:formatDate value="${order.created_at_as_date}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <div class="no-data-msg" style="text-align: center; color: var(--text-muted); padding: 40px 0;">
+                    Hiện tại chưa có đơn hàng nào
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
     
     <div class="section-card">
@@ -290,10 +269,10 @@
                 <div class="status-info">
                     <div class="status-label-group">
                         <span class="status-name">Hoàn thành</span>
-                        <span class="status-percent">68%</span>
+                        <span class="status-percent"><fmt:formatNumber value="${percentCompleted}" maxFractionDigits="0" />%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 68%"></div>
+                        <div class="progress-fill" style="width: ${percentCompleted}%"></div>
                     </div>
                 </div>
             </div>
@@ -302,10 +281,10 @@
                 <div class="status-info">
                     <div class="status-label-group">
                         <span class="status-name">Đang xử lý</span>
-                        <span class="status-percent">18%</span>
+                        <span class="status-percent"><fmt:formatNumber value="${percentProcessing}" maxFractionDigits="0" />%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 18%; background-color: #f59e0b;"></div>
+                        <div class="progress-fill" style="width: ${percentProcessing}%; background-color: #f59e0b;"></div>
                     </div>
                 </div>
             </div>
@@ -314,10 +293,10 @@
                 <div class="status-info">
                     <div class="status-label-group">
                         <span class="status-name">Chờ duyệt</span>
-                        <span class="status-percent">9%</span>
+                        <span class="status-percent"><fmt:formatNumber value="${percentPending}" maxFractionDigits="0" />%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 9%; background-color: #64748b;"></div>
+                        <div class="progress-fill" style="width: ${percentPending}%; background-color: #64748b;"></div>
                     </div>
                 </div>
             </div>
@@ -326,10 +305,10 @@
                 <div class="status-info">
                     <div class="status-label-group">
                         <span class="status-name">Đã huỷ</span>
-                        <span class="status-percent">5%</span>
+                        <span class="status-percent"><fmt:formatNumber value="${percentCancelled}" maxFractionDigits="0" />%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 5%; background-color: #ef4444;"></div>
+                        <div class="progress-fill" style="width: ${percentCancelled}%; background-color: #ef4444;"></div>
                     </div>
                 </div>
             </div>

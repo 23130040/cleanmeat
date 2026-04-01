@@ -19,6 +19,10 @@ public class ItemMapper {
         item.setDiscount(rs.getDouble("discount"));
         item.setCurrent_stock(rs.getInt("current_stock"));
         item.setMin_stock(rs.getInt("min_stock"));
+        try {
+            item.setPackaging(rs.getString("packaging"));
+        } catch (SQLException ignored) {
+        }
         if (rs.getTimestamp("created_at") != null) {
             item.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());
         }
@@ -28,20 +32,31 @@ public class ItemMapper {
         }
         try {
             item.setCategory_name(rs.getString("category_name"));
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         try {
             item.setUnit_name(rs.getString("unit_name"));
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         try {
             item.setOrigin_name(rs.getString("origin_name"));
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         try {
             item.setImage(rs.getString("image"));
-        } catch (SQLException ignored) {}
-
+        } catch (SQLException ignored) {
+        }
+        try {
+            item.setOrigin_name(rs.getString("origin_name"));
+        } catch (SQLException ignored) {
+        }
+        try {
+            item.setTotal_sold(rs.getInt("total_sold"));
+        } catch (SQLException ignored) {
+        }
         return item;
     }
 }

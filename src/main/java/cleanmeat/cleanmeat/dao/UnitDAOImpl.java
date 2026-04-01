@@ -5,10 +5,7 @@ import cleanmeat.cleanmeat.mapper.UnitMapper;
 import cleanmeat.cleanmeat.model.Category;
 import cleanmeat.cleanmeat.model.Unit;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +15,20 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
         String sql = "select * from unit where id = ?";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return UnitMapper.map(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public Unit findByName(String name) {
+        String sql = "select * from unit where name = ?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) return UnitMapper.map(rs);
             }
@@ -43,16 +54,21 @@ public class UnitDAOImpl extends BaseDAO implements UnitDAO {
     }
 
     @Override
-    public boolean insert(Unit unit) {
+    public int insert(Unit unit) {
         String sql = "insert into unit (name, amount) values (?, ?)";
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, unit.getName());
             ps.setDouble(2, unit.getAmount());
-            if (ps.executeUpdate() >= 1) return true;
+            if (ps.executeUpdate() >= 1) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) return rs.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return 0;
     }
 
     @Override

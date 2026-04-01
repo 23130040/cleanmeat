@@ -36,4 +36,24 @@ public class OrdersService {
     public int countOrdersByStatus(String status) {
         return ordersDAO.countByStatus(status);
     }
+
+    public double sumTotalRevenue() {
+        return ordersDAO.sumTotalRevenue();
+    }
+
+    public int countTodayOrders() {
+        return ordersDAO.countTodayOrders();
+    }
+
+    public double sumTodayRevenue() {
+        return ordersDAO.sumTodayRevenue();
+    }
+
+    public double calculateOrderGrowth() {
+        return ordersDAO.calculateOrderGrowth();
+    }
+
+    public double calculateRevenueGrowth() {
+        return ordersDAO.calculateRevenueGrowth();
+    }
 }

@@ -4,7 +4,6 @@ import cleanmeat.cleanmeat.mapper.UserMapper;
 import cleanmeat.cleanmeat.model.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +39,19 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new RuntimeException(e);
         }
         return users;
+    }
+
+    @Override
+    public int countAll() {
+        String sql = "SELECT COUNT(*) FROM user";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     @Override
@@ -197,6 +209,122 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, avatarUrl);
             ps.setInt(2, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean updateInfoAdmin(int id, String name, String phone) {
+        String sql = "UPDATE user SET name = ?, phone = ?, updated_at = NOW() WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            ps.setInt(3, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public double calculateUserGrowth() {
+        String sql = """
+            SELECT
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURRENT_DATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE()) THEN 1 ELSE 0 END) as this_month,
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) THEN 1 ELSE 0 END) as last_month
+            FROM user;
+        """;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int thisMonth = rs.getInt("this_month");
+                int lastMonth = rs.getInt("last_month");
+                if (lastMonth == 0) {
+                    return thisMonth > 0 ? 100.0 : 0.0;
+                }
+                return ((double) (thisMonth - lastMonth) / lastMonth) * 100;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0.0;
+    }
+
+    @Override
+    public List<User> search(String query) {
+        String sql = "SELECT * FROM user WHERE name LIKE ? OR email LIKE ? OR phone LIKE ?";
+        List<User> users = new java.util.ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            String searchPattern = "%" + query + "%";
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    users.add(cleanmeat.cleanmeat.mapper.UserMapper.map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> findAllFiltered(String query, String role, String status) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM user WHERE 1=1 ");
+        List<Object> params = new java.util.ArrayList<>();
+
+        if (query != null && !query.trim().isEmpty()) {
+            sql.append("AND (name LIKE ? OR email LIKE ? OR phone LIKE ?) ");
+            String pattern = "%" + query.trim() + "%";
+            params.add(pattern);
+            params.add(pattern);
+            params.add(pattern);
+        }
+
+        if (role != null && !role.equals("all")) {
+            sql.append("AND role = ? ");
+            params.add(role);
+        }
+
+        if (status != null && !status.equals("all")) {
+            sql.append("AND status = ? ");
+            params.add(status.equals("active") ? 1 : 0);
+        }
+
+        sql.append("ORDER BY created_at DESC");
+
+        List<User> users = new java.util.ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    users.add(cleanmeat.cleanmeat.mapper.UserMapper.map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public boolean updateRoleAndStatus(int id, String role, boolean status) {
+        String sql = "UPDATE user SET role = ?, status = ? WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, role);
+            ps.setBoolean(2, status);
+            ps.setInt(3, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);

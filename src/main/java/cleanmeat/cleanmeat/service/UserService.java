@@ -18,6 +18,22 @@ public class UserService {
         return userDAO.findAll();
     }
 
+    public int countTotalUsers() {
+        return userDAO.countAll();
+    }
+
+    public double calculateUserGrowth() {
+        return userDAO.calculateUserGrowth();
+    }
+
+    public List<User> searchUsers(String query) {
+        return userDAO.search(query);
+    }
+
+    public List<User> searchUsers(String query, String role, String status) {
+        return userDAO.findAllFiltered(query, role, status);
+    }
+
     public String validateSignUp(String username, String email, String phone, String password, String confirmPassword) {
         if (username == null || username.trim().isEmpty())
             return "Họ và tên không được để trống!";
@@ -80,6 +96,10 @@ public class UserService {
         return null;
     }
 
+    public boolean updateInfoAdmin(int id, String name, String phone) {
+        return userDAO.updateInfoAdmin(id, name, phone);
+    }
+
     public User signin(String email, String password) {
         return userDAO.findByEmail(email);
     }
@@ -129,5 +149,13 @@ public class UserService {
 
     public boolean updateAvatar(int id, String avatarUrl) {
         return userDAO.updateAvatar(id, avatarUrl);
+    }
+
+    public boolean updateRoleAndStatus(int id, String role, boolean status) {
+        return userDAO.updateRoleAndStatus(id, role, status);
+    }
+
+    public boolean deleteUser(int id) {
+        return userDAO.delete(id);
     }
 }

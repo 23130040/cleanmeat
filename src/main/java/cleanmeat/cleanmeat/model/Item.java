@@ -21,11 +21,13 @@ public class Item implements Serializable {
     private String unit_name;
     private String image;
     private String origin_name;
+    private int total_sold;
+    private String packaging;
 
     public Item() {
     }
 
-    public Item(int id, String name, String short_description, String long_description, int category_id, int origin_id, int unit_id, double price, double discount, int current_stock, int min_stock, LocalDateTime created_at, LocalDateTime updated_at) {
+    public Item(int id, String name, String short_description, String long_description, int category_id, int origin_id, int unit_id, double price, double discount, int current_stock, int min_stock, String packaging, LocalDateTime created_at, LocalDateTime updated_at) {
         this.id = id;
         this.name = name;
         this.short_description = short_description;
@@ -37,8 +39,17 @@ public class Item implements Serializable {
         this.discount = discount;
         this.current_stock = current_stock;
         this.min_stock = min_stock;
+        this.packaging = packaging;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
     }
 
     public int getId() {
@@ -175,5 +186,13 @@ public class Item implements Serializable {
 
     public void setOrigin_name(String origin_name) {
         this.origin_name = origin_name;
+    }
+
+    public int getTotal_sold() {
+        return total_sold;
+    }
+
+    public void setTotal_sold(int total_sold) {
+        this.total_sold = total_sold;
     }
 }

@@ -17,9 +17,19 @@ public class UserAdmin extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
 
         UserService userService = new UserService();
-        List<User> users = userService.getAllUsers();
+        String query = request.getParameter("query");
+        String role = request.getParameter("role");
+        String status = request.getParameter("status");
+
+        if (role == null) role = "all";
+        if (status == null) status = "all";
+
+        List<User> users = userService.searchUsers(query, role, status);
         
         request.setAttribute("users", users);
+        request.setAttribute("searchQuery", query);
+        request.setAttribute("selectedRole", role);
+        request.setAttribute("selectedStatus", status);
         request.setAttribute("adminTitle", "Quản lý người dùng");
         request.setAttribute("active", "user-admin");
         request.setAttribute("user", currentUser);
