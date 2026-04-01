@@ -50,6 +50,9 @@
         <li class="${active == 'feedback-admin' ? 'active' : ''}"><a
                 href="${pageContext.request.contextPath}/feedback-admin"><i class="fa-regular fa-star"></i>
             Phản hồi</a></li>
+        <li class="${active == 'contact-admin' ? 'active' : ''}"><a
+                href="${pageContext.request.contextPath}/contact-admin"><i class="fa-regular fa-envelope"></i>
+            Liên hệ</a></li>
         <li class="${active == 'system-admin' ? 'active' : ''}"><a
                 href="${pageContext.request.contextPath}/system-admin"><i class="fa-solid fa-gear"></i>
             Cấu hình hệ thống</a></li>
