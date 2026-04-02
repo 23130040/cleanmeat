@@ -4,6 +4,7 @@ import cleanmeat.cleanmeat.model.Transport;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class TransportMapper {
     public static Transport map(ResultSet rs) throws SQLException {
@@ -14,8 +15,17 @@ public class TransportMapper {
         transport.setEstimate_day(rs.getInt("estimated_day"));
         transport.setStatus(rs.getBoolean("status"));
         transport.setFree_ship(rs.getInt("free_ship"));
-        transport.setCreated_at(rs.getTimestamp("created_day").toLocalDateTime());
-        transport.setUpdated_at(rs.getTimestamp("updated_day").toLocalDateTime());
+        
+        Timestamp created = rs.getTimestamp("created_day");
+        if (created != null) {
+            transport.setCreated_at(created.toLocalDateTime());
+        }
+        
+        Timestamp updated = rs.getTimestamp("updated_day");
+        if (updated != null) {
+            transport.setUpdated_at(updated.toLocalDateTime());
+        }
+        
         return transport;
     }
 }
