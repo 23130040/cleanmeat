@@ -9,6 +9,10 @@ public interface NewsDAO {
 
     public List<News> findAll();
 
+    public List<News> getNewsByPage(int page, int pageSize);
+
+    public int countNews();
+
     public boolean insert(News news);
 
     public boolean update(News news);

@@ -30,7 +30,7 @@ public class NewsDAOImpl extends BaseDAO implements NewsDAO {
 
     @Override
     public List<News> findAll() {
-        String sql = "select * from news";
+        String sql = "select * from news order by created_at desc";
         List<News> newss = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -43,6 +43,42 @@ public class NewsDAOImpl extends BaseDAO implements NewsDAO {
             throw new RuntimeException(e);
         }
         return newss;
+    }
+
+    @Override
+    public List<News> getNewsByPage(int page, int pageSize) {
+        String sql = "select * from news order by created_at desc limit ?, ?";
+        List<News> newss = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            int offset = (page - 1) * pageSize;
+            ps.setInt(1, offset);
+            ps.setInt(2, pageSize);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    News news = NewsMapper.map(rs);
+                    newss.add(news);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return newss;
+    }
+
+    @Override
+    public int countNews() {
+        String sql = "select count(*) from news";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     @Override
