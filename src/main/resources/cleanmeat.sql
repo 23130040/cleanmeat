@@ -94,7 +94,9 @@ CREATE TABLE `contacts`  (
 -- ----------------------------
 -- Records of contacts
 -- ----------------------------
-
+INSERT INTO `contacts` VALUES (1, 'Nguyễn Bích Dân', '23130040@st.hcmuaf.edu.vn', 'Hỗ trợ kỹ thuật', 'Tôi không thể đăng nhập vào hệ thống admin.', 'replied', '2026-04-01 08:30:00', '2026-04-01 09:15:00', 1);
+INSERT INTO `contacts` VALUES (2, 'Nguyễn Bích Dân', 'bichdantqn2005@gmail.com', 'Hỏi về đơn hàng', 'Đơn hàng của tôi bao giờ thì được giao?', 'pending', '2026-04-02 10:20:00', '2026-04-02 10:20:00', NULL);
+INSERT INTO `contacts` VALUES (3, 'Nguyễn Bích Dân', '23130040@st.hcmuaf.edu.vn', 'Góp ý dịch vụ', 'Sản phẩm rất chất lượng, tôi sẽ ủng hộ tiếp.', 'processing', '2026-04-02 14:45:12', '2026-04-02 15:00:00', 1);
 -- ----------------------------
 -- Table structure for feedback
 -- ----------------------------
@@ -116,7 +118,10 @@ CREATE TABLE `feedback`  (
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
-
+INSERT INTO `feedback` VALUES (1, 1, 94, 5, 'Sản phẩm tuyệt vời, đóng gói rất cẩn thận!', '2026-04-02 17:00:00', '2026-04-02 17:00:00', b'1');
+INSERT INTO `feedback` VALUES (2, 3, 25, 4, 'Chất lượng tốt nhưng giao hàng hơi chậm một chút.', '2026-04-02 18:15:20', '2026-04-02 18:15:20', b'1');
+INSERT INTO `feedback` VALUES (3, 3, 22, 5, 'Rất đáng tiền, sẽ tiếp tục ủng hộ shop.', '2026-04-02 19:30:45', '2026-04-02 19:30:45', b'1');
+INSERT INTO `feedback` VALUES (4, 1, 25, 3, 'Sản phẩm tạm ổn, cần cải thiện khâu tư vấn.', '2026-04-02 20:10:00', '2026-04-02 20:10:00', b'0');
 -- ----------------------------
 -- Table structure for item
 -- ----------------------------
@@ -569,7 +574,10 @@ CREATE TABLE `origin`  (
 -- ----------------------------
 -- Records of origin
 -- ----------------------------
-
+INSERT INTO `origin` VALUES (1, 'Việt Nam', NULL, '2026-04-02 23:20:00', '2026-04-02 23:20:00');
+INSERT INTO `origin` VALUES (2, 'Mỹ', NULL, '2026-04-02 23:20:00', '2026-04-02 23:20:00');
+INSERT INTO `origin` VALUES (3, 'Úc', NULL, '2026-04-02 23:20:00', '2026-04-02 23:20:00');
+INSERT INTO `origin` VALUES (6, 'Hàn Quốc', NULL, '2026-04-02 23:20:00', '2026-04-02 23:20:00');
 -- ----------------------------
 -- Table structure for payment
 -- ----------------------------
@@ -631,6 +639,7 @@ CREATE TABLE `system_config`  (
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
+INSERT INTO `system_config`VALUES (1, 'Clean Meat', 'cleanmeat@gmail.com', '0312345678', 'MS123456', 'https://www.facebook.com/cleanmeat', '142 Đường số 10, Khu dân cư Tân Quy Đông, Phường Tân Phong, Quận 7, TP.HCM.', 'https://example.com/cleanmeat.png');
 
 -- ----------------------------
 -- Table structure for transport

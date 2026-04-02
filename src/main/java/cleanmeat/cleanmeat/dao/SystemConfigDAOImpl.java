@@ -2,33 +2,27 @@ package cleanmeat.cleanmeat.dao;
 
 import cleanmeat.cleanmeat.mapper.SystemConfigMapper;
 import cleanmeat.cleanmeat.model.SystemConfig;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SystemConfigDAOImpl extends BaseDAO implements SystemConfigDAO {
     @Override
-    public SystemConfig get() {
-        String sql = "select * from system_config";
+    public SystemConfig getConfig() {
+        String sql = "SELECT * FROM system_config LIMIT 1";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) return SystemConfigMapper.map(rs);
+            if (rs.next()) {
+                return SystemConfigMapper.map(rs);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public boolean update(SystemConfig config) {
-        String sql = """
-                update system_config
-                set name = ?, email = ?, hotline = ?, tax_code = ?, facebook = ?, address = ?, logo_url = ?, created_by = ?
-                where id = ?
-                """;
+    public boolean updateConfig(SystemConfig config) {
+        String sql = "UPDATE system_config SET name = ?, email = ?, hotline = ?, tax_code = ?, facebook = ?, address = ?, logo_url = ?, created_by = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, config.getName());
@@ -38,34 +32,17 @@ public class SystemConfigDAOImpl extends BaseDAO implements SystemConfigDAO {
             ps.setString(5, config.getFacebook());
             ps.setString(6, config.getAddress());
             ps.setString(7, config.getLogo_url());
-            ps.setInt(8, config.getCreated_by());
+            
+            if (config.getCreated_by() != null) {
+                ps.setInt(8, config.getCreated_by());
+            } else {
+                ps.setNull(8, Types.INTEGER);
+            }
+            
             ps.setInt(9, config.getId());
-            if (ps.executeUpdate() >= 1) return true;
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean insert(SystemConfig config) {
-        String sql = """
-                insert into system_config (name, email, hotline, tax_code, facebook, address, logo_url, created_by)
-                values (?, ?, ?, ?, ?, ?, ?, ?)
-                """;
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, config.getName());
-            ps.setString(2, config.getEmail());
-            ps.setString(3, config.getHotline());
-            ps.setString(4, config.getTax_code());
-            ps.setString(5, config.getFacebook());
-            ps.setString(6, config.getAddress());
-            ps.setString(7, config.getLogo_url());
-            ps.setInt(8, config.getCreated_by());
-            if (ps.executeUpdate() >= 1) return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return false;
     }
