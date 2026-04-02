@@ -1,16 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="news-header">
-    <div class="container">
-        <h1 class="news-title big-title">
-            TIN TỨC CẬP NHẬT
-        </h1>
-        <p class="news-description">
-            Cập nhật những thông tin về thịt, bí quyết nấu ăn ngon và các chương trình khuyến mãi từ Clean Meat.
-        </p>
-    </div>
-</div>
+
 
 <div class="news-list">
     <div class="container">
@@ -30,11 +21,11 @@
                                     </div>
                                     <div class="news-info">
                                         <p class="news-category">Tin tức</p>
-                                        <h3 class="news-name"><a href="${pageContext.request.contextPath}/news-detail?id=${news.id}">${news.title}</a></h3>
+                                        <h3 class="news-name"><a href="${pageContext.request.contextPath}/newsdetail?id=${news.id}">${news.title}</a></h3>
                                         <p class="news-excerpt">
                                             ${news.content}
                                         </p>
-                                        <a href="${pageContext.request.contextPath}/news-detail?id=${news.id}" class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                                        <a href="${pageContext.request.contextPath}/newsdetail?id=${news.id}" class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -55,7 +46,7 @@
                                 <img src="${ln.picture_url}" alt="${ln.title}" onerror="this.src='https://placehold.co/100x100/png?text=News'">
                             </div>
                             <div class="latest-info">
-                                <h4><a href="${pageContext.request.contextPath}/news-detail?id=${ln.id}">${ln.title}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/newsdetail?id=${ln.id}">${ln.title}</a></h4>
                                 <span class="latest-date">${ln.created_at.dayOfMonth}/${ln.created_at.monthValue}/${ln.created_at.year}</span>
                             </div>
                         </div>
