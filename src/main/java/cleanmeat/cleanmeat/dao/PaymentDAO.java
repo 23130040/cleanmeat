@@ -14,4 +14,8 @@ public interface PaymentDAO {
     public List<Payment> findByStatus(boolean status);
 
     public List<Payment> findAll();
+    
+    public boolean update(Payment payment);
+
+    public boolean delete(int id);
 }

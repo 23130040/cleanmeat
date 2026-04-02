@@ -11,8 +11,16 @@ public class PaymentMapper {
         payment.setId(rs.getInt("id"));
         payment.setName(rs.getString("name"));
         payment.setStatus(rs.getBoolean("status"));
-        payment.setCreated_at(rs.getTimestamp("created_day").toLocalDateTime());
-        payment.setUpdated_at(rs.getTimestamp("updated_day").toLocalDateTime());
+        
+        java.sql.Timestamp createdDay = rs.getTimestamp("created_day");
+        if (createdDay != null) {
+            payment.setCreated_at(createdDay.toLocalDateTime());
+        }
+        
+        java.sql.Timestamp updatedDay = rs.getTimestamp("updated_day");
+        if (updatedDay != null) {
+            payment.setUpdated_at(updatedDay.toLocalDateTime());
+        }
         return payment;
     }
 }
