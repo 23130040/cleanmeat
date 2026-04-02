@@ -16,10 +16,11 @@ public class CartRemove extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        int weight = request.getParameter("weight") != null ? Integer.parseInt(request.getParameter("weight")) : 250;
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart != null) {
-            cart.removeCartItem(id);
+            cart.removeCartItem(id, weight);
         }
         response.setStatus(200);
     }

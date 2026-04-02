@@ -20,7 +20,12 @@ public class OrdersItemDAOImpl extends BaseDAO implements OrdersItemDAO {
     public List<OrdersItem> findByOrdersId(int orders_id) {
         List<OrdersItem> list = new ArrayList<>();
         String sql = """
-                select * from orders_item where order_id = ?
+                SELECT oi.*, i.name as itemName, ii.url as itemImage, u.name as unitName
+                FROM orders_item oi
+                JOIN item i ON oi.item_id = i.id
+                LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.is_primary = 1
+                LEFT JOIN unit u ON i.unit_id = u.id
+                WHERE oi.order_id = ?
                 """;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -28,6 +33,9 @@ public class OrdersItemDAOImpl extends BaseDAO implements OrdersItemDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     OrdersItem oi = OrdersItemMapper.map(rs);
+                    oi.setItemName(rs.getString("itemName"));
+                    oi.setItemImage(rs.getString("itemImage"));
+                    oi.setUnitName(rs.getString("unitName"));
                     list.add(oi);
                 }
             }
@@ -40,14 +48,16 @@ public class OrdersItemDAOImpl extends BaseDAO implements OrdersItemDAO {
     @Override
     public boolean insert(OrdersItem orderItem) {
         String sql = """
-                insert into orders_item (order_id, item_id, price, quantity)
+                insert into orders_item (order_id, item_id, price, weight, quantity)
+                values (?, ?, ?, ?, ?)
                 """;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, orderItem.getOrder_id());
             ps.setInt(2, orderItem.getItem_id());
             ps.setDouble(3, orderItem.getPrice());
-            ps.setDouble(4, orderItem.getQuantity());
+            ps.setInt(4, orderItem.getWeight());
+            ps.setDouble(5, orderItem.getQuantity());
             if (ps.executeUpdate() >= 1) return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);

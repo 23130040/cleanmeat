@@ -27,7 +27,17 @@
                                     <div class="item-main-details">
                                         <div class="name-unit">
                                             <h3 class="product-name">${item.item.name}</h3>
-                                            <span class="product-unit">${item.item.unit_name}</span>
+                                            <div class="weight-selector-cart">
+                                                <span class="selector-label">Trọng lượng:</span>
+                                                <div class="weight-select-wrapper">
+                                                    <select class="cart-weight-select" data-item-id="${item.id}" data-old-weight="${item.weight}">
+                                                        <option value="250" ${item.weight == 250 ? 'selected' : ''}>250g</option>
+                                                        <option value="500" ${item.weight == 500 ? 'selected' : ''}>500g</option>
+                                                        <option value="1000" ${item.weight == 1000 ? 'selected' : ''}>1kg</option>
+                                                    </select>
+                                                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                                                </div>
+                                            </div>
                                         </div>
                                         <button class="remove-btn-icon btn-remove-cart" data-item-id="${item.id}"
                                                 title="Xóa">
@@ -40,11 +50,10 @@
                                             <div class="price-detail">
                                                 <span class="label">Đơn giá:</span>
                                                 <div class="unit-price-wrapper">
-                                                    <c:set var="finalPrice" value="${item.item.price}" />
                                                     <c:if test="${item.item.discount > 0}">
-                                                        <span class="old-val"><fmt:formatNumber value="${finalPrice + item.item.discount}" maxFractionDigits="0"/>đ</span>
+                                                        <span class="old-val"><fmt:formatNumber value="${item.originalPrice}" maxFractionDigits="0"/>đ</span>
                                                     </c:if>
-                                                    <span class="val current-unit-price"><fmt:formatNumber value="${finalPrice}" maxFractionDigits="0"/>đ</span>
+                                                    <span class="val current-unit-price"><fmt:formatNumber value="${item.unitPrice}" maxFractionDigits="0"/>đ</span>
                                                 </div>
                                             </div>
                                             <div class="price-detail total">
@@ -53,14 +62,17 @@
                                                                                                 maxFractionDigits="0"/>đ</span>
                                             </div>
                                         </div>
-                                        <div class="quantity-picker">
-                                            <button class="picker-btn minus btn-qty" data-item-id="${item.id}"
-                                                    data-delta="-1">-
-                                            </button>
-                                            <span class="picker-val" id="qty-${item.id}">${item.quantity}</span>
-                                            <button class="picker-btn plus btn-qty" data-item-id="${item.id}"
-                                                    data-delta="1">+
-                                            </button>
+                                        <div class="quantity-control-group">
+                                            <span class="quantity-label">Số lượng:</span>
+                                            <div class="quantity-picker">
+                                                <button class="picker-btn minus btn-qty" data-item-id="${item.id}"
+                                                        data-delta="-1">-
+                                                </button>
+                                                <span class="picker-val" id="qty-${item.id}">${item.quantity}</span>
+                                                <button class="picker-btn plus btn-qty" data-item-id="${item.id}"
+                                                        data-delta="1">+
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

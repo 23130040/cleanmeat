@@ -52,7 +52,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     }
 
     @Override
-    public boolean insert(Address address) {
+    public int insert(Address address) {
         String sqlUnsetAll = "UPDATE address SET is_default = 0 WHERE user_id = ?";
         String sqlInsert = "INSERT INTO address (user_id, address, is_default) VALUES (?, ?, ?)";
 
@@ -66,13 +66,19 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                     }
                 }
 
-                try (PreparedStatement ps2 = conn.prepareStatement(sqlInsert)) {
+                try (PreparedStatement ps2 = conn.prepareStatement(sqlInsert, java.sql.Statement.RETURN_GENERATED_KEYS)) {
                     ps2.setInt(1, address.getUser_id());
                     ps2.setString(2, address.getAddress());
                     ps2.setBoolean(3, address.isIs_Default());
-                    if (ps2.executeUpdate() >= 1) {
-                        conn.commit();
-                        return true;
+                    int affectedRows = ps2.executeUpdate();
+                    if (affectedRows >= 1) {
+                        try (ResultSet rs = ps2.getGeneratedKeys()) {
+                            if (rs.next()) {
+                                int id = rs.getInt(1);
+                                conn.commit();
+                                return id;
+                            }
+                        }
                     }
                 }
                 conn.rollback();
@@ -85,7 +91,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return 0;
     }
 
     @Override

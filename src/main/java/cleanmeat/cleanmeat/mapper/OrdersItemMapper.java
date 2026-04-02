@@ -11,7 +11,8 @@ public class OrdersItemMapper {
         ordersItem.setOrder_id(rs.getInt("order_id"));
         ordersItem.setItem_id(rs.getInt("item_id"));
         ordersItem.setPrice(rs.getDouble("price"));
-        ordersItem.setQuantity(rs.getInt("quantity"));
+        ordersItem.setWeight(rs.getInt("weight"));
+        ordersItem.setQuantity(rs.getDouble("quantity"));
         ordersItem.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());
         return ordersItem;
     }

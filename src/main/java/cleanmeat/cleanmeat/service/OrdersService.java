@@ -21,6 +21,27 @@ public class OrdersService {
         return ordersDAO.findByUserId(user_id);
     }
 
+    public Orders getOrderDetail(int orderId) {
+        Orders order = ordersDAO.findById(orderId);
+        if (order != null) {
+            cleanmeat.cleanmeat.dao.OrdersItemDAO ordersItemDAO = new cleanmeat.cleanmeat.dao.OrdersItemDAOImpl();
+            order.setItems(ordersItemDAO.findByOrdersId(orderId));
+            
+            cleanmeat.cleanmeat.dao.AddressDAO addressDAO = new cleanmeat.cleanmeat.dao.AddressDAOImpl();
+            order.setAddress(addressDAO.findById(order.getAddress_id()));
+        }
+        return order;
+    }
+
+    public List<Orders> getOrdersDetailedByUserId(int userId) {
+        List<Orders> orders = ordersDAO.findByUserId(userId);
+        cleanmeat.cleanmeat.dao.OrdersItemDAO ordersItemDAO = new cleanmeat.cleanmeat.dao.OrdersItemDAOImpl();
+        for (Orders order : orders) {
+            order.setItems(ordersItemDAO.findByOrdersId(order.getId()));
+        }
+        return orders;
+    }
+
     public List<Orders> findByStatus(String status, int user_id) {
         return ordersDAO.findByStatus(status, user_id);
     }

@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const priceBox = document.getElementById("price");
     const weightBtns = document.querySelectorAll(".weight-btn");
 
+    const formWeight = document.getElementById("form-weight");
+    const formQuantity = document.getElementById("form-quantity");
+
     let basePrice = Number(priceBox.dataset.base.replace(/,/g, "")) || 0;
     let currentWeight = 250;
     let quantity = 1;
@@ -18,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let total = basePrice * (currentWeight / 250) * quantity;
         priceBox.innerText = formatPrice(total);
         qtyInput.value = quantity;
+        if (formQuantity) formQuantity.value = quantity;
+        if (formWeight) formWeight.value = currentWeight;
     }
 
     plus.onclick = function () {

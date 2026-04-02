@@ -24,13 +24,14 @@ public class UpdateQuantity extends HttpServlet {
         }
 
         int id = Integer.parseInt(request.getParameter("id"));
+        int weight = request.getParameter("weight") != null ? Integer.parseInt(request.getParameter("weight")) : 250;
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        cart.updateQuantity(id, quantity);
+        cart.updateQuantity(id, weight, quantity);
 
         CartItem item = cart.getList()
                 .stream()
-                .filter(ci -> ci.getId() == id)
+                .filter(ci -> ci.getId() == id && ci.getWeight() == weight)
                 .findFirst()
                 .orElse(null);
 

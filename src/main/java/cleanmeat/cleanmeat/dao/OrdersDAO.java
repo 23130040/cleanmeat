@@ -26,7 +26,7 @@ public interface OrdersDAO {
 
     public double calculateRevenueGrowth();
 
-    public boolean insert(Orders order);
+    public int insert(Orders order);
 
     public boolean update(Orders order);
 

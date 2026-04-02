@@ -7,17 +7,31 @@ public class OrdersItem implements Serializable {
     private int order_id;
     private int item_id;
     private double price;
+    private int weight;
     private double quantity;
     private LocalDateTime created_at;
+    
+    private String itemName;
+    private String itemImage;
+    private String unitName;
 
     public OrdersItem() {}
 
-    public OrdersItem(int order_id, int item_id, double price, double quantity, LocalDateTime created_at) {
+    public OrdersItem(int order_id, int item_id, double price, int weight, double quantity, LocalDateTime created_at) {
         this.order_id = order_id;
         this.item_id = item_id;
         this.price = price;
+        this.weight = weight;
         this.quantity = quantity;
         this.created_at = created_at;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public int getOrder_id() {
@@ -59,4 +73,13 @@ public class OrdersItem implements Serializable {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
+
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
+
+    public String getItemImage() { return itemImage; }
+    public void setItemImage(String itemImage) { this.itemImage = itemImage; }
+
+    public String getUnitName() { return unitName; }
+    public void setUnitName(String unitName) { this.unitName = unitName; }
 }
