@@ -222,6 +222,7 @@
                 <c:when test="${param.success == 'feedback_deleted'}">Đã xóa phản hồi của khách hàng thành công.</c:when>
                 <c:when test="${param.success == 'contact_deleted'}">Đã xóa yêu cầu liên hệ thành công.</c:when>
                 <c:when test="${param.success == 'contact_updated'}">Đã cập nhật trạng thái liên hệ.</c:when>
+                <c:when test="${param.success == 'config_updated'}">Cấu hình hệ thống đã được cập nhật thành công.</c:when>
                 <c:otherwise>Thao tác đã được thực hiện thành công.</c:otherwise>
             </c:choose>
         </p>

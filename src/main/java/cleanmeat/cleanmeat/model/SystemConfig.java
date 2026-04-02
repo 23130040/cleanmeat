@@ -11,11 +11,12 @@ public class SystemConfig implements Serializable {
     private String facebook;
     private String address;
     private String logo_url;
-    private int created_by;
+    private Integer created_by;
 
-    public SystemConfig() {}
+    public SystemConfig() {
+    }
 
-    public SystemConfig(int id, String name, String email, String hotline, String tax_code, String facebook, String address, String logo_url, int created_by) {
+    public SystemConfig(int id, String name, String email, String hotline, String tax_code, String facebook, String address, String logo_url, Integer created_by) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -91,11 +92,11 @@ public class SystemConfig implements Serializable {
         this.logo_url = logo_url;
     }
 
-    public int getCreated_by() {
+    public Integer getCreated_by() {
         return created_by;
     }
 
-    public void setCreated_by(int created_by) {
+    public void setCreated_by(Integer created_by) {
         this.created_by = created_by;
     }
 }
