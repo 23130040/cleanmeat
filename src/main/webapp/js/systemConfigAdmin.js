@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (url) {
                 logoPreview.src = url;
             } else {
-                logoPreview.src = '/images/logo-placeholder.png';
+                logoPreview.src = '/images/cleanmeat.png';
             }
         });
         logoPreview.addEventListener('error', function() {
-            this.src = '/images/logo-placeholder.png';
+            this.src = '/images/cleanmeat.png';
         });
     }
     if (configForm) {
