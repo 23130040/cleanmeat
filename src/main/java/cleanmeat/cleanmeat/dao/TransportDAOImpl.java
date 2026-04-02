@@ -1,20 +1,16 @@
 package cleanmeat.cleanmeat.dao;
 
-import cleanmeat.cleanmeat.mapper.CategoryMapper;
 import cleanmeat.cleanmeat.mapper.TransportMapper;
-import cleanmeat.cleanmeat.model.Category;
 import cleanmeat.cleanmeat.model.Transport;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransportDAOImpl extends BaseDAO implements TransportDAO {
     @Override
     public Transport findById(int id) {
+        checkAndInitializeTable();
         String sql = "select * from transport where id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -30,6 +26,7 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
 
     @Override
     public List<Transport> findAll() {
+        checkAndInitializeTable();
         String sql = "select * from transport";
         List<Transport> transports = new ArrayList<>();
         try (Connection conn = getConnection();
@@ -47,6 +44,7 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
 
     @Override
     public boolean insert(Transport transport) {
+        checkAndInitializeTable();
         String sql = "insert into transport (name, base_fee, estimated_day, status, free_ship) values (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -64,11 +62,8 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
 
     @Override
     public boolean update(Transport transport) {
-        String sql = """
-                update transport
-                set name = ?, base_fee = ?, estimated_day = ?, status = ?, free_ship = ?, updated_day = NOW()
-                where id = ?
-                """;
+        checkAndInitializeTable();
+        String sql = "update transport set name = ?, base_fee = ?, estimated_day = ?, status = ?, free_ship = ?, updated_day = NOW() where id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, transport.getName());
@@ -86,6 +81,7 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
 
     @Override
     public boolean delete(int id) {
+        checkAndInitializeTable();
         String sql = "delete from transport where id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -95,5 +91,46 @@ public class TransportDAOImpl extends BaseDAO implements TransportDAO {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    public boolean updateStatus(int id, boolean status) {
+        checkAndInitializeTable();
+        String sql = "update transport set status = ?, updated_day = NOW() where id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBoolean(1, status);
+            ps.setInt(2, id);
+            if (ps.executeUpdate() >= 1) return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    private synchronized void checkAndInitializeTable() {
+        try (Connection conn = getConnection()) {
+            DatabaseMetaData metaData = conn.getMetaData();
+            String catalog = conn.getCatalog();
+            try (ResultSet rs = metaData.getTables(catalog, null, "transport", null)) {
+                if (!rs.next()) {
+                    try (Statement stmt = conn.createStatement()) {
+                        stmt.execute("CREATE TABLE IF NOT EXISTS `transport` (" +
+                                "  `id` int NOT NULL AUTO_INCREMENT," +
+                                "  `name` varchar(255) NOT NULL," +
+                                "  `base_fee` int DEFAULT 0," +
+                                "  `estimated_day` int DEFAULT NULL," +
+                                "  `status` bit(1) DEFAULT b'1'," +
+                                "  `created_day` datetime DEFAULT CURRENT_TIMESTAMP," +
+                                "  `updated_day` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+                                "  `free_ship` int DEFAULT NULL," +
+                                "  PRIMARY KEY (`id`)" +
+                                ") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error during 'transport' table initialization: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
