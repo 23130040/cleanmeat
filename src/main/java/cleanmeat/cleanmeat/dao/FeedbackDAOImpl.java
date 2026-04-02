@@ -29,13 +29,22 @@ public class FeedbackDAOImpl extends BaseDAO implements FeedbackDAO {
 
     @Override
     public List<Feedback> findAll() {
-        String sql = "select * from feedback";
+        String sql = """
+            select f.*, u.name as user_name, u.avatar, i.name as item_name
+            from feedback f
+            join user u on f.user_id = u.id
+            join item i on f.item_id = i.id
+            order by f.created_at desc
+            """;
         List<Feedback> feedbacks = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Feedback feedback = FeedbackMapper.map(rs);
+                feedback.setName(rs.getString("user_name"));
+                feedback.setAvatar(rs.getString("avatar"));
+                feedback.setItem_name(rs.getString("item_name"));
                 feedbacks.add(feedback);
             }
         } catch (SQLException e) {

@@ -219,6 +219,7 @@
                 <c:when test="${param.success == 'origin_added'}">Xuất xứ mới đã được thêm thành công.</c:when>
                 <c:when test="${param.success == 'origin_updated'}">Cập nhật thông tin xuất xứ thành công.</c:when>
                 <c:when test="${param.success == 'origin_deleted'}">Đã xóa xuất xứ thành công.</c:when>
+                <c:when test="${param.success == 'feedback_deleted'}">Đã xóa phản hồi của khách hàng thành công.</c:when>
                 <c:otherwise>Thao tác đã được thực hiện thành công.</c:otherwise>
             </c:choose>
         </p>
