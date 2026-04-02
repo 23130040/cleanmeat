@@ -13,6 +13,7 @@ public class Feedback implements Serializable {
     private LocalDateTime updated_at;
     private String name;
     private String avatar;
+    private String item_name;
 
     public Feedback() {
     }
@@ -101,6 +102,14 @@ public class Feedback implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getItem_name() {
+        return item_name;
+    }
+
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
     }
 
 }
