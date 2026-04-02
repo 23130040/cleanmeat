@@ -210,4 +210,56 @@
             </div>
         </div>
     </div>
+
+<div id="successModal" class="checkout-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-wrapper">
+        <div class="modal-card premium">
+            <div class="modal-header-icon success">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 class="modal-title">Đặt hàng thành công!</h2>
+            <p class="modal-message">Cảm ơn bạn đã tin tưởng Clean Meat. Đơn hàng của bạn đang được xử lý.</p>
+            
+            <div class="modal-alert-box cod-warning" style="display: none;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Vui lòng không thanh toán trước khi nhận hàng đối với phương thức COD.</span>
+            </div>
+
+            <div class="modal-actions">
+                <a href="${pageContext.request.contextPath}/home" class="btn-modal primary">Về trang chủ</a>
+                <a href="${pageContext.request.contextPath}/product" class="btn-modal secondary">Tiếp tục mua sắm</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="paymentModal" class="checkout-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-wrapper">
+        <div class="modal-card qr-card">
+            <div class="qr-header">
+                <img src="" id="paymentLogo" alt="Payment Logo">
+                <span id="paymentTypeName">Thanh toán qua VNPAY</span>
+            </div>
+            
+            <div class="qr-container">
+                <div class="qr-frame">
+                    <img src="" id="qrImage" alt="Payment QR">
+                    <div class="qr-scan-line"></div>
+                </div>
+                <div class="qr-instruction">
+                    <p>Mở ứng dụng ngân hàng hoặc ví điện tử để quét mã</p>
+                    <div class="order-amount-badge">
+                        Số tiền: <strong id="modalTotalAmount">0đ</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-modal outline btn-cancel-payment">Hủy thanh toán</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

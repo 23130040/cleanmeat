@@ -11,7 +11,7 @@
  Target Server Version : 80407 (8.4.7)
  File Encoding         : 65001
 
- Date: 01/04/2026 21:10:45
+ Date: 02/04/2026 17:24:05
 */
 
 SET NAMES utf8mb4;
@@ -50,7 +50,7 @@ CREATE TABLE `category`  (
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -65,7 +65,7 @@ CREATE TABLE `comment_tree`  (
   `descendant_id` int NOT NULL,
   `depth` int NOT NULL,
   PRIMARY KEY (`ancestor_id`, `descendant_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of comment_tree
@@ -89,7 +89,7 @@ CREATE TABLE `contacts`  (
   INDEX `idx_status`(`status`) USING BTREE,
   INDEX `idx_created_at`(`created_at`) USING BTREE,
   INDEX `idx_email`(`email`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of contacts
@@ -133,7 +133,7 @@ CREATE TABLE `item`  (
   `discount` decimal(5, 2) NULL DEFAULT 0.00,
   `current_stock` int NULL DEFAULT 0,
   `min_stock` int NULL DEFAULT NULL,
-  `packaging` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `packaging` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
@@ -145,138 +145,138 @@ CREATE TABLE `item`  (
 -- ----------------------------
 -- Records of item
 -- ----------------------------
-INSERT INTO `item` VALUES (1, 'Ba chỉ bò', NULL, NULL, 1, 1, 1, 50000.00, 0.00, 50, 5, '2026-01-02 16:29:12', '2026-01-02 22:24:19');
-INSERT INTO `item` VALUES (2, 'Ba chỉ bò', NULL, NULL, 1, 1, 2, 72000.00, 0.00, 50, 5, '2026-01-02 17:08:27', '2026-01-02 22:24:20');
-INSERT INTO `item` VALUES (3, 'Ba chỉ bò', NULL, NULL, 1, 1, 3, 90000.00, 0.00, 100, 5, '2026-01-02 17:08:36', '2026-01-02 22:24:21');
-INSERT INTO `item` VALUES (4, 'Thịt bò tươi', NULL, NULL, 1, 1, 1, 50000.00, 0.00, 30, 5, '2026-01-02 17:08:41', '2026-01-02 22:24:49');
-INSERT INTO `item` VALUES (5, 'Thịt bò tươi', NULL, NULL, 1, 1, 2, 72000.00, 0.00, 10, 5, '2026-01-02 17:08:46', '2026-01-02 22:24:50');
-INSERT INTO `item` VALUES (6, 'Thịt bò tươi', NULL, NULL, 1, 1, 3, 90000.00, 0.00, 100, 5, '2026-01-02 17:08:53', '2026-01-02 22:24:54');
-INSERT INTO `item` VALUES (7, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate) là phần thịt tại bụng bò, có những dải mỡ và thịt xen kẽ nhau giúp miếng thịt mềm, ngậy, ngọt.', 1, 1, 2, 72000.00, 0.00, 50, 5, '2026-01-02 22:33:36', '2026-01-02 22:33:57');
-INSERT INTO `item` VALUES (8, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate) là phần thịt tại bụng bò, có những dải mỡ và thịt xen kẽ nhau giúp miếng thịt mềm, ngậy, ngọt.', 1, 1, 1, 50000.00, 0.00, 50, 5, '2026-01-02 22:33:36', '2026-01-02 22:33:59');
-INSERT INTO `item` VALUES (9, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate) là phần thịt tại bụng bò, có những dải mỡ và thịt xen kẽ nhau giúp miếng thịt mềm, ngậy, ngọt.', 1, 1, 3, 90000.00, 0.00, 100, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:01');
-INSERT INTO `item` VALUES (10, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần thịt nằm ở cuối dẻ sườn hai bên của con bò. Đặc điểm là thịt rất mềm và có một lớp mỡ mỏng phía trên.', 1, 1, 1, 120000.00, 0.00, 30, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:03');
-INSERT INTO `item` VALUES (11, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần thịt nằm ở cuối dẻ sườn hai bên của con bò. Đặc điểm là thịt rất mềm và có một lớp mỡ mỏng phía trên.', 1, 1, 2, 230000.00, 0.00, 30, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:04');
-INSERT INTO `item` VALUES (12, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần thịt nằm ở cuối dẻ sườn hai bên của con bò. Đặc điểm là thịt rất mềm và có một lớp mỡ mỏng phía trên.', 1, 1, 3, 350000.00, 0.00, 30, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:05');
-INSERT INTO `item` VALUES (13, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần thịt bắp nhỏ nằm ở chân con bò, có nhiều đường gân xen kẽ, khi ăn rất giòn và thơm.', 1, 1, 1, 85000.00, 0.00, 40, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:07');
-INSERT INTO `item` VALUES (14, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần thịt bắp nhỏ nằm ở chân con bò, có nhiều đường gân xen kẽ, khi ăn rất giòn và thơm.', 1, 1, 2, 160000.00, 0.00, 40, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:08');
-INSERT INTO `item` VALUES (15, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần thịt bắp nhỏ nằm ở chân con bò, có nhiều đường gân xen kẽ, khi ăn rất giòn và thơm.', 1, 1, 3, 240000.00, 0.00, 40, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:09');
-INSERT INTO `item` VALUES (16, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt nằm ở khoang sườn của bò, có vị ngọt đậm và hương thơm đặc trưng của mỡ bò.', 1, 1, 1, 95000.00, 0.00, 25, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:10');
-INSERT INTO `item` VALUES (17, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt nằm ở khoang sườn của bò, có vị ngọt đậm và hương thơm đặc trưng của mỡ bò.', 1, 1, 2, 180000.00, 0.00, 25, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:11');
-INSERT INTO `item` VALUES (18, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt nằm ở khoang sườn của bò, có vị ngọt đậm và hương thơm đặc trưng của mỡ bò.', 1, 1, 3, 270000.00, 0.00, 25, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:13');
-INSERT INTO `item` VALUES (19, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade) có một sợi gân mỏng ở giữa, thịt rất ngọt và mềm, thường dùng cho món nướng hoặc nhúng lẩu.', 1, 1, 1, 110000.00, 0.00, 35, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:14');
-INSERT INTO `item` VALUES (20, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade) có một sợi gân mỏng ở giữa, thịt rất ngọt và mềm, thường dùng cho món nướng hoặc nhúng lẩu.', 1, 1, 2, 210000.00, 0.00, 35, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:16');
-INSERT INTO `item` VALUES (21, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade) có một sợi gân mỏng ở giữa, thịt rất ngọt và mềm, thường dùng cho món nướng hoặc nhúng lẩu.', 1, 1, 3, 310000.00, 0.00, 35, 5, '2026-01-02 22:33:36', '2026-01-02 22:34:19');
-INSERT INTO `item` VALUES (22, 'Nạm bò Úc', NULL, NULL, 1, 3, 1, 135000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (23, 'Nạm bò Úc', NULL, NULL, 1, 3, 2, 243000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (24, 'Nạm bò Úc', NULL, NULL, 1, 3, 3, 364500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (25, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 1, 320000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (26, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 2, 576000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (27, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 3, 864000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (28, 'Thịt má bò', NULL, NULL, 1, 1, 1, 175000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (29, 'Thịt má bò', NULL, NULL, 1, 1, 2, 315000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (30, 'Thịt má bò', NULL, NULL, 1, 1, 3, 472500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (31, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 1, 320000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (32, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 2, 576000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (33, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 3, 864000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (34, 'Thăn vai bò', NULL, NULL, 1, 1, 1, 380000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (35, 'Thăn vai bò', NULL, NULL, 1, 1, 2, 684000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (36, 'Thăn vai bò', NULL, NULL, 1, 1, 3, 1026000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (37, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 1, 260000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (38, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 2, 468000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (39, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 3, 702000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (40, 'Đuôi bò', NULL, NULL, 1, 1, 1, 220000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (41, 'Đuôi bò', NULL, NULL, 1, 1, 2, 396000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (42, 'Đuôi bò', NULL, NULL, 1, 1, 3, 594000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (43, 'Ba chỉ bò', NULL, NULL, 1, 1, 1, 195000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (44, 'Ba chỉ bò', NULL, NULL, 1, 1, 2, 351000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (45, 'Ba chỉ bò', NULL, NULL, 1, 1, 3, 526500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (46, 'Phi lê cổ bò', NULL, NULL, 1, 1, 1, 150000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (47, 'Phi lê cổ bò', NULL, NULL, 1, 1, 2, 270000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (48, 'Phi lê cổ bò', NULL, NULL, 1, 1, 3, 405000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (49, 'Thịt bắp bò', NULL, NULL, 1, 1, 1, 275000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (50, 'Thịt bắp bò', NULL, NULL, 1, 1, 2, 495000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (51, 'Thịt bắp bò', NULL, NULL, 1, 1, 3, 742500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (52, 'Lá sách bò - đen', NULL, NULL, 1, 1, 1, 175000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (53, 'Lá sách bò - đen', NULL, NULL, 1, 1, 2, 315000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (54, 'Lá sách bò - đen', NULL, NULL, 1, 1, 3, 472500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (55, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 1, 190000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (56, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 2, 342000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (57, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 3, 513000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (58, 'Mỡ heo sạch', NULL, NULL, 2, 1, 1, 52000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (59, 'Mỡ heo sạch', NULL, NULL, 2, 1, 2, 93600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (60, 'Mỡ heo sạch', NULL, NULL, 2, 1, 3, 140400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (61, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 1, 169000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (62, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 2, 304200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (63, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 3, 456300.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (64, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 1, 159000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (65, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 2, 286200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (66, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 3, 429300.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (67, 'Sườn bẹ heo', NULL, NULL, 2, 1, 1, 175000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (68, 'Sườn bẹ heo', NULL, NULL, 2, 1, 2, 315000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (69, 'Sườn bẹ heo', NULL, NULL, 2, 1, 3, 472500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (70, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 1, 162000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (71, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 2, 291600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (72, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 3, 437400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (73, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 1, 185000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (74, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 2, 333000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (75, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 3, 499500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (76, 'Nạc đùi heo', NULL, NULL, 2, 1, 1, 110000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (77, 'Nạc đùi heo', NULL, NULL, 2, 1, 2, 198000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (78, 'Nạc đùi heo', NULL, NULL, 2, 1, 3, 297000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (79, 'Nạc vai heo', NULL, NULL, 2, 1, 1, 126000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (80, 'Nạc vai heo', NULL, NULL, 2, 1, 2, 226800.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (81, 'Nạc vai heo', NULL, NULL, 2, 1, 3, 340200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (82, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 1, 135000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (83, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 2, 243000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (84, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 3, 364500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (85, 'Tai heo', NULL, NULL, 2, 1, 1, 75000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (86, 'Tai heo', NULL, NULL, 2, 1, 2, 135000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (87, 'Tai heo', NULL, NULL, 2, 1, 3, 202500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (88, 'Chân giò', NULL, NULL, 2, 1, 1, 118000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (89, 'Chân giò', NULL, NULL, 2, 1, 2, 212400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (90, 'Chân giò', NULL, NULL, 2, 1, 3, 318600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (91, 'Xương cổ heo', NULL, NULL, 2, 1, 1, 119000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (92, 'Xương cổ heo', NULL, NULL, 2, 1, 2, 214200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (93, 'Xương cổ heo', NULL, NULL, 2, 1, 3, 321300.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (94, 'Dồi trường', NULL, NULL, 2, 1, 1, 190000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (95, 'Dồi trường', NULL, NULL, 2, 1, 2, 342000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (96, 'Dồi trường', NULL, NULL, 2, 1, 3, 513000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (97, 'Xương ống nạc heo', NULL, NULL, 2, 1, 1, 109000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (98, 'Xương ống nạc heo', NULL, NULL, 2, 1, 2, 196200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (99, 'Xương ống nạc heo', NULL, NULL, 2, 1, 3, 294300.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (100, 'Gà nguyên con', NULL, NULL, 3, 1, 1, 170000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (101, 'Gà nguyên con', NULL, NULL, 3, 1, 2, 306000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (102, 'Gà nguyên con', NULL, NULL, 3, 1, 3, 459000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (103, 'Cổ gà', NULL, NULL, 3, 1, 1, 65000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (104, 'Cổ gà', NULL, NULL, 3, 1, 2, 117000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (105, 'Cổ gà', NULL, NULL, 3, 1, 3, 175500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (106, 'Sụn gà', NULL, NULL, 3, 1, 1, 189000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (107, 'Sụn gà', NULL, NULL, 3, 1, 2, 340200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (108, 'Sụn gà', NULL, NULL, 3, 1, 3, 510300.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (109, 'Cánh gà', NULL, NULL, 3, 1, 1, 98000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (110, 'Cánh gà', NULL, NULL, 3, 1, 2, 176400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (111, 'Cánh gà', NULL, NULL, 3, 1, 3, 264600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (112, 'Phao câu gà', NULL, NULL, 3, 1, 1, 48000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (113, 'Phao câu gà', NULL, NULL, 3, 1, 2, 86400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (114, 'Phao câu gà', NULL, NULL, 3, 1, 3, 129600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (115, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 1, 101000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (116, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 2, 181800.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (117, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 3, 272700.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (118, 'Chân gà có xương', NULL, NULL, 3, 1, 1, 105000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (119, 'Chân gà có xương', NULL, NULL, 3, 1, 2, 189000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (120, 'Chân gà có xương', NULL, NULL, 3, 1, 3, 283500.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (121, 'Má đùi gà', NULL, NULL, 3, 1, 1, 98000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (122, 'Má đùi gà', NULL, NULL, 3, 1, 2, 176400.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (123, 'Má đùi gà', NULL, NULL, 3, 1, 3, 264600.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (124, 'Đùi tỏi gà', NULL, NULL, 3, 1, 1, 110000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (125, 'Đùi tỏi gà', NULL, NULL, 3, 1, 2, 198000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (126, 'Đùi tỏi gà', NULL, NULL, 3, 1, 3, 297000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (127, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 1, 60000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (128, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 2, 108000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (129, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 3, 162000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (130, 'Mề gà', NULL, NULL, 3, 1, 1, 104000.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (131, 'Mề gà', NULL, NULL, 3, 1, 2, 187200.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
-INSERT INTO `item` VALUES (132, 'Mề gà', NULL, NULL, 3, 1, 3, 280800.00, 0.00, 100, 10, '2026-01-23 11:00:00', '2026-03-23 16:15:12');
+INSERT INTO `item` VALUES (1, 'Ba chỉ bò', NULL, NULL, 1, 1, 1, 50000.00, 0.00, 50, 5, '500g', '2026-01-02 16:29:12', '2026-01-02 22:24:19');
+INSERT INTO `item` VALUES (2, 'Ba chỉ bò', NULL, NULL, 1, 1, 2, 72000.00, 0.00, 50, 5, '500g', '2026-01-02 17:08:27', '2026-01-02 22:24:20');
+INSERT INTO `item` VALUES (3, 'Ba chỉ bò', NULL, NULL, 1, 1, 3, 90000.00, 0.00, 100, 5, '500g', '2026-01-02 17:08:36', '2026-01-02 22:24:21');
+INSERT INTO `item` VALUES (4, 'Thịt bò tươi', NULL, NULL, 1, 1, 1, 50000.00, 0.00, 30, 5, '500g', '2026-01-02 17:08:41', '2026-01-02 22:24:49');
+INSERT INTO `item` VALUES (5, 'Thịt bò tươi', NULL, NULL, 1, 1, 2, 72000.00, 0.00, 10, 5, '500g', '2026-01-02 17:08:46', '2026-01-02 22:24:50');
+INSERT INTO `item` VALUES (6, 'Thịt bò tươi', NULL, NULL, 1, 1, 3, 90000.00, 0.00, 100, 5, '500g', '2026-01-02 17:08:53', '2026-01-02 22:24:54');
+INSERT INTO `item` VALUES (7, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate)...', 1, 1, 2, 72000.00, 0.00, 50, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:33:57');
+INSERT INTO `item` VALUES (8, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate)...', 1, 1, 1, 50000.00, 0.00, 50, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:33:59');
+INSERT INTO `item` VALUES (9, 'Ba chỉ bò Mỹ', 'Thịt ba chỉ bò nhập khẩu, vân mỡ đều.', 'Ba chỉ bò Mỹ (Shortplate)...', 1, 1, 3, 90000.00, 0.00, 100, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:01');
+INSERT INTO `item` VALUES (10, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần...', 1, 1, 1, 120000.00, 0.00, 30, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:03');
+INSERT INTO `item` VALUES (11, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần...', 1, 1, 2, 230000.00, 0.00, 30, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:04');
+INSERT INTO `item` VALUES (12, 'Thăn ngoại bò Úc', 'Thịt thăn mềm, thích hợp làm steak.', 'Thăn ngoại bò là phần...', 1, 1, 3, 350000.00, 0.00, 30, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:05');
+INSERT INTO `item` VALUES (13, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần...', 1, 1, 1, 85000.00, 0.00, 40, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:07');
+INSERT INTO `item` VALUES (14, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần...', 1, 1, 2, 160000.00, 0.00, 40, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:08');
+INSERT INTO `item` VALUES (15, 'Bắp bò hoa', 'Bắp bò nhiều gân, giòn ngọt.', 'Bắp hoa bò là phần...', 1, 1, 3, 240000.00, 0.00, 40, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:09');
+INSERT INTO `item` VALUES (16, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt...', 1, 1, 1, 95000.00, 0.00, 25, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:10');
+INSERT INTO `item` VALUES (17, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt...', 1, 1, 2, 180000.00, 0.00, 25, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:11');
+INSERT INTO `item` VALUES (18, 'Dẻ sườn bò Mỹ', 'Thịt dẻ sườn đậm đà, béo ngậy.', 'Dẻ sườn bò là phần thịt...', 1, 1, 3, 270000.00, 0.00, 25, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:13');
+INSERT INTO `item` VALUES (19, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade)...', 1, 1, 1, 110000.00, 0.00, 35, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:14');
+INSERT INTO `item` VALUES (20, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade)...', 1, 1, 2, 210000.00, 0.00, 35, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:16');
+INSERT INTO `item` VALUES (21, 'Lõi vai bò Mỹ', 'Thịt lõi vai mềm, ít mỡ.', 'Lõi vai bò (Top Blade)...', 1, 1, 3, 310000.00, 0.00, 35, 5, '500g', '2026-01-02 22:33:36', '2026-01-02 22:34:19');
+INSERT INTO `item` VALUES (22, 'Nạm bò Úc', NULL, NULL, 1, 3, 1, 135000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (23, 'Nạm bò Úc', NULL, NULL, 1, 3, 2, 243000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (24, 'Nạm bò Úc', NULL, NULL, 1, 3, 3, 364500.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (25, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 1, 320000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (26, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 2, 576000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (27, 'Bò tươi nguyên miếng', NULL, NULL, 1, 1, 3, 864000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (28, 'Thịt má bò', NULL, NULL, 1, 1, 1, 175000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (29, 'Thịt má bò', NULL, NULL, 1, 1, 2, 315000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (30, 'Thịt má bò', NULL, NULL, 1, 1, 3, 472500.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (31, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 1, 320000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (32, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 2, 576000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (33, 'Nạm gầu bò tơ', NULL, NULL, 1, 1, 3, 864000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (34, 'Thăn vai bò', NULL, NULL, 1, 1, 1, 380000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (35, 'Thăn vai bò', NULL, NULL, 1, 1, 2, 684000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (36, 'Thăn vai bò', NULL, NULL, 1, 1, 3, 1026000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (37, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 1, 260000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (38, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 2, 468000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (39, 'Thịt nạc mông bò tươi', NULL, NULL, 1, 1, 3, 702000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (40, 'Đuôi bò', NULL, NULL, 1, 1, 1, 220000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (41, 'Đuôi bò', NULL, NULL, 1, 1, 2, 396000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (42, 'Đuôi bò', NULL, NULL, 1, 1, 3, 594000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (43, 'Ba chỉ bò', NULL, NULL, 1, 1, 1, 195000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (44, 'Ba chỉ bò', NULL, NULL, 1, 1, 2, 351000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (45, 'Ba chỉ bò', NULL, NULL, 1, 1, 3, 526500.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (46, 'Phi lê cổ bò', NULL, NULL, 1, 1, 1, 150000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (47, 'Phi lê cổ bò', NULL, NULL, 1, 1, 2, 270000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (48, 'Phi lê cổ bò', NULL, NULL, 1, 1, 3, 405000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (49, 'Thịt bắp bò', NULL, NULL, 1, 1, 1, 275000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (50, 'Thịt bắp bò', NULL, NULL, 1, 1, 2, 495000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (51, 'Thịt bắp bò', NULL, NULL, 1, 1, 3, 742500.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (52, 'Lá sách bò - đen', NULL, NULL, 1, 1, 1, 175000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (53, 'Lá sách bò - đen', NULL, NULL, 1, 1, 2, 315000.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (54, 'Lá sách bò - đen', NULL, NULL, 1, 1, 3, 472500.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (55, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 1, 190000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (56, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 2, 342000.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (57, 'Lá sách bò - trắng', NULL, NULL, 1, 1, 3, 513000.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (58, 'Mỡ heo sạch', NULL, NULL, 2, 1, 1, 52000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (59, 'Mỡ heo sạch', NULL, NULL, 2, 1, 2, 93600.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (60, 'Mỡ heo sạch', NULL, NULL, 2, 1, 3, 140400.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (61, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 1, 169000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (62, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 2, 304200.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (63, 'Ba rọi rút sườn CleanMeat', NULL, NULL, 2, 1, 3, 456300.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (64, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 1, 159000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (65, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 2, 286200.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (66, 'Sườn non heo CleanMeat', NULL, NULL, 2, 1, 3, 429300.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (67, 'Sườn bẹ heo', NULL, NULL, 2, 1, 1, 175000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (68, 'Sườn bẹ heo', NULL, NULL, 2, 1, 2, 315000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (69, 'Sườn bẹ heo', NULL, NULL, 2, 1, 3, 472500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (70, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 1, 162000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (71, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 2, 291600.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (72, 'Thịt heo cốt lết', NULL, NULL, 2, 1, 3, 437400.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (73, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 1, 185000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (74, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 2, 333000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (75, 'Thịt nạc thăn heo', NULL, NULL, 2, 1, 3, 499500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (76, 'Nạc đùi heo', NULL, NULL, 2, 1, 1, 110000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (77, 'Nạc đùi heo', NULL, NULL, 2, 1, 2, 198000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (78, 'Nạc đùi heo', NULL, NULL, 2, 1, 3, 297000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (79, 'Nạc vai heo', NULL, NULL, 2, 1, 1, 126000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (80, 'Nạc vai heo', NULL, NULL, 2, 1, 2, 226800.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (81, 'Nạc vai heo', NULL, NULL, 2, 1, 3, 340200.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (82, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 1, 135000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (83, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 2, 243000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (84, 'Nạc dăm hữu cơ', NULL, NULL, 2, 1, 3, 364500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (85, 'Tai heo', NULL, NULL, 2, 1, 1, 75000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (86, 'Tai heo', NULL, NULL, 2, 1, 2, 135000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (87, 'Tai heo', NULL, NULL, 2, 1, 3, 202500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (88, 'Chân giò', NULL, NULL, 2, 1, 1, 118000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (89, 'Chân giò', NULL, NULL, 2, 1, 2, 212400.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (90, 'Chân giò', NULL, NULL, 2, 1, 3, 318600.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (91, 'Xương cổ heo', NULL, NULL, 2, 1, 1, 119000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (92, 'Xương cổ heo', NULL, NULL, 2, 1, 2, 214200.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (93, 'Xương cổ heo', NULL, NULL, 2, 1, 3, 321300.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (94, 'Dồi trường', NULL, NULL, 2, 1, 1, 190000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (95, 'Dồi trường', NULL, NULL, 2, 1, 2, 342000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (96, 'Dồi trường', NULL, NULL, 2, 1, 3, 513000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (97, 'Xương ống nạc heo', NULL, NULL, 2, 1, 1, 109000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (98, 'Xương ống nạc heo', NULL, NULL, 2, 1, 2, 196200.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (99, 'Xương ống nạc heo', NULL, NULL, 2, 1, 3, 294300.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (100, 'Gà nguyên con', NULL, NULL, 3, 1, 1, 170000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (101, 'Gà nguyên con', NULL, NULL, 3, 1, 2, 306000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (102, 'Gà nguyên con', NULL, NULL, 3, 1, 3, 459000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (103, 'Cổ gà', NULL, NULL, 3, 1, 1, 65000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (104, 'Cổ gà', NULL, NULL, 3, 1, 2, 117000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (105, 'Cổ gà', NULL, NULL, 3, 1, 3, 175500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (106, 'Sụn gà', NULL, NULL, 3, 1, 1, 189000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (107, 'Sụn gà', NULL, NULL, 3, 1, 2, 340200.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (108, 'Sụn gà', NULL, NULL, 3, 1, 3, 510300.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (109, 'Cánh gà', NULL, NULL, 3, 1, 1, 98000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (110, 'Cánh gà', NULL, NULL, 3, 1, 2, 176400.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (111, 'Cánh gà', NULL, NULL, 3, 1, 3, 264600.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (112, 'Phao câu gà', NULL, NULL, 3, 1, 1, 48000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (113, 'Phao câu gà', NULL, NULL, 3, 1, 2, 86400.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (114, 'Phao câu gà', NULL, NULL, 3, 1, 3, 129600.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (115, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 1, 101000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (116, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 2, 181800.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (117, 'Cánh gà khúc giữa', NULL, NULL, 3, 1, 3, 272700.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (118, 'Chân gà có xương', NULL, NULL, 3, 1, 1, 105000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (119, 'Chân gà có xương', NULL, NULL, 3, 1, 2, 189000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (120, 'Chân gà có xương', NULL, NULL, 3, 1, 3, 283500.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (121, 'Má đùi gà', NULL, NULL, 3, 1, 1, 98000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (122, 'Má đùi gà', NULL, NULL, 3, 1, 2, 176400.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (123, 'Má đùi gà', NULL, NULL, 3, 1, 3, 264600.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (124, 'Đùi tỏi gà', NULL, NULL, 3, 1, 1, 110000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (125, 'Đùi tỏi gà', NULL, NULL, 3, 1, 2, 198000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (126, 'Đùi tỏi gà', NULL, NULL, 3, 1, 3, 297000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (127, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 1, 60000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (128, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 2, 108000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (129, 'Cơm má đùi không xương', NULL, NULL, 3, 1, 3, 162000.00, 0.00, 100, 10, NULL, '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (130, 'Mề gà', NULL, NULL, 3, 1, 1, 104000.00, 0.00, 100, 10, '500g', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (131, 'Mề gà', NULL, NULL, 3, 1, 2, 187200.00, 0.00, 100, 10, '1kg', '2026-01-23 11:00:00', '2026-01-23 11:00:00');
+INSERT INTO `item` VALUES (132, 'Mề gà', NULL, NULL, 3, 1, 3, 280800.00, 0.00, 100, 10, '1.5kg', '2026-01-23 11:00:00', '2026-03-23 16:15:12');
 
 -- ----------------------------
 -- Table structure for item_image
@@ -343,114 +343,114 @@ INSERT INTO `item_image` VALUES (45, 9, 'sp_3_4.jpg', b'0', '2026-01-03 17:01:31
 INSERT INTO `item_image` VALUES (46, 22, 'Bo1.png', b'1', '2026-01-23 11:30:00');
 INSERT INTO `item_image` VALUES (47, 23, 'Bo1.png', b'1', '2026-01-23 11:30:00');
 INSERT INTO `item_image` VALUES (48, 24, 'Bo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (49, 25, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (50, 26, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (51, 27, 'images/Bo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (52, 28, 'images/Bo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (53, 29, 'images/Bo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (54, 30, 'images/Bo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (55, 31, 'images/Bo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (56, 32, 'images/Bo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (57, 33, 'images/Bo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (58, 34, 'images/Bo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (59, 35, 'images/Bo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (60, 36, 'images/Bo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (61, 37, 'images/Bo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (62, 38, 'images/Bo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (63, 39, 'images/Bo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (64, 40, 'images/Bo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (65, 41, 'images/Bo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (66, 42, 'images/Bo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (67, 43, 'images/Bo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (68, 44, 'images/Bo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (69, 45, 'images/Bo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (70, 46, 'images/Bo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (71, 47, 'images/Bo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (72, 48, 'images/Bo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (73, 49, 'images/Bo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (74, 50, 'images/Bo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (75, 51, 'images/Bo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (76, 52, 'images/Bo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (77, 53, 'images/Bo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (78, 54, 'images/Bo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (79, 55, 'images/Bo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (80, 56, 'images/Bo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (81, 57, 'images/Bo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (82, 58, 'images/Heo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (83, 59, 'images/Heo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (84, 60, 'images/Heo1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (85, 61, 'images/Heo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (86, 62, 'images/Heo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (87, 63, 'images/Heo2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (88, 64, 'images/Heo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (89, 65, 'images/Heo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (90, 66, 'images/Heo3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (91, 67, 'images/Heo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (92, 68, 'images/Heo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (93, 69, 'images/Heo4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (94, 70, 'images/Heo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (95, 71, 'images/Heo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (96, 72, 'images/Heo5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (97, 73, 'images/Heo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (98, 74, 'images/Heo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (99, 75, 'images/Heo6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (100, 76, 'images/Heo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (101, 77, 'images/Heo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (102, 78, 'images/Heo7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (103, 79, 'images/Heo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (104, 80, 'images/Heo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (105, 81, 'images/Heo8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (106, 82, 'images/Heo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (107, 83, 'images/Heo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (108, 84, 'images/Heo9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (109, 85, 'images/Heo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (110, 86, 'images/Heo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (111, 87, 'images/Heo10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (112, 88, 'images/Heo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (113, 89, 'images/Heo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (114, 90, 'images/Heo11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (115, 91, 'images/Heo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (116, 92, 'images/Heo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (117, 93, 'images/Heo12.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (118, 94, 'images/Heo13.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (119, 95, 'images/Heo13.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (120, 96, 'images/Heo13.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (121, 97, 'images/Heo14.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (122, 98, 'images/Heo14.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (123, 99, 'images/Heo14.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (124, 100, 'images/Ga1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (125, 101, 'images/Ga1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (126, 102, 'images/Ga1.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (127, 103, 'images/Ga2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (128, 104, 'images/Ga2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (129, 105, 'images/Ga2.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (130, 106, 'images/Ga3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (131, 107, 'images/Ga3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (132, 108, 'images/Ga3.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (133, 109, 'images/Ga4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (134, 110, 'images/Ga4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (135, 111, 'images/Ga4.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (136, 112, 'images/Ga5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (137, 113, 'images/Ga5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (138, 114, 'images/Ga5.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (139, 115, 'images/Ga6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (140, 116, 'images/Ga6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (141, 117, 'images/Ga6.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (142, 118, 'images/Ga7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (143, 119, 'images/Ga7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (144, 120, 'images/Ga7.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (145, 121, 'images/Ga8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (146, 122, 'images/Ga8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (147, 123, 'images/Ga8.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (148, 124, 'images/Ga9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (149, 125, 'images/Ga9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (150, 126, 'images/Ga9.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (151, 127, 'images/Ga10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (152, 128, 'images/Ga10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (153, 129, 'images/Ga10.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (154, 130, 'images/Ga11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (155, 131, 'images/Ga11.png', b'1', '2026-01-23 11:30:00');
-INSERT INTO `item_image` VALUES (156, 132, 'images/Ga11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (49, 25, 'Bo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (50, 26, 'Bo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (51, 27, 'Bo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (52, 28, 'Bo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (53, 29, 'Bo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (54, 30, 'Bo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (55, 31, 'Bo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (56, 32, 'Bo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (57, 33, 'Bo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (58, 34, 'Bo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (59, 35, 'Bo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (60, 36, 'Bo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (61, 37, 'Bo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (62, 38, 'Bo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (63, 39, 'Bo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (64, 40, 'Bo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (65, 41, 'Bo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (66, 42, 'Bo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (67, 43, 'Bo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (68, 44, 'Bo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (69, 45, 'Bo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (70, 46, 'Bo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (71, 47, 'Bo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (72, 48, 'Bo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (73, 49, 'Bo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (74, 50, 'Bo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (75, 51, 'Bo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (76, 52, 'Bo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (77, 53, 'Bo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (78, 54, 'Bo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (79, 55, 'Bo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (80, 56, 'Bo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (81, 57, 'Bo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (82, 58, 'Heo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (83, 59, 'Heo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (84, 60, 'Heo1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (85, 61, 'Heo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (86, 62, 'Heo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (87, 63, 'Heo2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (88, 64, 'Heo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (89, 65, 'Heo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (90, 66, 'Heo3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (91, 67, 'Heo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (92, 68, 'Heo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (93, 69, 'Heo4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (94, 70, 'Heo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (95, 71, 'Heo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (96, 72, 'Heo5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (97, 73, 'Heo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (98, 74, 'Heo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (99, 75, 'Heo6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (100, 76, 'Heo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (101, 77, 'Heo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (102, 78, 'Heo7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (103, 79, 'Heo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (104, 80, 'Heo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (105, 81, 'Heo8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (106, 82, 'Heo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (107, 83, 'Heo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (108, 84, 'Heo9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (109, 85, 'Heo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (110, 86, 'Heo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (111, 87, 'Heo10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (112, 88, 'Heo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (113, 89, 'Heo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (114, 90, 'Heo11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (115, 91, 'Heo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (116, 92, 'Heo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (117, 93, 'Heo12.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (118, 94, 'Heo13.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (119, 95, 'Heo13.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (120, 96, 'Heo13.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (121, 97, 'Heo14.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (122, 98, 'Heo14.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (123, 99, 'Heo14.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (124, 100, 'Ga1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (125, 101, 'Ga1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (126, 102, 'Ga1.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (127, 103, 'Ga2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (128, 104, 'Ga2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (129, 105, 'Ga2.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (130, 106, 'Ga3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (131, 107, 'Ga3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (132, 108, 'Ga3.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (133, 109, 'Ga4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (134, 110, 'Ga4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (135, 111, 'Ga4.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (136, 112, 'Ga5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (137, 113, 'Ga5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (138, 114, 'Ga5.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (139, 115, 'Ga6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (140, 116, 'Ga6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (141, 117, 'Ga6.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (142, 118, 'Ga7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (143, 119, 'Ga7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (144, 120, 'Ga7.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (145, 121, 'Ga8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (146, 122, 'Ga8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (147, 123, 'Ga8.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (148, 124, 'Ga9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (149, 125, 'Ga9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (150, 126, 'Ga9.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (151, 127, 'Ga10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (152, 128, 'Ga10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (153, 129, 'Ga10.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (154, 130, 'Ga11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (155, 131, 'Ga11.png', b'1', '2026-01-23 11:30:00');
+INSERT INTO `item_image` VALUES (156, 132, 'Ga11.png', b'1', '2026-01-23 11:30:00');
 
 -- ----------------------------
 -- Table structure for news
@@ -468,12 +468,12 @@ CREATE TABLE `news`  (
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `created_by`(`created_by` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of news
 -- ----------------------------
-INSERT INTO `news` VALUES (1, 'Làm sao biết thịt luộc đã chín?', 'Bùi Thúy', 'images/news1.png', 'Một số người nội trợ có mẹo kiểm tra bằng cách cắm đũa xuyên vào phần dày nhất, nếu xiên được và không có nước đỏ hồng rỉ ra là thịt đã đạt độ chín cần thiết. Các đầu bếp phương Tây cũng dùng "nhiệt kế thủ công" này để kiểm tra độ chín của lõi thịt. Một số người nội trợ có kinh nghiệm còn chia sẻ cách nhận diện gián tiếp bằng quan sát thịt nổi, nước trong. Khi miếng thịt chín, protein đông tụ khiến thớ co lại, khối thịt nhẹ đi và nổi dần lên mặt nước. Cách này đơn giản, nhưng không phải lúc nào cũng đúng. Thịt ba chỉ nổi nhanh hơn thịt nạc. Xét dưới góc độ khoa học, khi luộc, nhiệt truyền vào thịt theo cơ chế đối lưu và dẫn nhiệt. Bề mặt bên ngoài thịt tiếp xúc với nước sôi ở 100°C, nhưng phải cần một khoảng thời gian để nhiệt đi dần vào lõi. Trong khi đó, protein trong thịt biến đổi theo từng ngưỡng nhiệt: myosin bắt đầu đông đặc ở 40–50°C khiến thớ thịt săn lại; actin biến tính ở 70–80°C quyết định độ cứng; collagen trong gân, bì chỉ thật sự mềm ở 68–80°C. Khi thịt nổi, lớp ngoài có thể đã co rút, tạo túi khí và làm miếng thịt nhẹ hơn, nhưng lõi vẫn chưa chín. Chỉ khi cắm đũa và không còn dịch hồng rỉ ra, mới chắc chắn lõi đã đạt 70–75°C. Điều này lý giải vì sao kinh nghiệm "cắm đũa thấy không ra nước hồng là thịt đã chín" từ xưa là hoàn toàn có cơ sở khoa học.', 'published', '2026-01-10 18:50:22', 1, '2026-01-10 19:20:45');
+INSERT INTO `news` VALUES (1, 'Làm sao biết thịt luộc đã chín?', 'Bùi Thúy', 'images/news1.png', 'Một số người nội trợ có mẹo kiểm tra bằng cách cắm đũa xuyên vào phần dày nhất, nếu xiên được và không có nước đỏ hồng rỉ ra là thịt đã đạt độ chín cần thiết. Các đầu bếp phương Tây cũng dùng \"nhiệt kế thủ công\" này để kiểm tra độ chín của lõi thịt. Một số người nội trợ có kinh nghiệm còn chia sẻ cách nhận diện gián tiếp bằng quan sát thịt nổi, nước trong. Khi miếng thịt chín, protein đông tụ khiến thớ co lại, khối thịt nhẹ đi và nổi dần lên mặt nước. Cách này đơn giản, nhưng không phải lúc nào cũng đúng. Thịt ba chỉ nổi nhanh hơn thịt nạc. Xét dưới góc độ khoa học, khi luộc, nhiệt truyền vào thịt theo cơ chế đối lưu và dẫn nhiệt. Bề mặt bên ngoài thịt tiếp xúc với nước sôi ở 100°C, nhưng phải cần một khoảng thời gian để nhiệt đi dần vào lõi. Trong khi đó, protein trong thịt biến đổi theo từng ngưỡng nhiệt: myosin bắt đầu đông đặc ở 40–50°C khiến thớ thịt săn lại; actin biến tính ở 70–80°C quyết định độ cứng; collagen trong gân, bì chỉ thật sự mềm ở 68–80°C. Khi thịt nổi, lớp ngoài có thể đã co rút, tạo túi khí và làm miếng thịt nhẹ hơn, nhưng lõi vẫn chưa chín. Chỉ khi cắm đũa và không còn dịch hồng rỉ ra, mới chắc chắn lõi đã đạt 70–75°C. Điều này lý giải vì sao kinh nghiệm \"cắm đũa thấy không ra nước hồng là thịt đã chín\" từ xưa là hoàn toàn có cơ sở khoa học.', 'published', '2026-01-10 18:50:22', 1, '2026-01-10 19:20:45');
 INSERT INTO `news` VALUES (2, 'Xe tải chở gần 6 tấn thịt hôi thối', 'Hoàng Táo', 'images/news2.png', 'QUẢNG TRỊ - Xe tải chở gần 6 tấn thịt bốc mùi, chảy nước, không giấy tờ kiểm dịch đang trên đường từ Hà Nội sang Lào thì bị cảnh sát phát hiện. 11h20 ngày 8/2, tại Km37 quốc lộ 9, đoạn qua xã Hướng Hiệp, huyện Đakrong, Cảnh sát phòng chống tội phạm về môi trường phối hợp với Trạm CSGT Đakrông dừng kiểm tra ôtô tải do tài xế Võ Tá Ý điều khiển. Nhà chức trách phát hiện xe chở 172 bao tải chứa 5,9 tấn thịt bốc mùi hôi, màu sắc biến đổi, chảy nước. Trong đó, 80 bao lưỡi heo, 20 bao tai heo, 10 bao thịt nạc heo, 23 bao da heo, 10 bao chân gà, 15 bao thịt vụn, 15 bao nạm bò. Số thịt này không có giấy chứng nhận kiểm dịch, được vận chuyển bằng phương tiện không bảo đảm yêu cầu vệ sinh thú y. Chủ hàng khai nhận số thịt này được lấy từ khu công nghiệp Quang Minh, Hà Nội sau đó vận chuyển bằng xe đông lạnh vào Thừa Thiên Huế rồi dùng xe tải đưa sang Lào tiêu thụ.', 'published', '2023-02-09 14:49:00', 1, '2023-02-09 14:49:00');
 INSERT INTO `news` VALUES (3, 'Lợi ích ít biết của thịt gà', 'Bảo Bảo', 'images/news3.png', 'Thịt gà rất giàu protein, ít calo, chất béo, hỗ trợ giảm cân, tăng cơ và thúc đẩy sức khỏe tim mạch, cải thiện tâm trạng. Thịt gà là một trong những loại thịt phổ biến trong bữa ăn hàng ngày. Thực phẩm này dễ chế biến, có thể làm thành nhiều món ăn khác nhau. Giá trị dinh dưỡng: Thị gà rất nhiều chất dinh dưỡng quan trọng bao gồm protein, niacin, selen và phốt pho. Một khẩu phần ức gà 85 g chứa: Calo: 122 kcal, Protein: 24 g, Chất béo: 3 g, Carb: 0 g. Lượng dinh dưỡng cơ thể cần hàng ngày (DV): Vitamin B3: 51%, Selen: 36%, Phốt pho: 17%, Vitamin B6: 16%, Vitamin B12: 10%. Protein trong thịt gà rất cần thiết cho việc xây dựng và sửa chữa các mô. Nhóm vitamin B như B3, B6 và B12 đóng vai trò quan trọng trong việc sản xuất năng lượng, tổng hợp DNA và sức khỏe não bộ. Lợi ích sức khỏe: Hỗ trợ giảm cân vì ít calo nhưng giàu protein; Hỗ trợ tập luyện tăng trưởng cơ bắp; Hỗ trợ xương và cơ chắc khỏe hơn bảo vệ cơ thể khi tuổi già; Tăng cường sức khỏe tim mạch và Cải thiện tâm trạng. Lưu ý khi ăn thịt gà: nên ăn gà nướng, gà hầm thay vì gà rán giòn vì chứa nhiều chất béo, calo không lành mạnh.', 'published', '2025-10-27 06:00:00', 1, '2026-01-10 19:51:52');
 INSERT INTO `news` VALUES (4, 'Người Nhật Bản chuộng thịt gà chế biến của Việt Nam', 'Thu Hà', 'images/news4.png', 'Thịt gà chế biến của doanh nghiệp Việt đang được đón nhận tại thị trường Nhật Bản. Sau 3 năm kể từ khi xuất khẩu lô gà chế biến đầu tiên sang Nhật Bản, ông Pawalit Ua-Amornwanit, Tổng Giám đốc C.P Việt Nam cho biết, đến nay đơn vị này đã xuất khẩu thành công 10.000 tấn thịt gà chế biến sang thị trường này. Ông tin rằng điều này cho thấy Việt Nam ngày càng đủ năng lực đáp ứng các tiêu chuẩn xuất khẩu thực phẩm nghiêm ngặt, đặc biệt tại thị trường cao cấp như Nhật Bản. Tuy nhiên, doanh nghiệp cho biết, hiện các sản phẩm vẫn chưa bán trực tiếp cho người tiêu dùng Nhật Bản mà phải thông qua các kênh phân phối và đối tác địa phương. Đơn cử, nếu muốn bán sản phẩm qua hệ thống 7-Eleven của Nhật Bản, nhà máy phải hợp tác với công ty quản lý kênh này để phân phối sản phẩm theo đơn đặt hàng của đối tác. Tháng 9-2025, Việt Nam và Nhật Bản đã khởi động Giai đoạn 3 của Tầm nhìn Trung và Dài hạn về hợp tác nông nghiệp (2025-2030), sau nhiều năm hợp tác ổn định trong lĩnh vực nông lâm thủy sản, với giá trị thương mại tăng từ 3,02 tỉ USD năm 2015 lên khoảng 4,9 tỉ USD vào năm 2024.', 'published', '2025-10-24 17:54:00', 1, '2026-01-10 19:57:51');
@@ -520,11 +520,14 @@ CREATE TABLE `orders`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   INDEX `address_id`(`address_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES (1, 3, 760000.00, 'Chờ xác nhận', '2026-04-02 16:38:07', '2026-04-02 16:38:07', 11, 1, 1);
+INSERT INTO `orders` VALUES (2, 3, 320000.00, 'Chờ xác nhận', '2026-04-02 16:38:24', '2026-04-02 16:38:24', 11, 1, 2);
+INSERT INTO `orders` VALUES (3, 3, 590000.00, 'Chờ xác nhận', '2026-04-02 16:42:07', '2026-04-02 16:42:07', 11, 1, 2);
 
 -- ----------------------------
 -- Table structure for orders_item
@@ -534,15 +537,20 @@ CREATE TABLE `orders_item`  (
   `order_id` int NOT NULL,
   `item_id` int NOT NULL,
   `price` decimal(10, 2) NULL DEFAULT NULL,
+  `weight` int NOT NULL,
   `quantity` decimal(10, 2) NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`order_id`, `item_id`) USING BTREE,
+  PRIMARY KEY (`order_id`, `item_id`, `weight`) USING BTREE,
   INDEX `item_id`(`item_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders_item
 -- ----------------------------
+INSERT INTO `orders_item` VALUES (1, 94, 760000.00, 1000, 1.00, '2026-04-02 16:38:07');
+INSERT INTO `orders_item` VALUES (2, 25, 320000.00, 250, 1.00, '2026-04-02 16:38:24');
+INSERT INTO `orders_item` VALUES (3, 22, 270000.00, 500, 1.00, '2026-04-02 16:42:07');
+INSERT INTO `orders_item` VALUES (3, 25, 320000.00, 250, 1.00, '2026-04-02 16:42:07');
 
 -- ----------------------------
 -- Table structure for origin
@@ -556,7 +564,7 @@ CREATE TABLE `origin`  (
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of origin
@@ -573,7 +581,7 @@ CREATE TABLE `payment`  (
   `created_day` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of payment
@@ -638,7 +646,7 @@ CREATE TABLE `transport`  (
   `updated_day` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `free_ship` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of transport
@@ -658,7 +666,7 @@ CREATE TABLE `unit`  (
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of unit

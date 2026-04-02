@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', function () {
             const itemId = this.getAttribute('data-item-id');
             const card = this.closest('.cart-item-card-premium');
+            const select = card.querySelector('.cart-weight-select');
+            const weight = select.value;
 
             const params = new URLSearchParams();
             params.append('action', 'remove');
             params.append('itemId', itemId);
+            params.append('weight', weight);
 
             fetch(CONTEXTPATH + '/cart', {
                 method: 'POST',
@@ -37,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', function () {
             const itemId = this.getAttribute('data-item-id');
             const delta = parseInt(this.getAttribute('data-delta'));
-            const qtySpan = document.getElementById('qty-' + itemId);
+            const card = this.closest('.cart-item-card-premium');
+            const weight = card.querySelector('.cart-weight-select').value;
+            
+            const qtySpan = card.querySelector('.picker-val');
             if (!qtySpan) return;
 
             let currentQty = parseInt(qtySpan.textContent);
@@ -47,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams();
             params.append('action', 'update');
             params.append('itemId', itemId);
+            params.append('weight', weight);
             params.append('quantity', newQty);
 
             fetch(CONTEXTPATH + '/cart', {
@@ -58,15 +65,42 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(res => res.json())
             .then(data => {
-                console.log('Update result:', data);
                 if (data.success) {
                     qtySpan.textContent = newQty;
                     updateCartBadge(data.cartCount);
-                    recalcItemTotal(itemId, newQty);
                     recalcTotal(data.total);
+                    // Local subtotal update is skipped for brevity, full sync via server
                 }
             })
             .catch(err => console.error('Cart update error:', err));
+        });
+    });
+
+    document.querySelectorAll('.cart-weight-select').forEach(select => {
+        select.addEventListener('change', function () {
+            const itemId = this.getAttribute('data-item-id');
+            const oldWeight = this.getAttribute('data-old-weight');
+            const newWeight = this.value;
+
+            const params = new URLSearchParams();
+            params.append('action', 'updateWeight');
+            params.append('itemId', itemId);
+            params.append('oldWeight', oldWeight);
+            params.append('newWeight', newWeight);
+
+            fetch(CONTEXTPATH + '/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
         });
     });
 
@@ -75,8 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
         btnClearAll.addEventListener('click', function () {
             const hasItems = document.querySelectorAll('.cart-item-card-premium').length > 0;
             if (!hasItems) return;
-
-            if (!confirm('Bạn có chắc chắn muốn xóa toàn bộ sản phẩm khỏi giỏ hàng?')) return;
 
             const params = new URLSearchParams();
             params.append('action', 'clear');
@@ -91,43 +123,23 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    const container = document.querySelector('.cart-items-container');
-                    const layout = document.querySelector('.cart-layout');
-                    if (layout) {
-                        layout.style.transition = 'opacity 0.3s, transform 0.3s';
-                        layout.style.opacity = '0';
-                        layout.style.transform = 'translateY(20px)';
-                    }
-                    setTimeout(() => {
-                        location.reload();
-                    }, 300);
+                    location.reload();
                 }
             });
         });
     }
 
-    function recalcItemTotal(itemId, qty) {
-        const card = document.querySelector(`.btn-remove-cart[data-item-id="${itemId}"]`)
-                               ?.closest('.cart-item-card-premium');
-        if (!card) return;
-        const priceEl  = card.querySelector('.current-unit-price');
-        const totalEl  = card.querySelector('.price-detail.total .val');
-        if (!priceEl || !totalEl) return;
-        const unitPrice = parseInt(priceEl.textContent.replace(/[^\d]/g, ''));
-        totalEl.textContent = (unitPrice * qty).toLocaleString('vi-VN') + 'đ';
+    function recalcTotal(serverTotal) {
+        const total = serverTotal.toLocaleString('vi-VN') + 'đ';
+        const grandEl = document.querySelector('.final-price');
+        if (grandEl) grandEl.textContent = total;
+        const subtotalEl = document.querySelector('.summary-bill-details .bill-row:first-child .val');
+        if (subtotalEl) subtotalEl.textContent = total;
     }
 
-    function recalcTotal(serverTotal) {
-        let total = serverTotal !== undefined ? serverTotal : 0;
-        if (serverTotal === undefined) {
-            document.querySelectorAll('.price-detail.total .val').forEach(el => {
-                total += parseInt(el.textContent.replace(/[^\d]/g, '')) || 0;
-            });
-        }
-        const grandEl = document.querySelector('.final-price');
-        if (grandEl) grandEl.textContent = total.toLocaleString('vi-VN') + 'đ';
-        const subtotalEl = document.querySelector('.summary-bill-details .bill-row:first-child .val');
-        if (subtotalEl) subtotalEl.textContent = total.toLocaleString('vi-VN') + 'đ';
+    function updateCartBadge(count) {
+        const badge = document.getElementById('cart-quantity');
+        if (badge) badge.textContent = count;
     }
 
     function checkEmptyCart() {

@@ -9,7 +9,7 @@ public interface AddressDAO {
 
     public List<Address> findByUserId(int user_id);
 
-    public boolean insert(Address address);
+    public int insert(Address address);
 
     public boolean update(Address address);
 

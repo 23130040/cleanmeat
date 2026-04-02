@@ -65,6 +65,7 @@
                     <form action="${pageContext.request.contextPath}/add-to-cart" method="post" id="addToCartForm">
                         <input type="hidden" name="itemId" value="${item.id}">
                         <input type="hidden" name="quantity" id="form-quantity" value="1">
+                        <input type="hidden" name="weight" id="form-weight" value="250">
                         <button type="submit" class="btn-add-to-cart">
                             <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
                         </button>
@@ -116,8 +117,6 @@
                     <p>Chưa có đánh giá</p>
                 </c:otherwise>
             </c:choose>
-
         </div>
-
     </div>
 </div>

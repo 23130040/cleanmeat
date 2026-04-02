@@ -553,3 +553,243 @@
         position: static;
     }
 }
+
+/* Modals */
+.checkout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.checkout-modal.active {
+    display: flex;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.checkout-modal.active .modal-backdrop {
+    opacity: 1;
+}
+
+.modal-content-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 500px;
+    transform: translateY(40px) scale(0.95);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkout-modal.active .modal-content-wrapper {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-card {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.modal-header-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 40px;
+}
+
+.modal-header-icon.success {
+    background: #f0fdf4;
+    color: #10b981;
+}
+
+.modal-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 12px;
+}
+
+.modal-message {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.modal-alert-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 16px;
+    padding: 16px;
+    color: #b45309;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 32px;
+}
+
+.modal-alert-box i {
+    font-size: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-modal.primary {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-modal.primary:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+}
+
+.btn-modal.secondary {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btn-modal.secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-modal.outline {
+    background: transparent;
+    border: 2px solid #e2e8f0;
+    color: #94a3b8;
+}
+
+.btn-modal.outline:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.qr-card {
+    padding: 32px;
+}
+
+.qr-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.qr-header img {
+    height: 32px;
+    object-fit: contain;
+}
+
+.qr-header span {
+    font-weight: 800;
+    font-size: 18px;
+    color: #1e293b;
+}
+
+.qr-container {
+    background: #f8fafc;
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+.qr-frame {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: white;
+    border-radius: 20px;
+    margin: 0 auto 24px;
+    padding: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.qr-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.qr-scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ef4444, transparent);
+    animation: scan 2s linear infinite;
+    box-shadow: 0 0 10px #ef4444;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+.qr-instruction p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.order-amount-badge {
+    background: #e2e8f0;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.order-amount-badge strong {
+    color: #ef4444;
+    font-weight: 800;
+}

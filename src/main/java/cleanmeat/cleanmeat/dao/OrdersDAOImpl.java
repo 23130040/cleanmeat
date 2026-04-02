@@ -13,7 +13,15 @@ import java.util.List;
 public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
     @Override
     public Orders findById(int id) {
-        String sql = "select * from orders where id = ?";
+        String sql = """
+            SELECT o.*, u.name as user_name, u.email as user_email, 
+                   p.name as payment_method, t.name as transport_method 
+            FROM orders o 
+            LEFT JOIN user u ON o.user_id = u.id 
+            LEFT JOIN payment p ON o.payment_id = p.id 
+            LEFT JOIN transport t ON o.transport_id = t.id 
+            WHERE o.id = ?
+        """;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -186,24 +194,32 @@ public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
     }
 
     @Override
-    public boolean insert(Orders order) {
+    public int insert(Orders order) {
         String sql = """
                 insert into orders (user_id, total_price, status, address_id, transport_id, payment_id) 
                 values (?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, order.getUser_id());
             ps.setDouble(2, order.getTotal_price());
             ps.setString(3, order.getStatus());
             ps.setInt(4, order.getAddress_id());
             ps.setInt(5, order.getTransport_id());
             ps.setInt(6, order.getPayment_id());
-            if (ps.executeUpdate() >= 1) return true;
+            
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) return -1;
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return -1;
     }
 
     @Override

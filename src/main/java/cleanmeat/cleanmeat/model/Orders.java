@@ -1,6 +1,7 @@
 package cleanmeat.cleanmeat.model;
 
 import java.io.Serializable;
+import cleanmeat.cleanmeat.model.Address;
 import java.time.LocalDateTime;
 
 public class Orders implements Serializable {
@@ -18,6 +19,9 @@ public class Orders implements Serializable {
     private String user_email;
     private String payment_method;
     private String transport_method;
+    
+    private java.util.List<OrdersItem> items;
+    private Address address;
 
     public Orders() {
     }
@@ -125,5 +129,11 @@ public class Orders implements Serializable {
 
     public String getTransport_method() { return transport_method; }
     public void setTransport_method(String transport_method) { this.transport_method = transport_method; }
+
+    public java.util.List<OrdersItem> getItems() { return items; }
+    public void setItems(java.util.List<OrdersItem> items) { this.items = items; }
+
+    public Address getAddress() { return address; }
+    public void setAddress(Address address) { this.address = address; }
 
 }

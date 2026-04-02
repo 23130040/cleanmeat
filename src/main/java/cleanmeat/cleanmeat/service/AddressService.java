@@ -18,7 +18,7 @@ public class AddressService {
         address.setUser_id(user_id);
         address.setAddress(addressStr);
         address.setIs_Default(isDefault);
-        return addressDAO.insert(address);
+        return addressDAO.insert(address) > 0;
     }
 
     public boolean setDefaultAddress(int userId, int addressId) {

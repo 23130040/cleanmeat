@@ -22,16 +22,18 @@ public class AddToCart extends HttpServlet {
         
         String itemIdParam = request.getParameter("itemId");
         String quantityParam = request.getParameter("quantity");
+        String weightParam = request.getParameter("weight");
         
         if (itemIdParam != null) {
             int itemId = Integer.parseInt(itemIdParam);
             int quantity = (quantityParam != null) ? Integer.parseInt(quantityParam) : 1;
+            int weight = (weightParam != null) ? Integer.parseInt(weightParam) : 250;
             
             ItemDAO itemDAO = new ItemDAOImpl();
             Item item = itemDAO.findById(itemId);
             
             if (item != null) {
-                cart.addCartItem(new CartItem(itemId, item, quantity));
+                cart.addCartItem(new CartItem(itemId, item, quantity, weight));
             }
 
             response.sendRedirect(request.getContextPath() + "/product-detail?id=" + itemId);

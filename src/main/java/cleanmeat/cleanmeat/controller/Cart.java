@@ -59,21 +59,40 @@ public class Cart extends HttpServlet {
                 try {
                     String itemIdStr = request.getParameter("itemId");
                     String quantityStr = request.getParameter("quantity");
-                    if (itemIdStr != null && quantityStr != null) {
+                    String weightStr = request.getParameter("weight");
+                    if (itemIdStr != null && quantityStr != null && weightStr != null) {
                         int updateId = Integer.parseInt(itemIdStr);
                         int quantity = Integer.parseInt(quantityStr);
-                        cart.updateQuantity(updateId, quantity);
+                        int weight = Integer.parseInt(weightStr);
+                        cart.updateQuantity(updateId, weight, quantity);
                     }
                 } catch (NumberFormatException e) {
                     System.err.println("Cart update error: " + e.getMessage());
                 }
                 break;
+            case "updateWeight":
+                try {
+                    String itemIdStr = request.getParameter("itemId");
+                    String oldWeightStr = request.getParameter("oldWeight");
+                    String newWeightStr = request.getParameter("newWeight");
+                    if (itemIdStr != null && oldWeightStr != null && newWeightStr != null) {
+                        int itemId = Integer.parseInt(itemIdStr);
+                        int oldWeight = Integer.parseInt(oldWeightStr);
+                        int newWeight = Integer.parseInt(newWeightStr);
+                        cart.updateWeight(itemId, oldWeight, newWeight);
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Cart updateWeight error: " + e.getMessage());
+                }
+                break;
             case "remove":
                 try {
                     String itemIdStr = request.getParameter("itemId");
-                    if (itemIdStr != null) {
+                    String weightStr = request.getParameter("weight");
+                    if (itemIdStr != null && weightStr != null) {
                         int removeId = Integer.parseInt(itemIdStr);
-                        cart.removeCartItem(removeId);
+                        int weight = Integer.parseInt(weightStr);
+                        cart.removeCartItem(removeId, weight);
                     }
                 } catch (NumberFormatException e) {
                     System.err.println("Cart remove error: " + e.getMessage());

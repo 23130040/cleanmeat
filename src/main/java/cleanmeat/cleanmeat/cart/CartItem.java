@@ -8,14 +8,19 @@ public class CartItem implements Serializable {
     private int id;
     private Item item;
     private int quantity;
-
+    private int weight;
     public CartItem() {
     }
 
     public CartItem(int id, Item item, int quantity) {
+        this(id, item, quantity, 250); // Default weight: 250g
+    }
+
+    public CartItem(int id, Item item, int quantity, int weight) {
         this.id = id;
         this.item = item;
         this.quantity = quantity;
+        this.weight = weight;
     }
 
     public void quantityUp() {
@@ -53,7 +58,23 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public double getUnitPrice() {
+        return this.item.getPrice() * (this.weight / 250.0);
+    }
+
+    public double getOriginalPrice() {
+        return (this.item.getPrice() + this.item.getDiscount()) * (this.weight / 250.0);
+    }
+
     public double getSubTotal() {
-        return this.quantity * this.item.getPrice();
+        return this.quantity * getUnitPrice();
     }
 }
