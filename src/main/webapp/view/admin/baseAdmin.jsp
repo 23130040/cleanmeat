@@ -213,6 +213,9 @@
                 <c:when test="${param.success == 'password_updated'}">Đổi mật khẩu thành công.</c:when>
                 <c:when test="${param.success == 'category_updated'}">Thao tác xử lý danh mục thành công.</c:when>
                 <c:when test="${param.success == 'product_added'}">Sản phẩm mới đã được thêm thành công vào hệ thống.</c:when>
+                <c:when test="${param.success == 'payment_updated'}">Cập nhật trạng thái phương thức thanh toán thành công.</c:when>
+                <c:when test="${param.success == 'payment_added'}">Phương thức thanh toán mới đã được thêm thành công.</c:when>
+                <c:when test="${param.success == 'payment_deleted'}">Đã xóa phương thức thanh toán thành công.</c:when>
                 <c:otherwise>Thao tác đã được thực hiện thành công.</c:otherwise>
             </c:choose>
         </p>
