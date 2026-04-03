@@ -60,7 +60,7 @@ public class StockHistoryAdmin extends HttpServlet {
         request.setAttribute("offset", offset);
 
         request.setAttribute("adminTitle", "Lịch sử kho hàng");
-        request.setAttribute("active", "inventory-admin");
+        request.setAttribute("active", "stock-history-admin");
         request.setAttribute("user", currentUser);
         request.setAttribute("pageContent", "/view/admin/stockhistoryadmin.jsp");
         request.setAttribute("pageCss", "inventoryAdmin.css");
