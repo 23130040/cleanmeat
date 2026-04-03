@@ -36,4 +36,8 @@ public interface OrdersDAO {
 
     public List<Orders> findByStatus(String status, int user_id);
 
+    public List<Orders> findFiltered(String status, String search, int limit, int offset);
+
+    public int countFiltered(String status, String search);
+
 }

@@ -294,4 +294,107 @@ public class OrdersDAOImpl extends BaseDAO implements OrdersDAO {
         }
         return orders;
     }
+
+    @Override
+    public List<Orders> findFiltered(String status, String search, int limit, int offset) {
+        StringBuilder sql = new StringBuilder("""
+            SELECT o.*, u.name as user_name, u.email as user_email, 
+                   p.name as payment_method, t.name as transport_method 
+            FROM orders o 
+            LEFT JOIN user u ON o.user_id = u.id 
+            LEFT JOIN payment p ON o.payment_id = p.id 
+            LEFT JOIN transport t ON o.transport_id = t.id 
+            WHERE 1=1 
+        """);
+        List<Object> params = new ArrayList<>();
+
+        if (status != null && !status.isEmpty() && !"Tất cả".equals(status)) {
+            sql.append(" AND o.status LIKE ? ");
+            params.add("%" + status + "%");
+        }
+
+        if (search != null && !search.isEmpty()) {
+            String cleanSearch = search.trim();
+            if (cleanSearch.toUpperCase().startsWith("ORD-")) {
+                cleanSearch = cleanSearch.substring(4);
+            }
+            String numericSearch = cleanSearch.replaceFirst("^0+", "");
+            if (numericSearch.isEmpty() && !cleanSearch.isEmpty()) numericSearch = "0";
+
+            sql.append(" AND (CAST(o.id AS CHAR) LIKE ? OR o.id = ? OR u.name LIKE ? OR u.email LIKE ?) ");
+            String searchPattern = "%" + cleanSearch + "%";
+            params.add(searchPattern);
+            params.add(numericSearch);
+            params.add(searchPattern);
+            params.add(searchPattern);
+        }
+
+        sql.append(" ORDER BY o.id DESC LIMIT ? OFFSET ? ");
+
+        List<Orders> orders = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            int paramIndex = 1;
+            for (Object param : params) {
+                ps.setObject(paramIndex++, param);
+            }
+            ps.setInt(paramIndex++, limit);
+            ps.setInt(paramIndex++, offset);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    orders.add(OrdersMapper.map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public int countFiltered(String status, String search) {
+        StringBuilder sql = new StringBuilder("""
+            SELECT COUNT(*) 
+            FROM orders o 
+            LEFT JOIN user u ON o.user_id = u.id 
+            WHERE 1=1 
+        """);
+        List<Object> params = new ArrayList<>();
+
+        if (status != null && !status.isEmpty() && !"Tất cả".equals(status)) {
+            sql.append(" AND o.status LIKE ? ");
+            params.add("%" + status + "%");
+        }
+
+        if (search != null && !search.isEmpty()) {
+            String cleanSearch = search.trim();
+            if (cleanSearch.toUpperCase().startsWith("ORD-")) {
+                cleanSearch = cleanSearch.substring(4);
+            }
+            String numericSearch = cleanSearch.replaceFirst("^0+", "");
+            if (numericSearch.isEmpty() && !cleanSearch.isEmpty()) numericSearch = "0";
+
+            sql.append(" AND (CAST(o.id AS CHAR) LIKE ? OR o.id = ? OR u.name LIKE ? OR u.email LIKE ?) ");
+            String searchPattern = "%" + cleanSearch + "%";
+            params.add(searchPattern);
+            params.add(numericSearch);
+            params.add(searchPattern);
+            params.add(searchPattern);
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            int paramIndex = 1;
+            for (Object param : params) {
+                ps.setObject(paramIndex++, param);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 }

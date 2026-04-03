@@ -112,7 +112,17 @@ function viewProduct(id) {
     fetch(`${window.location.pathname}?action=getDetail&id=${id}`)
         .then(res => res.json())
         .then(item => {
-            document.getElementById('detail-img').src = item.image ? `${window.location.origin}/cleanmeat${item.image}` : '';
+            let imgSrc = '';
+            if (item.image) {
+                if (item.image.startsWith('http')) {
+                    imgSrc = item.image;
+                } else if (item.image.startsWith('/')) {
+                    imgSrc = `${window.location.origin}/cleanmeat${item.image}`;
+                } else {
+                    imgSrc = `${window.location.origin}/cleanmeat/images/${item.image}`;
+                }
+            }
+            document.getElementById('detail-img').src = imgSrc;
             document.getElementById('detail-name').textContent = item.name;
             document.getElementById('detail-short-desc').textContent = item.short_description || '';
             document.getElementById('detail-cat-badge').textContent = item.category_name;

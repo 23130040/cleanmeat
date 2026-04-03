@@ -22,6 +22,7 @@ public class Orders implements Serializable {
     
     private java.util.List<OrdersItem> items;
     private Address address;
+    private java.util.List<OrdersStatusHistory> statusHistory;
 
     public Orders() {
     }
@@ -143,4 +144,6 @@ public class Orders implements Serializable {
     public java.util.Date getUpdated_at_as_date() {
         return updated_at != null ? java.sql.Timestamp.valueOf(updated_at) : null;
     }
+    public java.util.List<OrdersStatusHistory> getStatusHistory() { return statusHistory; }
+    public void setStatusHistory(java.util.List<OrdersStatusHistory> statusHistory) { this.statusHistory = statusHistory; }
 }

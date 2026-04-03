@@ -12,8 +12,10 @@ public class OrdersMapper {
         orders.setUser_id(rs.getInt("user_id"));
         orders.setTotal_price(rs.getDouble("total_price"));
         orders.setStatus(rs.getString("status"));
-        orders.setCreated_at(rs.getTimestamp("created_at").toLocalDateTime());
-        orders.setUpdated_at(rs.getTimestamp("updated_at").toLocalDateTime());
+        java.sql.Timestamp createdAtTs = rs.getTimestamp("created_at");
+        orders.setCreated_at(createdAtTs != null ? createdAtTs.toLocalDateTime() : null);
+        java.sql.Timestamp updatedAtTs = rs.getTimestamp("updated_at");
+        orders.setUpdated_at(updatedAtTs != null ? updatedAtTs.toLocalDateTime() : null);
         orders.setAddress_id(rs.getInt("address_id"));
         orders.setTransport_id(rs.getInt("transport_id"));
         orders.setPayment_id(rs.getInt("payment_id"));

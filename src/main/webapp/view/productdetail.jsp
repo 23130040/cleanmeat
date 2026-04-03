@@ -7,7 +7,17 @@
 
         <div class="productdetail">
             <div class="product-image">
-                <img src="${pageContext.request.contextPath}/images/${item.image}" alt="${item.name}">
+                <c:choose>
+                    <c:when test="${item.image.startsWith('http')}">
+                        <img src="${item.image}" alt="${item.name}">
+                    </c:when>
+                    <c:when test="${item.image.startsWith('/')}">
+                        <img src="${pageContext.request.contextPath}${item.image}" alt="${item.name}">
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${pageContext.request.contextPath}/images/${item.image}" alt="${item.name}">
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <div class="product-info">

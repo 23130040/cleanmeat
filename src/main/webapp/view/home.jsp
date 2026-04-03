@@ -29,8 +29,17 @@
                         <c:forEach var="item" items="${bestSellers}">
                             <div class="home-product-card">
                                 <div class="card-image-wrapper">
-                                    <img src="${pageContext.request.contextPath}/images/${item.image}"
-                                         alt="${item.name}">
+                                    <c:choose>
+                                        <c:when test="${item.image.startsWith('http')}">
+                                            <img src="${item.image}" alt="${item.name}">
+                                        </c:when>
+                                        <c:when test="${item.image.startsWith('/')}">
+                                            <img src="${pageContext.request.contextPath}${item.image}" alt="${item.name}">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/images/${item.image}" alt="${item.name}">
+                                        </c:otherwise>
+                                    </c:choose>
                                     <c:if test="${item.discount > 0}">
                                         <span class="badge badge-sale">SALE</span>
                                     </c:if>
@@ -89,12 +98,22 @@
 </div>
 <div class="home-conversion">
     <div class="container">
-        <img src="${pageContext.request.contextPath}/images/cut.jpg" alt="Thịt sạch">
-        <p class="italic">Đặt hàng dễ dàng</p>
-        <p class="bold">Nhận hàng nhanh chóng</p>
-        <p class="italic">Thưởng thức ngay hôm nay</p>
-        <a href="${pageContext.request.contextPath}/product">
-            <button class="link-products">Xem sản phẩm</button>
-        </a>
+        <div class="cta-content">
+            <div class="cta-text">
+                <span class="cta-badge">Sạch - Tươi - Ngon</span>
+                <h2 class="cta-title">Đặt Hàng Dễ Dàng <br> Nhận Hàng Nhanh Chóng</h2>
+                <p class="cta-description">Mang đến cho gia đình bạn nguồn dinh dưỡng thuần khiết nhất. Thưởng thức trọn vẹn hương vị thịt sạch tươi ngon mỗi ngày.</p>
+                <div class="cta-actions">
+                    <a href="${pageContext.request.contextPath}/product" class="btn-cta">
+                        Xem Sản Phẩm <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="cta-image">
+                <div class="image-wrapper">
+                    <img src="${pageContext.request.contextPath}/images/cut.jpg" alt="Thịt sạch">
+                </div>
+            </div>
+        </div>
     </div>
 </div>

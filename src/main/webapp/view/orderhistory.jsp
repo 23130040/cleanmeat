@@ -112,7 +112,17 @@
                                 <c:forEach var="item" items="${order.items}">
                                     <div class="item-row">
                                         <div class="item-img">
-                                            <img src="${pageContext.request.contextPath}/images/${item.itemImage}" alt="${item.itemName}" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                            <c:choose>
+                                                <c:when test="${item.itemImage.startsWith('http')}">
+                                                    <img src="${item.itemImage}" alt="${item.itemName}" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                                </c:when>
+                                                <c:when test="${item.itemImage.startsWith('/')}">
+                                                    <img src="${pageContext.request.contextPath}${item.itemImage}" alt="${item.itemName}" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${pageContext.request.contextPath}/images/${item.itemImage}" alt="${item.itemName}" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="item-details">
                                             <h4 class="item-name">${item.itemName}</h4>

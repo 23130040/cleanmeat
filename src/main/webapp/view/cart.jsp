@@ -20,8 +20,17 @@
                         <c:forEach var="item" items="${cartItems}">
                             <div class="cart-item-card-premium">
                                 <div class="cart-item-image">
-                                    <img src="${pageContext.request.contextPath}/images/${item.item.image}"
-                                         alt="${item.item.name}">
+                                    <c:choose>
+                                        <c:when test="${item.item.image.startsWith('http')}">
+                                            <img src="${item.item.image}" alt="${item.item.name}">
+                                        </c:when>
+                                        <c:when test="${item.item.image.startsWith('/')}">
+                                            <img src="${pageContext.request.contextPath}${item.item.image}" alt="${item.item.name}">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/images/${item.item.image}" alt="${item.item.name}">
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="cart-item-info">
                                     <div class="item-main-details">

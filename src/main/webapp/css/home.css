@@ -290,3 +290,130 @@
     }
 }
 
+/* Home Conversion Section Styles */
+.home-conversion {
+    padding: 120px 0;
+    background-color: #f8fafc;
+    overflow: hidden;
+}
+
+.cta-content {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.cta-text {
+    flex: 1;
+}
+
+.cta-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.cta-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.15;
+    margin-bottom: 24px;
+}
+
+.cta-description {
+    font-size: 19px;
+    color: #475569;
+    margin-bottom: 48px;
+    line-height: 1.8;
+}
+
+.btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 44px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 17px;
+    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-cta i {
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.btn-cta:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.7);
+}
+
+.btn-cta:hover i {
+    transform: translateX(6px);
+}
+
+.cta-image {
+    flex: 1;
+}
+
+.cta-image .image-wrapper {
+    position: relative;
+    border-radius: 32px;
+    padding: 12px;
+    background: white;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.12);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+.image-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #10b981, transparent, #059669);
+    z-index: -1;
+    border-radius: 34px;
+    opacity: 0.15;
+}
+
+.image-wrapper:hover {
+    transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateY(-15px);
+    box-shadow: 0 60px 100px -30px rgba(0,0,0,0.18);
+}
+
+@media (max-width: 1024px) {
+    .home-conversion {
+        padding: 80px 0;
+    }
+    .cta-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 60px;
+    }
+    .cta-title {
+        font-size: 38px;
+    }
+    .cta-description {
+        font-size: 17px;
+        margin-bottom: 40px;
+    }
+}
