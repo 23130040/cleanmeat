@@ -29,6 +29,9 @@ public class OrdersService {
             
             cleanmeat.cleanmeat.dao.AddressDAO addressDAO = new cleanmeat.cleanmeat.dao.AddressDAOImpl();
             order.setAddress(addressDAO.findById(order.getAddress_id()));
+            
+            cleanmeat.cleanmeat.dao.OrdersStatusHistoryDAO historyDAO = new cleanmeat.cleanmeat.dao.OrdersStatusHistoryDAOImpl();
+            order.setStatusHistory(historyDAO.findByOrderId(orderId));
         }
         return order;
     }
@@ -58,6 +61,14 @@ public class OrdersService {
         return ordersDAO.countByStatus(status);
     }
 
+    public List<Orders> getFilteredOrders(String status, String search, int limit, int offset) {
+        return ordersDAO.findFiltered(status, search, limit, offset);
+    }
+
+    public int countFilteredOrders(String status, String search) {
+        return ordersDAO.countFiltered(status, search);
+    }
+
     public double sumTotalRevenue() {
         return ordersDAO.sumTotalRevenue();
     }
@@ -76,5 +87,26 @@ public class OrdersService {
 
     public double calculateRevenueGrowth() {
         return ordersDAO.calculateRevenueGrowth();
+    }
+    public boolean updateOrderStatus(int orderId, String newStatus, String changedBy, String note) {
+        Orders order = ordersDAO.findById(orderId);
+        if (order == null) return false;
+        
+        String oldStatus = order.getStatus();
+        order.setStatus(newStatus);
+        
+        if (ordersDAO.update(order)) {
+            cleanmeat.cleanmeat.model.OrdersStatusHistory history = new cleanmeat.cleanmeat.model.OrdersStatusHistory();
+            history.setOrder_id(orderId);
+            history.setStatus_from(oldStatus);
+            history.setStatus_to(newStatus);
+            history.setChanged_by(changedBy);
+            history.setNote(note);
+            
+            cleanmeat.cleanmeat.dao.OrdersStatusHistoryDAO historyDAO = new cleanmeat.cleanmeat.dao.OrdersStatusHistoryDAOImpl();
+            historyDAO.insert(history);
+            return true;
+        }
+        return false;
     }
 }

@@ -146,7 +146,17 @@
                         <tr>
                             <td>
                                 <div class="product-cell">
-                                    <img src="${pageContext.request.contextPath}/images/${item.itemImage}" class="product-img" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                    <c:choose>
+                                        <c:when test="${item.itemImage.startsWith('http')}">
+                                            <img src="${item.itemImage}" class="product-img" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                        </c:when>
+                                        <c:when test="${item.itemImage.startsWith('/')}">
+                                            <img src="${pageContext.request.contextPath}${item.itemImage}" class="product-img" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/images/${item.itemImage}" class="product-img" onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'">
+                                        </c:otherwise>
+                                    </c:choose>
                                     <div class="product-info">
                                         <h4>${item.itemName}</h4>
                                         <span>${item.weight}g / ${item.unitName}</span>

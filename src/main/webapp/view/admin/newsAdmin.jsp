@@ -36,10 +36,23 @@
                             <p class="news-excerpt">${news.content}</p>
                         </div>
                         <div class="news-actions">
-                            <a href="#" class="action-btn view"><i class="fa-regular fa-eye"></i> Xem</a>
-                            <a href="#" class="action-btn edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                            <a href="#" class="action-btn hidden"><i class="fa-solid fa-eye-slash"></i> Ẩn</a>
-                            <a href="#" class="action-btn delete"><i class="fa-regular fa-trash-can"></i> Xoá</a>
+                            <button onclick="viewNews('${news.id}')" class="action-btn view"><i class="fa-regular fa-eye"></i> Xem</button>
+                            <button onclick="editNews('${news.id}')" class="action-btn edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
+                            <form action="${pageContext.request.contextPath}/news-admin" method="post" style="display:inline;">
+                                <input type="hidden" name="action" value="toggleStatus">
+                                <input type="hidden" name="id" value="${news.id}">
+                                <button type="submit" class="action-btn hidden">
+                                    <c:choose>
+                                        <c:when test="${news.status eq 'Đã đăng'}">
+                                            <i class="fa-solid fa-eye-slash"></i> Ẩn
+                                        </c:when>
+                                        <c:otherwise>
+                                            <i class="fa-solid fa-eye"></i> Hiện
+                                        </c:otherwise>
+                                    </c:choose>
+                                </button>
+                            </form>
+                            <button onclick="confirmDelete('${news.id}')" class="action-btn delete"><i class="fa-regular fa-trash-can"></i> Xoá</button>
                         </div>
                     </div>
                 </c:forEach>
@@ -111,5 +124,110 @@
                 <button type="button" class="btn-cancel-admin" onclick="closeAddNewsModal()">Huỷ</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Sửa bài viết -->
+<div class="admin-modal-overlay" id="editNewsModal">
+    <div class="admin-modal-container news-modal">
+        <div class="modal-topbar">
+            <h2>Chỉnh sửa bài viết</h2>
+            <button class="btn-close-modal" onclick="closeEditNewsModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <form action="${pageContext.request.contextPath}/news-admin" method="post" enctype="multipart/form-data" class="admin-form">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="id" id="editNewsId">
+            
+            <div class="admin-form-group">
+                <label>Hình ảnh bài viết</label>
+                <div class="upload-zone" id="editNewsUploadZone">
+                    <div class="upload-content" id="editUploadContent" style="display: none;">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Nhấp để tải ảnh lên</p>
+                        <span>Hỗ trợ: JPG, PNG, WEBP (Tối đa 10MB)</span>
+                    </div>
+                    <div class="image-preview-single" id="editImagePreview">
+                        <img src="" alt="Preview" id="editPreviewImg">
+                        <button type="button" class="btn-remove-preview" onclick="removeEditPreview(event)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <input type="file" name="picture" id="editNewsPicture" accept="image/*" class="hidden-input">
+            </div>
+
+            <div class="admin-form-group">
+                <label>Tiêu đề *</label>
+                <input type="text" name="title" id="editTitle" class="admin-input-control" required>
+            </div>
+
+            <div class="form-row">
+                <div class="admin-form-group">
+                    <label>Tác giả *</label>
+                    <input type="text" name="author" id="editAuthor" class="admin-input-control" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Trạng thái</label>
+                    <select name="status" id="editStatus" class="admin-input-control">
+                        <option value="Nháp">Nháp</option>
+                        <option value="Đã đăng">Đã đăng</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="admin-form-group">
+                <label>Nội dung *</label>
+                <textarea name="content" id="editContent" class="admin-input-control" rows="6" required></textarea>
+            </div>
+
+            <div class="modal-actions-form">
+                <button type="submit" class="btn-add-submit">Lưu thay đổi</button>
+                <button type="button" class="btn-cancel-admin" onclick="closeEditNewsModal()">Huỷ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Xem bài viết -->
+<div class="admin-modal-overlay" id="viewNewsModal">
+    <div class="admin-modal-container news-detail-modal">
+        <div class="modal-topbar">
+            <h2 id="viewNewsTitle">Chi tiết bài viết</h2>
+            <button class="btn-close-modal" onclick="closeViewNewsModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-news-body">
+            <div class="view-news-image">
+                <img src="" alt="News Image" id="viewNewsImg">
+            </div>
+            <div class="view-news-info">
+                <div class="view-news-meta">
+                    <span id="viewNewsAuthor"><i class="fa-regular fa-user"></i> </span>
+                    <span id="viewNewsDate"><i class="fa-regular fa-calendar-days"></i> </span>
+                    <span id="viewNewsStatus" class="status-badge"></span>
+                </div>
+                <div class="view-news-content" id="viewNewsFullContent">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xác nhận xoá -->
+<div class="admin-modal-overlay" id="deleteNewsModal">
+    <div class="admin-modal-container delete-confirm-modal">
+        <div class="modal-body-confirm">
+            <div class="confirm-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Khác nhận xoá bài viết?</h3>
+            <p>Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xoá bài viết này?</p>
+            <form action="${pageContext.request.contextPath}/news-admin" method="post">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" id="deleteNewsId">
+                <div class="confirm-actions">
+                    <button type="submit" class="btn-confirm-delete">Xoá ngay</button>
+                    <button type="button" class="btn-cancel-confirm" onclick="closeDeleteModal()">Huỷ bỏ</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

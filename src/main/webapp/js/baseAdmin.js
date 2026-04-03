@@ -52,7 +52,11 @@ function closeModal(modalId) {
 }
 
 function hideAlertModal() {
-    document.getElementById('adminAlertModal').classList.remove('show');
+    var successModal = document.getElementById('adminSuccessModal');
+    var errorModal = document.getElementById('adminErrorModal');
+    if (successModal) successModal.classList.remove('show');
+    if (errorModal) errorModal.classList.remove('show');
+
     const url = new URL(window.location);
     url.searchParams.delete('success');
     url.searchParams.delete('error');
