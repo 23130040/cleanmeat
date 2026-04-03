@@ -158,4 +158,35 @@ public class UserService {
     public boolean deleteUser(int id) {
         return userDAO.delete(id);
     }
+
+    public String initiateForgotPassword(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return "Email không được để trống!";
+        }
+        if (!UserValidate.emailValidate(email)) {
+            return "Email không đúng định dạng!";
+        }
+        if (!userDAO.existsByEmail(email)) {
+            return "Email không tồn tại trong hệ thống!";
+        }
+
+        String token = TokenUtil.generateToken();
+        if (userDAO.updateVerifyToken(email, token)) {
+            EmailUtil.sendPasswordResetEmail(email, token);
+            return null;
+        }
+        return "Có lỗi xảy ra, vui lòng thử lại sau!";
+    }
+
+    public boolean resetPasswordWithToken(String token, String newPassword) {
+        User user = userDAO.findByVerifyToken(token);
+        if (user != null) {
+            String hashedPassword = PasswordUtil.hashPassword(newPassword);
+            if (userDAO.updatePassword(user.getId(), hashedPassword)) {
+                userDAO.updateVerifyToken(user.getEmail(), null);
+                return true;
+            }
+        }
+        return false;
+    }
 }

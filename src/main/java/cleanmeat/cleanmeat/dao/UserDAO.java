@@ -40,4 +40,6 @@ public interface UserDAO {
     public List<User> findAllFiltered(String query, String role, String status);
 
     public boolean updateRoleAndStatus(int id, String role, boolean status);
+
+    public boolean updateVerifyToken(String email, String token);
 }
