@@ -60,11 +60,9 @@ public class OrdersAdmin extends HttpServlet {
         String statusParam = request.getParameter("status");
         String searchParam = request.getParameter("search");
         
-        // Keep original status for UI highlighting
         request.setAttribute("currentStatus", statusParam);
         request.setAttribute("currentSearch", searchParam);
 
-        // Map UI status to DB status
         String dbStatus = null;
         if ("pending".equals(statusParam) || "Chờ duyệt".equals(statusParam)) dbStatus = "Chờ xác nhận";
         else if ("processing".equals(statusParam) || "Đang xử lý".equals(statusParam)) dbStatus = "Đang xử lý";

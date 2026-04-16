@@ -12,7 +12,7 @@ public class Contact extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pageTitle", "Liên hệ");
-        request.setAttribute("pageContent", "/view/contact.jsp");
+        request.setAttribute("pageContent", "/view/customer/contact.jsp");
         request.setAttribute("pageCss", "contact.css");
         request.setAttribute("active", "contact");
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);

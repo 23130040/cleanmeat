@@ -14,7 +14,7 @@ public class Orderguide extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("pageTitle", "Hướng dẫn đặt hàng");
-        request.setAttribute("pageContent", "/view/orderguide.jsp");
+        request.setAttribute("pageContent", "/view/customer/orderguide.jsp");
         request.setAttribute("pageCss", "orderguide.css");
 
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);

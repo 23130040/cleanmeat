@@ -12,7 +12,7 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pageTitle", "Đăng ký");
-        request.setAttribute("pageContent", "/view/signup.jsp");
+        request.setAttribute("pageContent", "/view/customer/signup.jsp");
         request.setAttribute("pageCss", "signup.css");
         request.setAttribute("pageJs", "signup.js");
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);

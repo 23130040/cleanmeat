@@ -48,7 +48,7 @@ public class NewsDetailController extends HttpServlet {
         request.setAttribute("latestNews", latestNews);
 
         request.setAttribute("pageTitle", news.getTitle());
-        request.setAttribute("pageContent", "/view/newsdetail.jsp");
+        request.setAttribute("pageContent", "/view/customer/newsdetail.jsp");
         request.setAttribute("pageCss", "newsdetail.css");
         request.setAttribute("active", "news");
         
