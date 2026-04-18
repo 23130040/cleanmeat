@@ -639,7 +639,7 @@ CREATE TABLE `system_config`  (
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
-INSERT INTO `system_config`VALUES (1, 'Clean Meat', 'cleanmeat@gmail.com', '0312345678', 'MS123456', 'https://www.facebook.com/cleanmeat', '142 Đường số 10, Khu dân cư Tân Quy Đông, Phường Tân Phong, Quận 7, TP.HCM.', 'https://example.com/cleanmeat.png');
+INSERT INTO `system_config` VALUES (1, 'Clean Meat', 'cleanmeat@gmail.com', '0312345678', 'MS123456','https://www.facebook.com/cleanmeat','142 Đường số 10, Khu dân cư Tân Quy Đông, Phường Tân Phong, Quận 7, TP.HCM.','https://example.com/cleanmeat.png',NULL);
 
 -- ----------------------------
 -- Table structure for transport
