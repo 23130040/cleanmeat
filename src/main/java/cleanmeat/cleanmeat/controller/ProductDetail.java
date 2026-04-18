@@ -10,6 +10,10 @@ import cleanmeat.cleanmeat.dao.FeedbackDAOImpl;
 import cleanmeat.cleanmeat.model.Item;
 import cleanmeat.cleanmeat.model.Feedback;
 
+import cleanmeat.cleanmeat.dao.ItemImagesDAO;
+import cleanmeat.cleanmeat.dao.ItemImagesDAOImpl;
+import cleanmeat.cleanmeat.model.ItemImages;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -27,6 +31,10 @@ public class ProductDetail extends HttpServlet {
 
         ItemDAO itemDAO = new ItemDAOImpl();
         Item item = itemDAO.findById(id);
+
+        ItemImagesDAO itemImagesDAO = new ItemImagesDAOImpl();
+        List<ItemImages> itemImages = itemImagesDAO.findByItemId(id);
+        request.setAttribute("itemImages", itemImages);
 
         FeedbackDAO feedbackDAO = new FeedbackDAOImpl();
         List<Feedback> feedbacks = feedbackDAO.findByItemId(id);
