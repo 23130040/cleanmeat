@@ -148,11 +148,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 35px;
+    align-items: stretch;
+}
+
+.product-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
 }
 
 .product-card {
     display: flex;
     flex-flow: column;
+    flex: 1;
 }
 
 .product-image {
@@ -188,6 +198,9 @@
 
 .product-info {
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .product-category {
@@ -242,7 +255,8 @@
 .product-info button {
     width: 100%;
     height: 48px;
-    margin-top: 12px;
+    margin-top: auto;
+    padding-top: 12px;
     background: #111827;
     color: white;
     border: none;
