@@ -8,4 +8,5 @@ public interface ContactDAO {
     Contact findById(int id);
     boolean updateStatus(int id, String status, int adminId);
     boolean delete(int id);
+    boolean insert(Contact contact);
 }

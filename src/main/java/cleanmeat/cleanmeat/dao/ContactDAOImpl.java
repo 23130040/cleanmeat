@@ -67,4 +67,21 @@ public class ContactDAOImpl extends BaseDAO implements ContactDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean insert(Contact contact) {
+        String sql = "INSERT INTO contacts (full_name, email, subject, message, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, contact.getFull_name());
+            ps.setString(2, contact.getEmail());
+            ps.setString(3, contact.getSubject());
+            ps.setString(4, contact.getMessage());
+            ps.setString(5, "pending");
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
