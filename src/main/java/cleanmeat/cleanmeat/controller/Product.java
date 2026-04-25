@@ -36,6 +36,6 @@ public class Product extends HttpServlet {
         request.setAttribute("pageCss", "product.css");
         request.setAttribute("active", "product");
         request.setAttribute("pageJs", "product.js");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 }

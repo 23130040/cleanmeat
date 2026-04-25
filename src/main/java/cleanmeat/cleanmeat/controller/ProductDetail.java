@@ -50,6 +50,6 @@ public class ProductDetail extends HttpServlet {
         request.setAttribute("active", "product");
         request.setAttribute("pageJs", "productdetail.js");
 
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 }

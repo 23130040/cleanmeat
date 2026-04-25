@@ -15,7 +15,7 @@ public class SignIn extends HttpServlet {
         request.setAttribute("pageTitle", "Đăng nhập");
         request.setAttribute("pageContent", "/view/customer/signin.jsp");
         request.setAttribute("pageCss", "signin.css");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

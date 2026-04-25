@@ -74,7 +74,7 @@ public class Checkout extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/checkout.jsp");
         request.setAttribute("pageCss", "checkout.css");
         request.setAttribute("pageJs", "checkout.js");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

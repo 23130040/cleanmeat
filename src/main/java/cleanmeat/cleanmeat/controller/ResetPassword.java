@@ -23,7 +23,7 @@ public class ResetPassword extends HttpServlet {
         request.setAttribute("pageTitle", "Đặt lại mật khẩu");
         request.setAttribute("pageContent", "/view/resetpassword.jsp");
         request.setAttribute("pageCss", "signin.css");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

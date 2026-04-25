@@ -13,7 +13,7 @@ public class ReturnsPolicy extends HttpServlet {
         request.setAttribute("pageTitle", "Chính sách đổi trả");
         request.setAttribute("pageContent", "/view/returnspolicy.jsp");
         request.setAttribute("pageCss", "returnspolicy.css");
-        request.getRequestDispatcher( "/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher( "/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

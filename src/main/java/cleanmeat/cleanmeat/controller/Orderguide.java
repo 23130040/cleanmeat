@@ -17,7 +17,7 @@ public class Orderguide extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/orderguide.jsp");
         request.setAttribute("pageCss", "orderguide.css");
 
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

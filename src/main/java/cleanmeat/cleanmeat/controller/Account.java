@@ -28,7 +28,7 @@ public class Account extends HttpServlet {
         request.setAttribute("pageTitle", "Tài khoản");
         request.setAttribute("pageContent", "/view/customer/account.jsp");
         request.setAttribute("pageCss", "account.css");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

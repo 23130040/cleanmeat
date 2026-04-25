@@ -42,7 +42,7 @@ public class OrderDetails extends HttpServlet {
             request.setAttribute("pageTitle", "Chi tiết đơn hàng " + order.getShortOrderID());
             request.setAttribute("pageContent", "/view/customer/orderdetails.jsp");
             request.setAttribute("pageCss", "orderdetails.css");
-            request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
             
         } catch (NumberFormatException e) {
             response.sendRedirect(request.getContextPath() + "/order-history");

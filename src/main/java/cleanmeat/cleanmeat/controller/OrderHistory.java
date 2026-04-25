@@ -35,7 +35,7 @@ public class OrderHistory extends HttpServlet {
         request.setAttribute("pageTitle", "Lịch sử đơn hàng");
         request.setAttribute("pageContent", "/view/customer/orderhistory.jsp");
         request.setAttribute("pageCss", "orderhistory.css");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

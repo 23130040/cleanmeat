@@ -52,6 +52,6 @@ public class NewsDetailController extends HttpServlet {
         request.setAttribute("pageCss", "newsdetail.css");
         request.setAttribute("active", "news");
         
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 }

@@ -38,7 +38,7 @@ public class Cart extends HttpServlet {
         request.setAttribute("pageCss", "cart.css");
         request.setAttribute("pageJs", "cart.js");
         request.setAttribute("active", "cart");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

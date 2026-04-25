@@ -15,7 +15,7 @@ public class Contact extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/contact.jsp");
         request.setAttribute("pageCss", "contact.css");
         request.setAttribute("active", "contact");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

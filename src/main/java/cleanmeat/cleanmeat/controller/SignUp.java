@@ -15,7 +15,7 @@ public class SignUp extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/signup.jsp");
         request.setAttribute("pageCss", "signup.css");
         request.setAttribute("pageJs", "signup.js");
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

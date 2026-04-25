@@ -23,7 +23,7 @@ public class Home extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/home.jsp");
         request.setAttribute("pageCss", "home.css");
         request.setAttribute("active", "home");
-        request.getRequestDispatcher( "/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher( "/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

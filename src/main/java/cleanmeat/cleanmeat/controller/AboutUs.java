@@ -14,7 +14,7 @@ public class AboutUs extends HttpServlet {
         request.setAttribute("pageContent", "/view/customer/aboutus.jsp");
         request.setAttribute("pageCss", "aboutus.css");
         request.setAttribute("active", "about-us");
-        request.getRequestDispatcher( "/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher( "/view/customer/base.jsp").forward(request, response);
     }
 
     @Override

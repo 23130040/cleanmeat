@@ -58,6 +58,6 @@ public class NewsController extends HttpServlet {
         request.setAttribute("pageCss", "news.css");
         request.setAttribute("active", "news");
         
-        request.getRequestDispatcher("/view/base.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/customer/base.jsp").forward(request, response);
     }
 }
