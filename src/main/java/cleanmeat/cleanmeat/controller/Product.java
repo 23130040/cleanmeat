@@ -23,9 +23,39 @@ public class Product extends HttpServlet {
         String category = request.getParameter("category");
         String price = request.getParameter("price");
         String sort = request.getParameter("sort");
-        int totalItems = itemDAO.countItems();
+        String keyword = request.getParameter("keyword");
+
+        List<Item> fetchItems = itemDAO.getItemsByPage(1, Integer.MAX_VALUE, "", price, sort);
+        List<Item> finalItems = new java.util.ArrayList<>();
+
+        int targetCat = -1;
+        if (category != null && !category.trim().isEmpty()) {
+            targetCat = Integer.parseInt(category.trim());
+        }
+
+        String query = "";
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            query = keyword.trim().toLowerCase();
+        }
+
+        for (Item it : fetchItems) {
+            boolean matchCat = (targetCat == -1) || (it.getCategory_id() == targetCat);
+            boolean matchKw = query.isEmpty() || it.getName().toLowerCase().contains(query);
+            if (matchCat && matchKw) {
+                finalItems.add(it);
+            }
+        }
+
+        int totalItems = finalItems.size();
         int totalPages = (int) Math.ceil((double) totalItems / pageSize);
-        List<Item> items = itemDAO.getItemsByPage(page, pageSize, category, price, sort);
+
+        int start = (page - 1) * pageSize;
+        int end = Math.min(start + pageSize, totalItems);
+
+        List<Item> items = new java.util.ArrayList<>();
+        if (start < totalItems) {
+            items = finalItems.subList(start, end);
+        }
 
         request.setAttribute("items", items);
         request.setAttribute("currentPage", page);

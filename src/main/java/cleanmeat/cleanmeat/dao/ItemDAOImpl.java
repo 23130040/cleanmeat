@@ -269,7 +269,7 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
 
         return 0;
     }
-
+    
     @Override
     public int countLowStockItems() {
         String sql = "SELECT COUNT(*) FROM item WHERE current_stock <= min_stock";

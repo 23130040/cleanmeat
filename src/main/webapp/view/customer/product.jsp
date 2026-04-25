@@ -9,35 +9,43 @@
             Thịt sạch cao cấp - Nguồn gốc rõ ràng - Chất lượng đảm bảo
         </p>
         <div class="products-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+            <form method="get" action="${pageContext.request.contextPath}/product">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" name="keyword" value="${param.keyword}" placeholder="Tìm kiếm sản phẩm...">
+                <input type="hidden" name="category" value="${param.category}">
+                <input type="hidden" name="price" value="${param.price}">
+                <input type="hidden" name="sort" value="${param.sort}">
+            </form>
         </div>
     </div>
 </div>
 
 <div class="products-filter">
     <div class="container">
-        <form method="get" action="${pageContext.request.contextPath}/product">
+        <form method="get" action="${pageContext.request.contextPath}/product" id="mainFilterForm">
+            <input type="hidden" name="category" id="catInput" value="${param.category}">
+            <input type="hidden" name="keyword" value="${param.keyword}">
+
             <div class="filter-box">
                 <div class="filter-item">
                     <span class="filter-title">Danh mục</span>
                     <div class="category-buttons">
-                        <button type="submit" name="category" value=""
+                        <button type="button" onclick="changeCat('')"
                                 class="${empty param.category ? 'active' : ''}">
                             Tất cả
                         </button>
 
-                        <button type="submit" name="category" value="1"
+                        <button type="button" onclick="changeCat('1')"
                                 class="${param.category == '1' ? 'active' : ''}">
                             Thịt Bò
                         </button>
 
-                        <button type="submit" name="category" value="2"
+                        <button type="button" onclick="changeCat('2')"
                                 class="${param.category == '2' ? 'active' : ''}">
                             Thịt Heo
                         </button>
 
-                        <button type="submit" name="category" value="3"
+                        <button type="button" onclick="changeCat('3')"
                                 class="${param.category == '3' ? 'active' : ''}">
                             Thịt Gà
                         </button>
@@ -46,7 +54,7 @@
 
                 <div class="filter-item">
                     <span class="filter-title">Khoảng giá</span>
-                    <select name="price" onchange="this.form.submit()">
+                    <select name="price" onchange="document.getElementById('mainFilterForm').submit()">
                         <option value="">Tất cả</option>
                         <option value="1" ${param.price == '1' ? 'selected' : ''}>Dưới 200.000đ</option>
                         <option value="2" ${param.price == '2' ? 'selected' : ''}>200.000đ - 500.000đ</option>
@@ -56,7 +64,7 @@
 
                 <div class="filter-item">
                     <span class="filter-title">Sắp xếp theo</span>
-                    <select name="sort" onchange="this.form.submit()">
+                    <select name="sort" onchange="document.getElementById('mainFilterForm').submit()">
                         <option value="new" ${param.sort == 'new' ? 'selected' : ''}>Mới nhất</option>
                         <option value="asc" ${param.sort == 'asc' ? 'selected' : ''}>Giá tăng dần</option>
                         <option value="desc" ${param.sort == 'desc' ? 'selected' : ''}>Giá giảm dần</option>
@@ -65,6 +73,13 @@
                 </div>
             </div>
         </form>
+
+        <script>
+            function changeCat(catId) {
+                document.getElementById('catInput').value = catId;
+                document.getElementById('mainFilterForm').submit();
+            }
+        </script>
     </div>
 </div>
 
@@ -79,7 +94,7 @@
                 <c:when test="${not empty items}">
                     <c:forEach var="item" items="${items}">
                         <a href="${pageContext.request.contextPath}/product-detail?id=${item.id}" class="product-link">
-                            <div class="product-card">
+                            <div class="product-card" data-name="${item.name}" data-category="${item.category_id}" data-price="${item.price}">
 
                                 <div class="product-image">
                                     <c:if test="${item.discount > 0}">
@@ -120,7 +135,7 @@
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
                                         <span>(0)</span>
                                     </div>
 
@@ -166,20 +181,20 @@
 
                 <c:if test="${currentPage > 1}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/product?page=${currentPage - 1}&category=${param.category}&price=${param.price}&sort=${param.sort}">&laquo;</a>
+                        <a href="${pageContext.request.contextPath}/product?page=${currentPage - 1}&category=${param.category}&price=${param.price}&sort=${param.sort}&keyword=${param.keyword}">&laquo;</a>
                     </li>
                 </c:if>
 
                 <c:forEach begin="${start}" end="${end}" var="i">
                     <li class="${i == currentPage ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/product?page=${i}&category=${param.category}&price=${param.price}&sort=${param.sort}">${i}
+                        <a href="${pageContext.request.contextPath}/product?page=${i}&category=${param.category}&price=${param.price}&sort=${param.sort}&keyword=${param.keyword}">${i}
                         </a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${currentPage < totalPages}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/product?page=${currentPage + 1}&category=${param.category}&price=${param.price}&sort=${param.sort}">&raquo;</a>
+                        <a href="${pageContext.request.contextPath}/product?page=${currentPage + 1}&category=${param.category}&price=${param.price}&sort=${param.sort}&keyword=${param.keyword}">&raquo;</a>
                     </li>
                 </c:if>
             </ul>
