@@ -26,7 +26,7 @@ public class Account extends HttpServlet {
             request.setAttribute("addresses", addressService.getAddressesByUserId(user.getId()));
         }
         request.setAttribute("pageTitle", "Tài khoản");
-        request.setAttribute("pageContent", "/view/account.jsp");
+        request.setAttribute("pageContent", "/view/customer/account.jsp");
         request.setAttribute("pageCss", "account.css");
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);
     }

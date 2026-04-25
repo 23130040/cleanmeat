@@ -709,4 +709,22 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (1, 'Nguyễn Bích Dân', '23130040@st.hcmuaf.edu.vn', '$2a$12$KooUNBYAOltcr.gzrDM6luFM6AXJTaq23VfEj61fmUEUyzNdy33nq', '0312345678', 'other', '2026-03-31', 'admin', 'https://pub-71ec9cf4f0b64801a2907204d81a0b26.r2.dev/1_1713542063746.png', '2026-03-31 15:49:51', '2026-03-31 22:52:56', b'1', NULL);
 INSERT INTO `user` VALUES (3, 'Nguyễn Bích Dân', 'bichdantqn2005@gmail.com', '$2a$12$1YY7cndfEIO8WWGfQZ.Cf.OOv6tIBxdJNTOP5fBbQzWgCyRagwDtG', '0312345678', 'Other', '2026-03-31', 'customer', NULL, '2026-03-31 16:09:26', '2026-03-31 23:42:13', b'1', NULL);
 
+
+-- ----------------------------
+-- Table structure for orders_status_history
+-- ----------------------------
+DROP TABLE IF EXISTS `orders_status_history`;
+CREATE TABLE `orders_status_history` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `status_from` varchar(50) DEFAULT NULL,
+  `status_to` varchar(50) NOT NULL,
+  `changed_by` varchar(100) NOT NULL,
+  `changed_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `note` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `fk_order_history` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;

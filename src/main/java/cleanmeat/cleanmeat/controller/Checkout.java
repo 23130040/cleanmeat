@@ -71,7 +71,7 @@ public class Checkout extends HttpServlet {
         }
 
         request.setAttribute("pageTitle", "Tiến hành đặt hàng");
-        request.setAttribute("pageContent", "/view/checkout.jsp");
+        request.setAttribute("pageContent", "/view/customer/checkout.jsp");
         request.setAttribute("pageCss", "checkout.css");
         request.setAttribute("pageJs", "checkout.js");
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);

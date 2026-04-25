@@ -13,7 +13,7 @@ public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pageTitle", "Đăng nhập");
-        request.setAttribute("pageContent", "/view/signin.jsp");
+        request.setAttribute("pageContent", "/view/customer/signin.jsp");
         request.setAttribute("pageCss", "signin.css");
         request.getRequestDispatcher("/view/base.jsp").forward(request, response);
     }

@@ -54,7 +54,7 @@ public class NewsController extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("pageTitle", "Tin tức");
-        request.setAttribute("pageContent", "/view/news.jsp");
+        request.setAttribute("pageContent", "/view/customer/news.jsp");
         request.setAttribute("pageCss", "news.css");
         request.setAttribute("active", "news");
         

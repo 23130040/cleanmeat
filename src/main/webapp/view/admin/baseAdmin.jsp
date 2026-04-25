@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/baseAdmin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/${requestScope.pageCss}">
+    <script>
+        window.contextPath = "${pageContext.request.contextPath}";
+    </script>
 </head>
 <body>
 <nav>

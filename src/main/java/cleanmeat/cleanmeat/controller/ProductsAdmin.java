@@ -136,7 +136,7 @@ public class ProductsAdmin extends HttpServlet {
         request.setAttribute("offset", offset);
         
         request.setAttribute("adminTitle", "Quản lý sản phẩm");
-        request.setAttribute("active", "productsAdmin");
+        request.setAttribute("active", "products-admin");
         request.setAttribute("user", currentUser);
         request.setAttribute("pageContent", "/view/admin/productsAdmin.jsp");
         request.setAttribute("pageCss", "productsAdmin.css");

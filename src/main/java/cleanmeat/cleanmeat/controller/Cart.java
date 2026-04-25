@@ -34,7 +34,7 @@ public class Cart extends HttpServlet {
         }
 
         request.setAttribute("pageTitle", "Giỏ hàng");
-        request.setAttribute("pageContent", "/view/cart.jsp");
+        request.setAttribute("pageContent", "/view/customer/cart.jsp");
         request.setAttribute("pageCss", "cart.css");
         request.setAttribute("pageJs", "cart.js");
         request.setAttribute("active", "cart");

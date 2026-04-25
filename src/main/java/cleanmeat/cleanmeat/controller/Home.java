@@ -20,7 +20,7 @@ public class Home extends HttpServlet {
         request.setAttribute("bestSellers", bestSellers);
         
         request.setAttribute("pageTitle", "Trang chủ");
-        request.setAttribute("pageContent", "/view/home.jsp");
+        request.setAttribute("pageContent", "/view/customer/home.jsp");
         request.setAttribute("pageCss", "home.css");
         request.setAttribute("active", "home");
         request.getRequestDispatcher( "/view/base.jsp").forward(request, response);

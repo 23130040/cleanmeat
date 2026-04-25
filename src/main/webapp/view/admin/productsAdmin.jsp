@@ -47,7 +47,17 @@
                                         <div class="product-img">
                                             <c:choose>
                                                 <c:when test="${not empty item.image}">
-                                                    <img src="${pageContext.request.contextPath}${item.image}" alt="${item.name}">
+                                                    <c:choose>
+                                                        <c:when test="${item.image.startsWith('http')}">
+                                                            <img src="${item.image}" alt="${item.name}">
+                                                        </c:when>
+                                                        <c:when test="${item.image.startsWith('/')}">
+                                                            <img src="${pageContext.request.contextPath}${item.image}" alt="${item.name}">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="${pageContext.request.contextPath}/images/${item.image}" alt="${item.name}">
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="img-placeholder"><i class="fa-solid fa-image"></i></div>
