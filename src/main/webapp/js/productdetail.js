@@ -48,4 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateUI();
 
+    const btnFavorite = document.querySelector('.btn-favorite');
+    if (btnFavorite) {
+        btnFavorite.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            let icon = this.querySelector('i');
+            if(this.classList.contains('active')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+            }
+        });
+    }
+
 });
