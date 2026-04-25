@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="contact-page">
   <div class="container">
@@ -77,6 +78,18 @@
       <div class="contact-form">
 
         <h3 class="sub-normal-title">Gửi Tin Nhắn</h3>
+
+        <c:if test="${not empty successMessage}">
+            <div style="color: #10b981; background: #d1fae5; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold;">
+                <i class="fa-solid fa-circle-check"></i> ${successMessage}
+            </div>
+        </c:if>
+
+        <c:if test="${not empty errorMessage}">
+            <div style="color: #ef4444; background: #fee2e2; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold;">
+                <i class="fa-solid fa-circle-exclamation"></i> ${errorMessage}
+            </div>
+        </c:if>
 
         <form method="post">
 
