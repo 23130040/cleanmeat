@@ -55,6 +55,21 @@
             <button type="submit" class="btn-signup">Đăng ký</button>
         </form>
 
+        <div class="social-divider">
+            <span>Hoặc đăng ký bằng</span>
+        </div>
+
+        <div class="social-login">
+            <button class="btn-social google">
+                <i class="fa-brands fa-google"></i>
+                Google
+            </button>
+            <button class="btn-social facebook">
+                <i class="fa-brands fa-facebook"></i>
+                Facebook
+            </button>
+        </div>
+
         <p class="register-text">
             Đã có tài khoản?
             <a href="${pageContext.request.contextPath}/sign-in">Đăng nhập ngay</a>
