@@ -85,6 +85,9 @@
                                     </button>
                                 </form>
                                 <button class="btn-buy-now">Mua ngay</button>
+                                <button type="button" class="btn-favorite" title="Thêm vào danh sách yêu thích">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
