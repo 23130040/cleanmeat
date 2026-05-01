@@ -1,0 +1,47 @@
+/*
+ * Converted from build.gradle.kts to Groovy DSL
+ */
+
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.jakarta.servlet.jsp.jstl.jakarta.servlet.jsp.jstl.api
+    implementation libs.org.glassfish.web.jakarta.servlet.jsp.jstl
+    implementation libs.org.jdbi.jdbi3
+    implementation libs.com.mysql.mysql.connector.j
+    implementation libs.org.mindrot.jbcrypt
+    implementation libs.com.sun.mail.jakarta.mail
+    implementation libs.software.amazon.awssdk.s3
+    implementation libs.com.google.code.gson.gson
+
+    compileOnly libs.jakarta.servlet.jakarta.servlet.api
+
+    testImplementation libs.org.junit.jupiter.junit.jupiter.api
+    testRuntimeOnly libs.org.junit.jupiter.junit.jupiter.engine
+}
+
+group = 'cleanmeat'
+version = '1.0-SNAPSHOT'
+description = 'cleanmeat'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+}
