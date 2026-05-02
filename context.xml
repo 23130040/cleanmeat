@@ -7,7 +7,7 @@
               minIdle="5"
               maxWaitMillis="30000"
               username="root"
-              password=""
+              password="123456"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://db:3306/cleanmeat?allowPublicKeyRetrieval=true&useSSL=false"/>
+              url="jdbc:mysql://db:3306/cleanmeat"/>
 </Context>

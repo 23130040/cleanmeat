@@ -2,29 +2,29 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:8.0
+    image: mysql:8.4
     container_name: cleanmeat-db
     restart: always
     environment:
       MYSQL_DATABASE: cleanmeat
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    ports:
-      - "3307:3306"
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
       interval: 5s
       timeout: 5s
       retries: 20
 
-  app:
+  web:
     build: .
-    container_name: cleanmeat-app
+    container_name: cleanmeat-web
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/cleanmeat?allowPublicKeyRetrieval=true&useSSL=false
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=
+
+volumes:
+  db_data:

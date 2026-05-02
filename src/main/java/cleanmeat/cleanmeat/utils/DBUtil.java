@@ -2,23 +2,18 @@ package cleanmeat.cleanmeat.utils;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class DBUtil {
-    private static DataSource dataSource;
-    static {
+
+    public static Connection getConnection() {
         try {
             Context ctx = new InitialContext();
-            dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/MyDB");
-        } catch (NamingException e) {
-            throw new RuntimeException(e);
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MyDB");
+            return ds.getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException("DB connection failed", e);
         }
-    }
-
-    public static Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
     }
 }
