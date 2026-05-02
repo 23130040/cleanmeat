@@ -1,6 +1,3 @@
-/*
- * Converted from build.gradle.kts to Groovy DSL
- */
 
 plugins {
     id 'java'
