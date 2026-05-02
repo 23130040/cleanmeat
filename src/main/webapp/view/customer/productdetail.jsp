@@ -70,7 +70,7 @@
 
                             <div class="quantity">
                                 <button type="button" id="minus">-</button>
-                                <input type="text" id="qty" value="1">
+                                <input type="number" id="qty" value="1" min="1" max="${item.current_stock}" data-stock="${item.current_stock}">
                                 <button type="button" id="plus">+</button>
                             </div>
 

@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let basePrice = Number(priceBox.dataset.base.replace(/,/g, "")) || 0;
     let currentWeight = 250;
     let quantity = 1;
+    let stock = parseInt(qtyInput.dataset.stock) || 999;
 
     function formatPrice(num) {
         return num.toLocaleString("vi-VN") + " đ";
@@ -25,9 +26,33 @@ document.addEventListener("DOMContentLoaded", function () {
         if (formWeight) formWeight.value = currentWeight;
     }
 
+    qtyInput.addEventListener("input", function() {
+        let val = parseInt(this.value);
+        if (!isNaN(val) && val > 0) {
+            if (val > stock) {
+                quantity = stock;
+            } else {
+                quantity = val;
+            }
+            updateUI();
+        }
+    });
+
+    qtyInput.addEventListener("blur", function() {
+        let val = parseInt(this.value);
+        if (isNaN(val) || val < 1) {
+            quantity = 1;
+            updateUI();
+        }
+    });
+
     plus.onclick = function () {
-        quantity++;
-        updateUI();
+        if (quantity < stock) {
+            quantity++;
+            updateUI();
+        } else {
+            alert("Số lượng sản phẩm trong kho chỉ còn " + stock);
+        }
     };
 
     minus.onclick = function () {
@@ -60,6 +85,22 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 icon.classList.remove('fa-solid');
                 icon.classList.add('fa-regular');
+            }
+        });
+    }
+
+    const addToCartForm = document.getElementById("addToCartForm");
+    if (addToCartForm) {
+        addToCartForm.addEventListener("submit", function(e) {
+            if (stock <= 0) {
+                e.preventDefault();
+                alert("Sản phẩm đã hết hàng!");
+                return;
+            }
+            if (quantity > stock) {
+                e.preventDefault();
+                alert("Số lượng sản phẩm trong kho không đủ!");
+                return;
             }
         });
     }
