@@ -238,3 +238,32 @@
     color: #777;
     font-size: 12px;
 }
+
+.feedback-summary {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.feedback-score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f39c12;
+}
+
+.feedback-count {
+    color: #666;
+    margin-top: 5px;
+}
+
+.thumbnail-item {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin: 5px;
+    border-radius: 4px;
+}

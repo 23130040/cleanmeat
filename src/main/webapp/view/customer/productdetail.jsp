@@ -16,8 +16,7 @@
                                     <c:forEach var="img" items="${itemImages}">
                                         <img class="thumbnail-item"
                                             src="${pageContext.request.contextPath}/images/${img.url}"
-                                            onclick="document.getElementById('mainImage').src=this.src"
-                                            style="width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 1px solid #ddd; margin: 5px; border-radius: 4px;">
+                                            onclick="document.getElementById('mainImage').src=this.src">
                                     </c:forEach>
                                 </div>
                             </c:if>
@@ -70,7 +69,7 @@
 
                             <div class="quantity">
                                 <button type="button" id="minus">-</button>
-                                <input type="text" id="qty" value="1">
+                                <input type="number" id="qty" value="1" min="1" max="${item.current_stock}" data-stock="${item.current_stock}">
                                 <button type="button" id="plus">+</button>
                             </div>
 
@@ -99,6 +98,17 @@
 
                     <div class="product-comments">
                         <h2>Đánh giá sản phẩm</h2>
+
+                        <c:if test="${totalFeedback > 0}">
+                            <div class="feedback-summary">
+                                <div class="feedback-score">
+                                    <fmt:formatNumber value="${exactAvgRating}" type="number" maxFractionDigits="1" minFractionDigits="1" /> / 5 sao
+                                </div>
+                                <div class="feedback-count">
+                                    Dựa trên ${totalFeedback} đánh giá
+                                </div>
+                            </div>
+                        </c:if>
 
                         <c:choose>
                             <c:when test="${not empty feedbacks}">

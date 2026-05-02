@@ -50,6 +50,7 @@ public class ProductDetail extends HttpServlet {
         request.setAttribute("item", item);
         request.setAttribute("feedbacks", feedbacks);
         request.setAttribute("avgRating", Math.round(avgRating));
+        request.setAttribute("exactAvgRating", avgRating);
         request.setAttribute("totalFeedback", feedbacks.size());
 
         request.setAttribute("pageTitle", "Chi tiết sản phẩm");
